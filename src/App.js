@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 import Home from './Pages/Home';
 import View from './Pages/View';
+import Installation from './Pages/Installation';
 import ScrollToTop from './Shared/Helpers/ScrollToTop';
 import './style.scss';
 
@@ -45,6 +46,12 @@ class App extends React.Component {
             <Route
               path="/view/:handle"
               render={(props) => <View data={this.state.data} {...props} />}
+            />
+            <Route
+              path="/installation"
+              render={(props) => (
+                <Installation data={this.state.data} {...props} />
+              )}
             />
             <Route
               path="/"
