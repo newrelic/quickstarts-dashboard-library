@@ -74,7 +74,7 @@ class View extends React.Component {
                   return (
                     <div className="col-4" key={dashboard.name + screenshot}>
                       <img
-                        src={`https://newrelic.github.io/quickstarts-alert-library/data/${this.state.quickstart.id}/dashboards/${screenshot}`}
+                        src={`https://newrelic.github.io/quickstarts-dashboard-library/data/${this.state.quickstart.id}/dashboards/${screenshot}`}
                         className="card-img-top"
                         alt="..."
                       />
@@ -91,7 +91,7 @@ class View extends React.Component {
             <p>
               <b>Installation: </b>Please follow the{' '}
               <a
-                href="https://github.com/newrelic/quickstarts-alert-library/blob/main/INSTALLATION.md"
+                href="https://github.com/newrelic/quickstarts-dashboard-library/blob/main/INSTALLATION.md"
                 rel="noopener noreferrer"
                 target="_BLANK"
               >

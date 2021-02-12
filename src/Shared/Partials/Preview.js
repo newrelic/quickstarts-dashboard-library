@@ -18,7 +18,7 @@ class Preview extends React.Component {
       <div className="col-md-3 col-lg-2 col-sm-4">
         <div className="card mb-4 shadow-sm">
           <img
-            src={`https://newrelic.github.io/quickstarts-alert-library/data/${this.props.quickstart.id}/dashboards/${this.state.screenshot}`}
+            src={`https://newrelic.github.io/quickstarts-dashboard-library/data/${this.props.quickstart.id}/dashboards/${this.state.screenshot}`}
             className="card-img-top"
             alt="..."
           />
