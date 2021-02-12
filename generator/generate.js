@@ -12,8 +12,10 @@ function findQueries(dashboard, data) {
   }
 
   for (const key in dashboard) {
-    if (Array.isArray(dashboard[key]) || typeof dashboard[key] === 'object') {
-      data = findQueries(dashboard[key], data);
+    if (Object.prototype.hasOwnProperty.call(dashboard, key)) {
+      if (Array.isArray(dashboard[key]) || typeof dashboard[key] === 'object') {
+        data = findQueries(dashboard[key], data);
+      }
 
       if (key === 'query') {
         data.push(dashboard[key]);
