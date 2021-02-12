@@ -30,7 +30,7 @@ jobs:
       run: npm run generator
 
     - name: Build website
-      run: npm run build-website
+      run: npm run build
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3
