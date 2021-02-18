@@ -9,9 +9,7 @@ const logger = winston.createLogger({
     winston.format.colorize(),
     winston.format.simple()
   ),
-  transports: [
-    new winston.transports.Console(),
-  ]
+  transports: [new winston.transports.Console()],
 });
 
 // First argument should be path to quickstarts folder
@@ -64,7 +62,9 @@ function processQuickstart(element) {
 
   // Sanity check on directory name
   if (!element.match(/^[a-zA-Z0-9-]*$/)) {
-    logger.error(`Unsupported directory name "${element}", please only use letters, numbers, and dashes. No spaces allowed.`)
+    logger.error(
+      `Unsupported directory name "${element}", please only use letters, numbers, and dashes. No spaces allowed.`
+    );
   }
 
   //
