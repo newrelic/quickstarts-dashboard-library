@@ -8,14 +8,18 @@ WEBSITE_DIR=..
 echo ">"
 echo "> Cleaning data dir"
 echo ">"
-rm -rfv ${WEBSITE_DIR}/public/data/*
+rm -rf ${WEBSITE_DIR}/public/data/*
+echo "Done"
+echo
 
 # Copy the dashboard data
 echo ">"
 echo "> Copying dashboard data"
 echo ">"
 mkdir ${WEBSITE_DIR}/public/data || true
-cp -v -R ${ROOT}/library/* ${WEBSITE_DIR}/public/data
+cp -R ${ROOT}/library/* ${WEBSITE_DIR}/public/data
+echo "Done"
+echo
 
 # Generate summary file
 echo ">"

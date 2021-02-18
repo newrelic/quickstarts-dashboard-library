@@ -1,6 +1,18 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { exit } = require('process');
+const winston = require('winston');
+
+// Initiate logger
+const logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.simple()
+  ),
+  transports: [
+    new winston.transports.Console(),
+  ]
+});
 
 // First argument should be path to quickstarts folder
 const directory = process.argv[2];
@@ -49,6 +61,11 @@ function processQuickstart(element) {
     dashboards: [],
     flex: [],
   };
+
+  // Sanity check on directory name
+  if (!element.match(/^[a-zA-Z0-9-]*$/)) {
+    logger.error(`Unsupported directory name "${element}", please only use letters, numbers, and dashes. No spaces allowed.`)
+  }
 
   //
   // Read config and store attributes
@@ -166,7 +183,7 @@ function processQuickstart(element) {
             case 'Prometheus':
               return 'Prometheus';
             default:
-              console.log(filename, 'Unknown event type:', source);
+              logger.warn(`Unknown event type "${source}" in "${filename}"`);
               return null;
           }
         })
@@ -192,10 +209,10 @@ function processQuickstart(element) {
             widget.visualization.table == null &&
             widget.visualization.markdown == null
           ) {
-            console.error(
+            logger.error(
               `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
             );
-            console.error(
+            logger.error(
               'Configuration or Visualisation should be set for all widgets'
             );
             exit(1);
@@ -204,13 +221,13 @@ function processQuickstart(element) {
           // Check if we have a configuration or rawConfiguration set of all widgets
           // We cannot have both at the moment, but the product team is looking to merge this at some point
           if ('configuration' in widget && 'rawConfiguration' in widget) {
-            console.error(
+            logger.error(
               `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
             );
-            console.error(
+            logger.error(
               'Configuration or rawConfiguration should be set for all widgets, but you only on of both.'
             );
-            console.error(
+            logger.error(
               'Please delete configuration if rawConfiguration has been set.'
             );
             exit(1);
@@ -278,7 +295,7 @@ function processQuickstart(element) {
 //
 // Write out data for use in front-end
 //
-// Debug output: console.log(util.inspect(quickstarts, false, null, true /* enable colors */))
+// Debug output: logger.log(util.inspect(quickstarts, false, null, true /* enable colors */))
 const json = JSON.stringify({
   quickstarts: quickstarts,
 });
