@@ -24,7 +24,7 @@ Optionally you can add multiple screenshots per dashboard as long as they have t
 
 7. Push your changes to Github `git push`
 
-8. [Create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in the [parent repository](https://github.com/newrelic/nr1-quickstarts/compare?expand=1).
+8. [Create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) in the [parent repository](https://github.com/newrelic/quickstarts-dashboard-library/compare?expand=1).
 
 9. Submit and wait for review. We will review as fast as we can, but it can sometimes take a day or two.
 
