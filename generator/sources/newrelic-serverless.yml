@@ -1,0 +1,5 @@
+---
+name: New Relic Serverless
+url: https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/monitoring-aws-lambda-serverless-monitoring
+eventTypes:
+  - ServerlessSample

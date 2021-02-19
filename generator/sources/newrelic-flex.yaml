@@ -1,0 +1,5 @@
+---
+name: New Relic Flex
+url: https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration
+eventTypes:
+  - Flex

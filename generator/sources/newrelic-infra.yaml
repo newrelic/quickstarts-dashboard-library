@@ -1,0 +1,8 @@
+---
+name: New Relic Infrastructure
+url: https://docs.newrelic.com/docs/infrastructure/install-configure-manage-infrastructure
+eventTypes:
+  - SystemSample
+  - ProcessSample
+  - NetworkSample
+  - StorageSample

@@ -1,0 +1,5 @@
+---
+name: New Relic Prometheus Integration
+url: https://docs.newrelic.com/docs/integrations/prometheus-integrations/install-configure/install-update-or-uninstall-your-prometheus-openmetrics-integration
+eventTypes:
+  - Prometheus

@@ -1,0 +1,9 @@
+---
+name: New Relic Mobile
+url: https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile/get-started/introduction-mobile-monitoring
+eventTypes:
+  - Mobile
+  - MobileCrash
+  - MobileRequest
+  - MobileRequestError
+  - MobileSession

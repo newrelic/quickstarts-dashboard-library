@@ -1,0 +1,5 @@
+---
+name: New Relic Audit
+url: https://docs.newrelic.com/docs/insights/event-data-sources/default-events/query-account-audit-logs-nrauditevent
+eventTypes:
+  - NrAuditEvent

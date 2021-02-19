@@ -37,6 +37,28 @@ function findQueries(dashboard, data) {
 }
 
 //
+// Read all sources, to use during quickstarts processing and for use as data file in nerdlet
+//
+const sourcesLibrary = fs.readdirSync('./sources').map((sourceFile) => {
+  const sourceContents = fs.readFileSync(`./sources/${sourceFile}`, 'utf8');
+
+  const source = yaml.safeLoad(sourceContents);
+
+  // Do quick sanity check
+  if (!('name' in source)) {
+    console.error(`name is missing in source ${sourceFile}`);
+  }
+  if (!('url' in source)) {
+    console.error(`url is missing in source ${sourceFile}`);
+  }
+  if (!('eventTypes' in source)) {
+    console.error(`eventTypes is missing in source ${sourceFile}`);
+  }
+
+  return source;
+});
+
+//
 // Read all quickstarts, filter out the ones starting with _ and process each
 //
 const quickstarts = fs
@@ -140,51 +162,27 @@ function processQuickstart(element) {
       // Check which products the dashboard uses
       quickstart.products = quickstart.sources
         .sort()
-        .map((source) => {
+        .map((sourceConfig) => {
           // Speciale case if config specifically set's it's own options
-          if (typeof source === 'object' && source !== null) {
-            return source;
+          if (typeof sourceConfig === 'object' && sourceConfig !== null) {
+            return sourceConfig;
           }
 
-          switch (source) {
-            case 'ComputeSample':
-            case 'FinanceSample':
-              return 'Cloud integration';
-            case 'SystemSample':
-            case 'ProcessSample':
-            case 'NetworkSample':
-            case 'StorageSample':
-              return 'Infrastructure';
-            case 'PageView':
-            case 'PageAction':
-            case 'BrowserInteraction':
-            case 'JavaScriptError':
-            case 'PageViewTiming':
-              return 'Browser';
-            case 'SyntheticRequest':
-            case 'SyntheticCheck':
-              return 'Synthetics';
-            case 'Transaction':
-            case 'TransactionError':
-              return 'APM';
-            case 'ServerlessSample':
-              return 'Lambda';
-            case 'Kubernetes':
-            case 'K8sContainerSample':
-            case 'K8sNodeSample':
-            case 'K8sPodSample':
-              return 'Kubernetes';
-            case 'Mobile':
-            case 'MobileCrash':
-            case 'MobileRequest':
-              return 'Mobile';
-            case 'Log':
-              return 'Logs';
-            case 'Prometheus':
-              return 'Prometheus';
-            default:
-              logger.warn(`Unknown event type "${source}" in "${filename}"`);
-              return null;
+          const sourceProduct = sourcesLibrary.find((source) => {
+            if (source.eventTypes.includes(sourceConfig)) {
+              return source;
+            }
+
+            return false;
+          });
+
+          if (sourceProduct) {
+            return sourceProduct.name;
+          } else {
+            logger.warn(
+              `Unknown event type "${sourceConfig}" in "${filename}"`
+            );
+            return null;
           }
         })
         .sort()
@@ -298,5 +296,6 @@ function processQuickstart(element) {
 // Debug output: logger.log(util.inspect(quickstarts, false, null, true /* enable colors */))
 const json = JSON.stringify({
   quickstarts: quickstarts,
+  sources: sourcesLibrary,
 });
 fs.writeFileSync('data.json', json);

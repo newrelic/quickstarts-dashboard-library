@@ -1,0 +1,5 @@
+---
+name: New Relic Logs
+url: https://docs.newrelic.com/docs/logs
+eventTypes:
+  - Log

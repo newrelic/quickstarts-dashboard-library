@@ -1,0 +1,7 @@
+---
+name: New Relic Synthetics
+url: https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/getting-started/introduction-new-relic-synthetics
+eventTypes:
+  - SyntheticRequest
+  - SyntheticCheck
+
