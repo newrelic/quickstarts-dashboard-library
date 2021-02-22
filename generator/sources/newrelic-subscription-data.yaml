@@ -1,0 +1,5 @@
+---
+name: New Relic Subscription data
+url: https://docs.newrelic.com/docs/accounts/new-relic-account-usage/getting-started-usage/introduction-new-relic-subscription-usage-data
+eventTypes:
+  - NrDailyUsage
