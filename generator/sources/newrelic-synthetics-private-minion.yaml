@@ -1,0 +1,6 @@
+---
+name: New Relic Synthetics Private Minion
+url: https://docs.newrelic.com/docs/synthetics/synthetic-monitoring/private-locations/private-locations-overview-monitor-internal-sites-add-new-locations
+eventTypes:
+  - SyntheticsPrivateLocationStatus
+  - SyntheticsPrivateMinion
