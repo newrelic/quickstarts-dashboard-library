@@ -1,0 +1,8 @@
+# Name of your quickstart as shown on the website
+name: New Relic Agents version overview
+description: Dashboard to quickly find out of date New Relic agents for APM and Infrastructure
+
+# Optional: Authors of the quickstart
+authors:
+    - Swati Joshi
+

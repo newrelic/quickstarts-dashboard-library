@@ -1,0 +1,187 @@
+{
+	"name": "Agents Dashboard",
+	"description": null,
+	"pages": [
+		{
+			"name": "Agents Dashboard",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "**Latest APM Agents**\n[Available here](https://docs.newrelic.com/docs/release-notes/agent-release-notes)\n\n**Latest Infrastructure Agents**\n[Available here](https://docs.newrelic.com/docs/release-notes/infrastructure-release-notes)\n\n"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 5,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Out-of-date apps",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT uniqueCount(apmAppId) as 'Out-of-date Apps' from NrDailyUsage where usageType='Application' and ((apmLanguage='java'   and apmAgentVersion NOT LIKE '4.10%') or (apmLanguage='nodejs' and apmAgentVersion <'5.2') or (apmLanguage='php'    and apmAgentVersion <'8.5') or (apmLanguage='python' and apmAgentVersion NOT LIKE '4.12%') or (apmLanguage='ruby'   and apmAgentVersion <'6.0') or (apmLanguage='go'     and apmAgentVersion <'2.4' ) or (apmLanguage='dotnet'     and apmAgentVersion NOT LIKE'8.12%' )) since 1 day ago"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 250
+							},
+							{
+								"alertSeverity": "WARNING",
+								"value": 100
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 9,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Out of date infrastructure agents",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "from NrDailyUsage SELECT count(*) as `Hosts instance` where productLine='Infrastructure' and  infrastructureAgentVersion NOT LIKE '1.2.6'  since 1 day ago LIMIT 1000"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 500
+							},
+							{
+								"alertSeverity": "WARNING",
+								"value": 250
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "APM agent versions by app",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT uniqueCount(apmAppId)   as 'Apps' FROM NrDailyUsage where usageType='Application' and ((apmLanguage='java') or (apmLanguage='nodejs') or (apmLanguage='php') or (apmLanguage='python') or (apmLanguage='ruby') or (apmLanguage='go') or (apmLanguage='dotnet')) SINCE 1 DAY AGO FACET apmLanguage,apmAgentVersion  limit 1000"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 4,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Apps by language",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT uniqueCount(apmAppId) as 'Apps' from NrDailyUsage where usageType='Application' and ((apmLanguage='java') or (apmLanguage='nodejs') or (apmLanguage='php') or (apmLanguage='python') or (apmLanguage='ruby') or (apmLanguage='go') or (apmLanguage='dotnet')) since 1 day ago facet apmLanguage"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 7,
+						"height": 9,
+						"width": 12
+					},
+					"title": "Agent versions by host & app",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "from NrDailyUsage SELECT count(*) as 'App Instances' where usageType='Application'  and ((apmLanguage='java') or (apmLanguage='nodejs') or (apmLanguage='php') or (apmLanguage='python') or (apmLanguage='ruby') or (apmLanguage='go') or (apmLanguage='dotnet')) facet agentHostname, apmAppName, apmAgentVersion, apmLanguage since 1 day ago limit 1000"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 16,
+						"height": 3,
+						"width": 12
+					},
+					"title": "Hosts with out-of-date infrastructure agents",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "from NrDailyUsage SELECT count(*) as `Hosts instance` facet  infrastructureAgentVersion  where productLine='Infrastructure' and  infrastructureAgentVersion NOT LIKE '1.2.6'  since 1 day ago LIMIT 1000"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 19,
+						"height": 6,
+						"width": 12
+					},
+					"title": "Infrastructure agents hosts & versions",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "from NrDailyUsage SELECT count(*) as `instance` facet  agentHostname, infrastructureAgentVersion  where productLine='Infrastructure'  since 1 day ago LIMIT 1000"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}
