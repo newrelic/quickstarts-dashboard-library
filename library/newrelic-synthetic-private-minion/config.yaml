@@ -1,0 +1,7 @@
+# Name of your quickstart as shown on the website
+name: New Relic Synthetic Private Minion status
+description: Shows you the performance metrics and job executions for your New Relic private minions.
+
+# Optional: Authors of the quickstart
+authors:
+    - Swati Joshi
