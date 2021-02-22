@@ -11,7 +11,7 @@ class Installation extends React.Component {
             <h1>New Relic Quickstarts</h1>
           </div>
           <div className="col-4 text-right">
-            <Link className="btn btn-primary" to="/">
+            <Link className="btn btn-info" to="/">
               Back to listing
             </Link>
           </div>
