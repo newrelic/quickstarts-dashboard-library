@@ -16,7 +16,7 @@ Do you have some great dashboards to share? Follow the steps below to add them t
 
 4. Add your dashboards in the `library/[your dir]/dashboards` folder. To export your dashboard you can use the [`nr1-quickstarts` nerdlet](https://github.com/newrelic/nr1-quickstarts) available in New Relic. There's a "export helper" link in the sidebar.
 
-Optionally you can add multiple screenshots per dashboard as long as they have the same name as your dashboard file. For example `rabbitmq.json` `rabbitmq.png` `rabbitmq.jpeg`. You can add multiple screenshots by putting a number after the filename, for example `rabbitmq01.png`, `rabbitmq02,png`.
+Optionally you can add multiple screenshots per dashboard as long as they have the same name as your dashboard file. For example `rabbitmq.json` `rabbitmq.png` `rabbitmq.jpeg`. You can add multiple screenshots by putting a number after the filename, for example `rabbitmq01.png`, `rabbitmq02.png`.
 
 5. Edit the `quickstarts/[your dir]/config.yaml` file with your values.
 
