@@ -9,3 +9,9 @@ eventTypes:
   - K8sDeploymentSample
   - K8sNamespaceSample
   - K8sReplicasetSample
+  - K8sApiServerSample
+  - K8sDaemonsetSample
+  - K8sEndpointSample
+  - K8sEtcdSample
+  - K8sStatefulsetSample
+  - K8sVolumeSample
