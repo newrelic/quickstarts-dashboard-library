@@ -1,0 +1,31 @@
+# Name of your quickstart as shown on the website
+name: Kubernetesクラスター管理ダッシュボード
+description: >
+  このダッシュボードでは、Kubernetes(k8s)クラスターで何が起きているのかを理解し、明確な分析やアクションに繋げることができます。
+  安定したk8sクラスターを運用するためには、k8sオブジェクトの数を可視化して満足するだけでは意味がありません。
+  Podとノード両方のステータスやリソース使用状況の相関関係を確認しながらキャパシティマネジメントすることが大切です。
+  健全なk8sクラスター管理及びキャパシティ管理の第一歩を踏み出しましょう。
+  本ダッシュボードには以下のチャートが含まれます。
+  ・Podのヘルス状態を可視化する
+  ・PendingとなっているPodの発生状況を可視化する
+  ・Podの負荷状況を可視化する
+  ・Nodeの負荷状況を可視化する
+  ・Nodeのキャパシティ状況（Requests/Limits飽和状況）を可視化する
+  ・注視すべきPodの異常ステータスの発生状況を可視化する
+  ・クラスターイベント一覧
+  なお、本ダッシュボードを利用するためには、事前に以下のセットアップが完了している必要があります。
+  ・Kubernetes Integration
+  ・AWS Integration(AWS側でオートスケーリングメトリクスを有効にした状態で、New RelicのAWS Integrationを有効化してください）
+
+# Optional: Authors of the quickstart
+authors:
+    - Koji Aizawa
+
+# You can optionally add extra data sources, but this is only needed in certain cases.
+# For example if you use data from Prometheus exporters, or custom API you can add that information here.
+# You can also redirect to external webpages when the dashboards provides specific installation instructions
+sources:
+  - name: Kubernetes Integration
+    url: https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-integration-install-configure
+  - name: AWS Integration
+    url: https://docs.newrelic.com/docs/integrations/amazon-integrations/get-started/introduction-aws-integrations

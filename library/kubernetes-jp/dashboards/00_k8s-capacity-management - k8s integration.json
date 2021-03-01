@@ -1,0 +1,593 @@
+{
+	"name": "k8s-cluster-management with k8s-integration",
+	"description": "",
+	"pages": [
+		{
+			"name": "k8s-cluster-management with k8s-integration",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 2,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# Kubernetesクラスター管理ダッシュボード\n安定したKubernetesクラスターを運用するためには、Podとノードの両方のリソース使用状況の相関関係を確認しながらキャパシティマネジメントすることが大切です。  \n本ダッシュボードの見方を理解し、健全なKubernetesクラスターのキャパシティプランニングを行いましょう。"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 1,
+						"height": 2,
+						"width": 8
+					},
+					"title": "監視対象クラスター",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "from K8sClusterSample SELECT uniques(clusterK8sVersion) facet clusterName "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 3,
+						"height": 3,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# Podのヘルス状態を可視化します\n指定した数のPodが起動しているか、Ready状態になっているか、ヘルスチェック失敗などによる再起動が繰り返されていないかを可視化します。\n`全てのPodが長時間Readyにならない場合、再起動を繰り返している場合、ヘルスチェック失敗やリソース不足が考えられます。`  \n以下のチャートを確認し、問題を特定しましょう。"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 5,
+						"row": 3,
+						"height": 3,
+						"width": 3
+					},
+					"title": "Deployment別Pod数",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sDeploymentSample SELECT latest(podsDesired) FACET clusterName,deploymentName  "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 8,
+						"row": 3,
+						"height": 3,
+						"width": 3
+					},
+					"title": "Pod Available Rate by Deployment",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sDeploymentSample SELECT latest(podsAvailable / podsDesired)*100 as 'Pod-available-rate' FACET clusterName,deploymentName TIMESERIES "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 11,
+						"row": 3,
+						"height": 6,
+						"width": 2
+					},
+					"title": "Pod再起動回数",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sContainerSample SELECT latest(restartCount ) FACET clusterName,podName "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 6,
+						"height": 3,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# ステータスがPendingとなっている状況を可視化します。  \nPending状態が発生しているということは、`ノードのキャパシティが不足している可能性があります。`  \n\nノードキャパシティのチャートを確認し、問題がないか確認しましょう。"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 5,
+						"row": 6,
+						"height": 3,
+						"width": 3
+					},
+					"title": "Pending Pod 発生推移",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sPodSample SELECT uniqueCount(podName)  where status = 'Pending' FACET clusterName, podName TIMESERIES "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 8,
+						"row": 6,
+						"height": 3,
+						"width": 3
+					},
+					"title": "Pending Pod",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sPodSample SELECT uniques(podName)  where status = 'Pending' since 5 minutes ago"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 9,
+						"height": 6,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "\n# Podの負荷状況を可視化します。\nPodのリソース使用状況（サチュレーション）を可視化します。  \n\n## ・vs requests\nPodが要求した最低限のリソースサイズに対する現状の使用率を表します。\n`使用率が継続的に著しく高騰しているようであれば、requestサイズを大きくし、オーバーコミットの発生リスクを下げましょう。`\n\n## ・vs limits\nPodが利用できる最大のリソースサイズに対する現状の使用率を表します。\n`ここが飽和しているようなら、Podのlimitsを調整してより大きなリソースを確保できるようにする、もしくはレプリカ数を増やしてDeployment全体としてのリソースキャパシティを拡大しましょう。`\n"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 9,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Pod毎CPU使用率(vs requests)",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sContainerSample SELECT average(cpuUsedCores / cpuRequestedCores )*100 as 'CPU%' FACET clusterName ,podName TIMESERIES"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 9,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Pod毎メモリ使用率(vs limits)",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sContainerSample SELECT average(memoryWorkingSetBytes /memoryLimitBytes)*100 as 'Memory%' FACET clusterName ,podName  TIMESERIES \n"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 12,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Pod毎CPU使用率(vs limits)",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sContainerSample SELECT average(cpuUsedCores / cpuLimitCores)*100 as 'CPU%' FACET clusterName ,podName TIMESERIES \n"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 12,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Pod毎メモリ使用率(vs requests)",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sContainerSample SELECT average(memoryWorkingSetBytes / memoryRequestedBytes )*100 as 'Memory%' FACET clusterName ,podName TIMESERIES"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 15,
+						"height": 6,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# ノード負荷状況\n\n## CPU/メモリ使用率\nノードのCPU/メモリ使用率を可視化します。  \n`ここが飽和しているようなら、ノードのスケールアウトやスケールアップを検討`しましょう。\n\n## ノード台数推移\nノード台数のオートスケーリング状況を可視化します。`負荷状況が高いにもかかわらず、スケーリングできていない場合はトリガー条件や最大台数を見直しましょう`  \n（負荷の推移に対してスケーリングのタイミングが遅すぎる、もしくはトリガー条件自体の見直しが必要かもしれません。）。"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 15,
+						"height": 3,
+						"width": 4
+					},
+					"title": "ノード別CPU使用率",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sNodeSample SELECT average(allocatableCpuCoresUtilization) FACET clusterName,nodeName TIMESERIES "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 15,
+						"height": 3,
+						"width": 4
+					},
+					"title": "ノード毎メモリ使用率",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sNodeSample SELECT average(allocatableMemoryUtilization ) FACET clusterName,nodeName TIMESERIES "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 18,
+						"height": 3,
+						"width": 4
+					},
+					"title": "現在のノード台数とMax台数(CloudWatch)",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT max(`provider.groupDesiredCapacity.Maximum`) AS Desired, max(`provider.groupMaxSize.Maximum`) AS Maximum, max(`provider.groupMinSize.Minimum`) AS Minimum FROM AutoScalingGroupSample WHERE provider = 'AutoScalingGroup' FACET `label.alpha.eksctl.io/cluster-name` TIMESERIES "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 18,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Healthyノード数推移(CloudWatch)",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT filter(count(healthStatus), WHERE healthStatus = 1) AS Healthy, filter(count(healthStatus), WHERE healthStatus = 0) AS Unhealty FROM AutoScalingInstanceSample facet provider.autoScalingGroupName TIMESERIES 300 seconds"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 21,
+						"height": 6,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "\n# ノードのキャパシティ状況を可視化します。 \n\n## ・ノード別CPU/メモリ要求率\nノードが割当可能なCPU/メモリの合計サイズに対して、PodがRequestしているCPU/メモリの合計量の割合。  \n`ここが飽和している場合、新たなPodをスケジューリングする際に失敗し、Pending状態のPodが発生する可能性が高くなります。`100%に近い状態が最もコスト効率が高いですが、Podのスケールアウトやローリングアップデートなどを行う場合に失敗するリスクも高くなるので、程よい推移となるよう注視します。\n\n## ・ノード別CPU/メモリオーバーコミット率（Limit合計）\nノードが割当可能なCPU/メモリ合計サイズに対して、Podに指定されているCPU/メモリLimitの合計量の割合。  \nここは100%を超える場合があります。また、各Podの負荷が高まるとノードのCPU/メモリを食いつぶしてしまうため、ノードの防衛手段として以下の事象が発生する可能性があります。\n* CPU負荷が高まると、スロットリング（使用待ち）が多発します。なお、PodのCPU使用率が100%になっていなくてもスロットリングが多発する場合、ノードのCPUキャパシティが不足していることを意味します。\n* メモリ負荷が高まるとPodをKillします。その際、PodはOOMKilledで停止されたことを記録します。\nPodのメモリ利用率チャートと、OOMKilled発生推移を関連して確認してください。\n\nなお、ノードのキャパシティを正確に把握するためには、Requests/Limitsを確実に設定する必要があります。`LimitRangesを使って設定漏れを回避しましょう`。詳しくは[こちらのブログ](https://blog.newrelic.co.jp/best-practices/set-requests-and-limits-for-your-clustercapacity-management/)を参照してください。"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 21,
+						"height": 3,
+						"width": 8
+					},
+					"title": "ノード毎キャパシティ",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sNodeSample SELECT latest(allocatableCpuCores) as 'AllocatableCpuCores',latest(allocatableMemoryBytes)/1000/1000 as 'AllocatableMemory(MB)' facet clusterName, nodeName"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 24,
+						"height": 3,
+						"width": 8
+					},
+					"title": "ノード毎Req/Limit合計",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM (FROM K8sContainerSample SELECT latest(cpuRequestedCores) as 'RequestedCpu', latest(memoryRequestedBytes) as 'RequestedMemory', latest(cpuLimitCores) as 'LimitCpu', latest(memoryLimitBytes) as 'LimitMemory' facet clusterName, nodeName, podName limit max) SELECT sum(RequestedCpu),sum(LimitCpu),sum(RequestedMemory),sum(LimitMemory) facet clusterName, nodeName "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 27,
+						"height": 4,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# 注視すべきPod異常ステータスの発生状況を可視化します\n\n## CrashLoopBackOff発生回数推移\n一定数の再起動を繰り返している状態を表します。`ヘルスチェックに失敗している可能性がある`ので、PodのEventを確認しましょう。\n\n\n## OOMKilled発生回数推移\n`PodのLimit以上のメモリを確保しようとしている or ノードのメモリキャパシティが不足している可能性があります。`\nPodメモリ使用率やノード別メモリ使用率を確認し、キャパシティ不足を改善しましょう。"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 5,
+						"row": 27,
+						"height": 4,
+						"width": 4
+					},
+					"title": "CrashLoopBackOff発生推移",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sContainerSample SELECT count(*) where reason = 'CrashLoopBackOff'  FACET clusterName,podName,reason   TIMESERIES "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 27,
+						"height": 4,
+						"width": 4
+					},
+					"title": "OOMKilled発生推移",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM K8sContainerSample SELECT count(*)  where reason = 'OOMKilled' FACET clusterName,podName,reason   TIMESERIES "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 31,
+						"height": 4,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# Kubernetes Event一覧を表示します\n\nここではKubernetesクラスターで記録されたした様々なイベントを表示しています。  \nPodのスケジューリングのエラー原因やヘルスチェック失敗のログなどが表示されます。  \n上記チャートの相関関係により原因が推測できた場合の補足情報として確認し、原因特定します。"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 31,
+						"height": 4,
+						"width": 8
+					},
+					"title": "Event一覧（警告以上）",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM InfrastructureEvent SELECT latest(clusterName), latest(event.type),latest(event.reason) ,latest(event.count),latest(event.message) WHERE event.type != 'Normal' AND category = 'kubernetes' facet event.involvedObject.name limit max"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}
