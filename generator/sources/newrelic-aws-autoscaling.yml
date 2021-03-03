@@ -3,3 +3,7 @@ name: New Relic Amazon Auto Scaling integration
 url: https://docs.newrelic.com/docs/integrations/amazon-integrations/aws-integrations-list/aws-auto-scaling-monitoring-integration
 eventTypes:
   - AutoScalingGroupSample
+entities:
+  - domain: INFRA
+    type: AWSAUTOSCALINGGROUP
+

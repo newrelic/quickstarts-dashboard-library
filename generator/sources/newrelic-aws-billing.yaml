@@ -3,3 +3,12 @@ name: New Relic Amazon Billing integration
 url: https://docs.newrelic.com/docs/integrations/amazon-integrations/aws-integrations-list/aws-billing-monitoring-integration
 eventTypes:
   - FinanceSample
+entities:
+  - domain: INFRA
+    type: AWSBILLINGACCOUNTCOST
+  - domain: INFRA
+    type: AWSBILLINGACCOUNTSERVICECOST
+  - domain: INFRA
+    type: AWSBILLINGBUDGET
+  - domain: INFRA
+    type: AWSBILLINGSERVICECOST

@@ -2,6 +2,8 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const { exit } = require('process');
 const winston = require('winston');
+const { getSources } = require('./sources');
+const { findQueries, findSources } = require('./helpers');
 
 // Initiate logger
 const logger = winston.createLogger({
@@ -15,52 +17,10 @@ const logger = winston.createLogger({
 // First argument should be path to quickstarts folder
 const directory = process.argv[2];
 
-// Helper to find all queries in a dashboard
-function findQueries(dashboard, data) {
-  if (!data) {
-    data = [];
-  }
-
-  for (const key in dashboard) {
-    if (Object.prototype.hasOwnProperty.call(dashboard, key)) {
-      if (Array.isArray(dashboard[key]) || typeof dashboard[key] === 'object') {
-        data = findQueries(dashboard[key], data);
-      }
-
-      if (key === 'query') {
-        data.push(dashboard[key]);
-      }
-    }
-  }
-
-  return data;
-}
-
-//
 // Read all sources, to use during quickstarts processing and for use as data file in nerdlet
-//
-const sourcesLibrary = fs.readdirSync('./sources').map((sourceFile) => {
-  const sourceContents = fs.readFileSync(`./sources/${sourceFile}`, 'utf8');
+const sourcesLibrary = getSources();
 
-  const source = yaml.safeLoad(sourceContents);
-
-  // Do quick sanity check
-  if (!('name' in source)) {
-    console.error(`name is missing in source ${sourceFile}`);
-  }
-  if (!('url' in source)) {
-    console.error(`url is missing in source ${sourceFile}`);
-  }
-  if (!('eventTypes' in source)) {
-    console.error(`eventTypes is missing in source ${sourceFile}`);
-  }
-
-  return source;
-});
-
-//
 // Read all quickstarts, filter out the ones starting with _ and process each
-//
 const quickstarts = fs
   .readdirSync(directory)
   .filter((element) => !element.startsWith('_'))
@@ -127,41 +87,11 @@ function processQuickstart(element) {
       dashboard.name = dashboardJson.name;
 
       // Parse dashboard and queries to find data types
-      const queries = findQueries(dashboardJson);
-      const sources = [];
-      // We support a max of 7 event types for a query, if anybody uses more than that it, just add one more (\s*,\s*\w+)?. Repeat until user is happy
-      // My regex isn't good enough to make this pretty
-      const re = new RegExp(
-        /FROM (\w+)(\s*,\s*\w+)?(\s*,\s*\w+)?(\s*,\s*\w+)?(\s*,\s*\w+)?(\s*,\s*\w+)?(\s*,\s*\w+)?/gi
-      );
-      for (const query of queries) {
-        const results = re.exec(query);
-        if (results) {
-          // Remove first element, the match
-          for (let result of results.slice(1)) {
-            // Ignore empty results
-            if (!result) {
-              continue;
-            }
-
-            // Remove ,
-            result = result.replace(',', '');
-
-            // Remove whitespace before and after string
-            result = result.replace(/ /g, '');
-
-            // Add element to sources if it's not in there already
-            if (!sources.includes(result)) {
-              sources.push(result);
-            }
-          }
-        }
-      }
-      dashboard.sources = sources;
-      quickstart.sources = [].concat(quickstart.sources, sources);
+      dashboard.sources = findSources(findQueries(dashboardJson));
+      quickstart.sources = [].concat(quickstart.sources, dashboard.sources);
 
       // Check which products the dashboard uses
-      quickstart.products = quickstart.sources
+      const source = quickstart.sources
         .sort()
         .map((sourceConfig) => {
           // Speciale case if config specifically set's it's own options
@@ -178,20 +108,55 @@ function processQuickstart(element) {
           });
 
           if (sourceProduct) {
-            return sourceProduct.name;
+            return sourceProduct;
           } else {
             logger.warn(
               `Unknown event type "${sourceConfig}" in "${filename}"`
             );
-            return null;
+            return undefined;
           }
         })
         .sort()
         .filter(function (item, pos, ary) {
-          if (item == null) {
-            return false;
+          return item !== undefined && (!pos || item !== ary[pos - 1]);
+        });
+
+      // Create product array
+      quickstart.products = source.map((source) => {
+        return source.name;
+      });
+
+      // Create entities array
+      quickstart.entities = source
+        .map((source) => {
+          return source.entities;
+        })
+        .filter(function (item) {
+          return item !== undefined;
+        });
+
+      // Compress entities arrays of arrays, to single array
+      quickstart.entities = [].concat(...quickstart.entities);
+
+      // Remove duplicates from entities
+      quickstart.entities = quickstart.entities
+        .sort((a, b) => {
+          if (a.type === b.type) {
+            if (a.domain < b.domain) {
+              return -1;
+            } else {
+              return a.domain > b.domain ? 1 : 0;
+            }
+          } else {
+            return a.type < b.type ? -1 : 1;
           }
-          return !pos || item !== ary[pos - 1];
+        })
+        .filter(function (item, pos, ary) {
+          return (
+            !pos ||
+            item.domain !== ary[pos - 1].domain ||
+            item.type !== ary[pos - 1].type
+          );
         });
 
       // Do a sanity check of all widgets
@@ -294,7 +259,6 @@ function processQuickstart(element) {
 //
 // Write out data for use in front-end
 //
-// Debug output: logger.log(util.inspect(quickstarts, false, null, true /* enable colors */))
 const json = JSON.stringify({
   quickstarts: quickstarts,
   sources: sourcesLibrary,

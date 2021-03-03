@@ -7,3 +7,6 @@ eventTypes:
   - MobileRequest
   - MobileRequestError
   - MobileSession
+entities:
+  - domain: MOBILE
+    type: APPLICATION

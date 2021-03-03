@@ -4,3 +4,6 @@ url: https://docs.newrelic.com/docs/apm
 eventTypes:
   - Transaction
   - TransactionError
+entities:
+  - domain: APM
+    type: APPLICATION

@@ -3,3 +3,6 @@ name: New Relic Amazon EC2 monitoring integration
 url: https://docs.newrelic.com/docs/integrations/amazon-integrations/aws-integrations-list/aws-ec2-monitoring-integration
 eventTypes:
   - ComputeSample
+entities:
+  - domain: EXT
+    type: HOST

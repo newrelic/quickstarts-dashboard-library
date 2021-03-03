@@ -7,3 +7,6 @@ eventTypes:
   - BrowserInteraction
   - JavaScriptError
   - PageViewTiming
+entities:
+  - domain: EXT
+    type: BROWSER_APP

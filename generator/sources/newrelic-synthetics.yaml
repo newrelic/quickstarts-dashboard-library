@@ -4,4 +4,6 @@ url: https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/getting-star
 eventTypes:
   - SyntheticRequest
   - SyntheticCheck
-
+entities:
+  - domain: SYNTH
+    type: MONITOR

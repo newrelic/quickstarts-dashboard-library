@@ -15,3 +15,6 @@ eventTypes:
   - K8sStatefulsetSample
   - K8sVolumeSample
   - K8sClusterSample
+entities:
+  - domain: INFRA
+    type: KUBERNETESCLUSTER

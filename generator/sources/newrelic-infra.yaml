@@ -7,3 +7,6 @@ eventTypes:
   - NetworkSample
   - StorageSample
   - InfrastructureEvent
+entities:
+  - domain: EXT
+    type: HOST
