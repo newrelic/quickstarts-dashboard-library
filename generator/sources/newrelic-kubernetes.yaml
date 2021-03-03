@@ -2,7 +2,6 @@
 name: New Relic Kubernetes
 url: https://docs.newrelic.com/docs/integrations/kubernetes-integration/get-started/introduction-kubernetes-integration
 eventTypes:
-  - Kubernetes
   - K8sContainerSample
   - K8sNodeSample
   - K8sPodSample
@@ -15,3 +14,4 @@ eventTypes:
   - K8sEtcdSample
   - K8sStatefulsetSample
   - K8sVolumeSample
+  - K8sClusterSample

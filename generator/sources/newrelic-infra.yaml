@@ -6,3 +6,4 @@ eventTypes:
   - ProcessSample
   - NetworkSample
   - StorageSample
+  - InfrastructureEvent
