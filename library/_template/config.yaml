@@ -1,6 +1,6 @@
 # Name of your quickstart as shown on the website
 name: Add the name of your quickstart
-description: >
+description: |+
   Describe what's the focus of your dashboards.
   You can use multiple lines.
   Try to be as descriptive as possible.

@@ -1,6 +1,6 @@
 # Name of your quickstart as shown on the website
 name: Full Stack Observability
-description: >
+description: |+
   Set of dashboards with data from all New Relic Products, giving you Full Stack Observability over Metrics, Events, Logs and Traces.
 
 # Optional: Authors of the quickstart

@@ -75,6 +75,7 @@ function processQuickstart(element) {
   //
   const quickstart = {
     name: '',
+    description: '',
     authors: [],
     sources: [],
     alerts: [],

@@ -1,6 +1,6 @@
 # Name of your quickstart as shown on the website
 name: Kubernetesクラスター管理ダッシュボード
-description: >
+description: |+
   このダッシュボードでは、Kubernetes(k8s)クラスターで何が起きているのかを理解し、明確な分析やアクションに繋げることができます。
   安定したk8sクラスターを運用するためには、k8sオブジェクトの数を可視化して満足するだけでは意味がありません。
   Podとノード両方のステータスやリソース使用状況の相関関係を確認しながらキャパシティマネジメントすることが大切です。
