@@ -20,12 +20,3 @@ description: |+
 # Optional: Authors of the quickstart
 authors:
     - Koji Aizawa
-
-# You can optionally add extra data sources, but this is only needed in certain cases.
-# For example if you use data from Prometheus exporters, or custom API you can add that information here.
-# You can also redirect to external webpages when the dashboards provides specific installation instructions
-sources:
-  - name: Kubernetes Integration
-    url: https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-integration-install-configure
-  - name: AWS Integration
-    url: https://docs.newrelic.com/docs/integrations/amazon-integrations/get-started/introduction-aws-integrations
