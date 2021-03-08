@@ -18,7 +18,7 @@
 					},
 					"title": "",
 					"rawConfiguration": {
-						"text": "![New Relic](https://newrelic.com/assets/newrelic/source/NewRelic-logo-bug.png)\n\n#  infrastructure Overview Dashboard\nThis dashboard shows metrics and events from the infrastructure Service on the Full Stack Observability Platform (FSO) \n    \n[Dive deeper into Infrastructure Health and Performance](https://one.newrelic.com/launcher/maps.health-map-launcher?pane=eyJuZXJkbGV0SWQiOiJtYXBzLmhlYWx0aC1tYXAiLCJjbHVzdGVyQnkiOiJIT1NUIn0&platform[accountId]=1606862)\n"
+						"text": "![New Relic](https://newrelic.com/assets/newrelic/source/NewRelic-logo-bug.png)\n\n#  infrastructure Overview Dashboard\nThis dashboard shows metrics and events from the infrastructure Service on the Full Stack Observability Platform (FSO) \n    \n[Dive deeper into Infrastructure Health and Performance](https://one.newrelic.com/launcher/nr1-core.explorer?pane=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5saXN0aW5nIn0=&sidebars[0]=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5jYXRlZ29yaWVzIiwicm9vdE5lcmRsZXRJZCI6Im5yMS1jb3JlLmxpc3RpbmcifQ)\n"
 					}
 				},
 				{
