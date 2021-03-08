@@ -1,0 +1,15 @@
+# Name of your quickstart as shown on the website
+name: Dapr
+description: |+
+  Dashboards related to Dapr (Distributed Application Runtime)
+
+# Optional: Authors of the quickstart
+authors:
+    - Harry Kimpel
+
+sources:
+    - Dapr
+    - name: Docs
+      url: https://docs.dapr.io/
+    - name: New Relic How-To
+      url: https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/

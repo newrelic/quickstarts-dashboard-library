@@ -1,0 +1,92 @@
+{
+    "name": "Dapr Sidecar Dashboard",
+    "description": "",
+    "pages": [
+        {
+            "name": "Dapr Sidecar Dashboard",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 2,
+                        "width": 12
+                    },
+                    "title": "Sidecar Uptime",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(timestamp)- latest(process_start_time_seconds) FROM Metric where  serviceName like '%-dapr' LIMIT 100 facet serviceName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 3,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Total CPU usage (Kernel and User)",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(go_gc_duration_seconds) FROM Metric WHERE (serviceName LIKE '%-dapr'  ) SINCE 60 MINUTES AGO UNTIL NOW FACET serviceName LIMIT 100 TIMESERIES 30000"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 3,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of GO routines",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(go_goroutines) FROM Metric WHERE (serviceName LIKE    '%-dapr') SINCE 60 MINUTES AGO UNTIL NOW FACET serviceName LIMIT 100 TIMESERIES 30000"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 3,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Memory usage in bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT rate(sum(process_resident_memory_bytes), 1 SECONDS) FROM Metric WHERE (serviceName LIKE '%-dapr') SINCE 60 MINUTES AGO UNTIL NOW FACET serviceName LIMIT 100 TIMESERIES 300000 SLIDE BY 30000"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
