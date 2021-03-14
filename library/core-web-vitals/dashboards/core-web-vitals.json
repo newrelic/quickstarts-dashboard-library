@@ -276,7 +276,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') as 'Cumulative Layout Shift', percentile(pageHide, 75) FROM PageViewTiming WHERE FACET appName, browserTransactionName LIMIT 50"
+								"query": "SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') as 'Cumulative Layout Shift', percentile(pageHide, 75) FROM PageViewTiming FACET appName, browserTransactionName LIMIT 50"
 							}
 						]
 					}
