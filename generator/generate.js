@@ -198,22 +198,23 @@ function processQuickstart(element) {
           }
 
           // Check widget configuration
-          if ('rawConfiguration' in widget && 'nrqlQueries' in widget['rawConfiguration']) {
-            widget['rawConfiguration']['nrqlQueries'].map(nrqlQuery => {
+          if (
+            'rawConfiguration' in widget &&
+            'nrqlQueries' in widget.rawConfiguration
+          ) {
+            for (const nrqlQuery of widget.rawConfiguration.nrqlQueries) {
               // Check if accountId is set to 0
-              if (nrqlQuery['accountId'] !== 0) {
+              if (nrqlQuery.accountId !== 0) {
                 logger.error(
                   `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
                 );
-                logger.error(
-                  'AccountId should be set to 0'
-                );
+                logger.error('AccountId should be set to 0');
               }
 
               // Check if query doesn't contain any banned keywords
-              query = nrqlQuery['query'].toLowerCase()
-              keywords = ['timezone', 'webportal']
-              keywords.map(keyword => {
+              const query = nrqlQuery.query.toLowerCase();
+              const keywords = ['timezone', 'webportal'];
+              for (const keyword of keywords) {
                 if (query.includes(keyword)) {
                   logger.error(
                     `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
@@ -222,8 +223,8 @@ function processQuickstart(element) {
                     `Query contains a ${keyword} clause, this will not work on all customer accounts.`
                   );
                 }
-              })
-            })
+              }
+            }
           }
         }
       }
