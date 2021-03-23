@@ -1,7 +1,6 @@
 {
   "name": "New Relic APoF Consumption",
   "description": "",
-  "permissions": "PUBLIC_READ_WRITE",
   "pages": [
     {
       "name": "New Relic APoF Consumption",
@@ -37,7 +36,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT latest(FullUsers) since 1 day ago"
               }
             ]
@@ -58,7 +57,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "from NrMTDConsumption SELECT latest(usersBillable) where metric= 'FullUsers' since this month"
               }
             ]
@@ -80,8 +79,8 @@
             "limit": 8251,
             "nrqlQueries": [
               {
-                "accountId": 740770,
-                "query": "SELECT ((filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100)*0.25 + filter(average(FullUsers)*349, where metric= 'FullUsers')) as 'This Month APoF Consumption $' FROM NrConsumption SINCE this month WITH TIMEZONE 'America/Los_Angeles'"
+                "accountId": 0,
+                "query": "SELECT ((filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100)*0.25 + filter(average(FullUsers)*349, where metric= 'FullUsers')) as 'This Month APoF Consumption $' FROM NrConsumption SINCE this month"
               }
             ]
           },
@@ -118,8 +117,8 @@
             },
             "nrqlQueries": [
               {
-                "accountId": 740770,
-                "query": "SELECT (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 + filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Total $', filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') as 'Gbs Ingested', (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 as 'Gbs Ingested $', filter(average(FullUsers), where metric= 'FullUsers') as 'Full Users', filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Full Users $' FROM NrConsumption FACET monthOf(timestamp) SINCE '2020-09-12 00:00:00' WITH TIMEZONE 'America/Los_Angeles'"
+                "accountId": 0,
+                "query": "SELECT (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 + filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Total $', filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') as 'Gbs Ingested', (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 as 'Gbs Ingested $', filter(average(FullUsers), where metric= 'FullUsers') as 'Full Users', filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Full Users $' FROM NrConsumption FACET monthOf(timestamp) SINCE '2020-09-12 00:00:00'"
               }
             ]
           },
@@ -139,7 +138,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrUsage SELECT filter(latest(usage), WHERE metric = 'FullUsers') AS 'Full Users', filter(latest(usage), WHERE metric = 'BasicUsers') AS 'Basic Users' SINCE 6 months ago FACET monthOf(timestamp)"
               }
             ]
@@ -160,7 +159,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrUsage SELECT max(usage) SINCE 3 months ago WHERE productLine='FullStackObservability' WHERE metric in ('FullUsers', 'BasicUsers') FACET metric TIMESERIES AUTO "
               }
             ]
@@ -181,7 +180,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' since this month FACET usageMetric"
               }
             ]
@@ -202,7 +201,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' since 3 months ago FACET usageMetric TIMESERIES 1 day"
               }
             ]
@@ -223,7 +222,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) AS 'GBs Ingested' WHERE productLine = 'DataPlatform' SINCE this month FACET consumingAccountId AS 'Account ID'"
               }
             ]
@@ -244,7 +243,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) AS 'GBs Ingested' WHERE productLine = 'DataPlatform' SINCE 3 months ago FACET consumingAccountId AS 'Account ID' TIMESERIES 1 day"
               }
             ]
@@ -275,7 +274,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "SELECT filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') AS 'Total GBs',filter(sum(GigabytesIngested), WHERE usageMetric ='InfraIntegrationBytes') AS 'Infra Integration', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraProcessBytes') AS 'Infra Process', filter(sum(GigabytesIngested), WHERE usageMetric ='MetricsBytes') AS 'Metrics', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraHostBytes') AS 'Infra Host', filter(sum(GigabytesIngested), WHERE usageMetric ='LoggingBytes') AS 'Logging', filter(sum(GigabytesIngested), WHERE usageMetric ='TracingBytes') AS 'Tracing', filter(sum(GigabytesIngested), WHERE usageMetric ='ApmEventsBytes') AS 'APM Events', filter(sum(GigabytesIngested), WHERE usageMetric ='ServerlessBytes') AS 'Serverless', filter(sum(GigabytesIngested), WHERE usageMetric ='BrowserEventsBytes') AS 'Browser Events', filter(sum(GigabytesIngested), WHERE usageMetric ='MobileEventsBytes') AS 'Mobile Events', filter(sum(GigabytesIngested), WHERE usageMetric ='CustomEventsBytes') AS 'Custom Events' FROM NrConsumption SINCE this month FACET consumingAccountId AS 'Account ID', consumingAccountName AS 'Account Name' LIMIT MAX"
               }
             ]
@@ -296,7 +295,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested this Month' where productLine = 'DataPlatform' SINCE this month"
               }
             ]
@@ -317,7 +316,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested Since Start Date' where productLine = 'DataPlatform' SINCE '2020-09-12'"
               }
             ]
@@ -338,7 +337,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": 740770,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) AS 'Gigabytes Ingested' WHERE productLine ='DataPlatform' SINCE '2020-09-12' FACET monthOf(timestamp)"
               }
             ]
