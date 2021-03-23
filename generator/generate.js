@@ -196,6 +196,35 @@ function processQuickstart(element) {
             );
             exit(1);
           }
+
+          // Check widget configuration
+          if ('rawConfiguration' in widget && 'nrqlQueries' in widget['rawConfiguration']) {
+            widget['rawConfiguration']['nrqlQueries'].map(nrqlQuery => {
+              // Check if accountId is set to 0
+              if (nrqlQuery['accountId'] !== 0) {
+                logger.error(
+                  `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
+                );
+                logger.error(
+                  'AccountId should be set to 0'
+                );
+              }
+
+              // Check if query doesn't contain any banned keywords
+              query = nrqlQuery['query'].toLowerCase()
+              keywords = ['timezone', 'webportal']
+              keywords.map(keyword => {
+                if (query.includes(keyword)) {
+                  logger.error(
+                    `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
+                  );
+                  logger.error(
+                    `Query contains a ${keyword} clause, this will not work on all customer accounts.`
+                  );
+                }
+              })
+            })
+          }
         }
       }
 
