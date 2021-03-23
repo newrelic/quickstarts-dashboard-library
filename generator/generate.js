@@ -6,8 +6,16 @@ const { getSources } = require('./sources');
 const { findQueries, findSources } = require('./helpers');
 
 // Initiate logger
+let error = false;
+const checkError = winston.format((line) => {
+  if (line.level === 'error') {
+    error = true;
+  }
+  return line;
+});
 const logger = winston.createLogger({
   format: winston.format.combine(
+    checkError(),
     winston.format.colorize(),
     winston.format.simple()
   ),
@@ -159,6 +167,12 @@ function processQuickstart(element) {
           );
         });
 
+      // Check if permissions were set, if so give user error
+      if ('permissions' in dashboardJson) {
+        logger.error(`Incorrect dashboard export, permissions field found.`);
+        logger.error('Please remove the permissions from the dashboards JSON.');
+      }
+
       // Do a sanity check of all widgets
       for (const page of dashboardJson.pages) {
         for (const widget of page.widgets) {
@@ -284,6 +298,13 @@ function processQuickstart(element) {
   quickstart.sources = Array.from(new Set(quickstart.sources)).sort();
 
   return quickstart;
+}
+
+//
+// Check if logger has error
+//
+if (error) {
+  exit(1);
 }
 
 //
