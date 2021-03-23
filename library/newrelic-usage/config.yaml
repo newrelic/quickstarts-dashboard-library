@@ -1,0 +1,9 @@
+# Name of your quickstart as shown on the website
+name: New Relic Usage Dashboards
+description: Set of dashboards for tracking usage and estimating cost of the New Relic One platform.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Rachel Foster
+    - Carole Sams Hoemeke

@@ -1,0 +1,170 @@
+{
+  "name": "New Relic Usage (SubAcct)",
+  "description": "",
+  "pages": [
+    {
+      "name": "New Relic Usage (SubAcct)",
+      "description": "",
+      "widgets": [
+        {
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "height": 3,
+            "width": 6
+          },
+          "title": "",
+          "rawConfiguration": {
+            "text": "# Understanding your usage data in New Relic One\n\nThese queries include common scenarios for counting usage and estimating cost across New Relic One. \n\nTo set usage alerts to manage spend, visit our [docs page](https://docs.newrelic.com/docs/accounts/accounts-billing/new-relic-one-pricing-users/usage-queries-alerts).\n\nFor month-to-date usage averages and cost, visit the [Usage UI](https://one.newrelic.com/launcher/usage-ui.launcher) in New Relic One.\n\nTo understand data ingest by event, type, or integration source, explore the [Data Management Hub](https://one.newrelic.com/launcher/data-management-nerdlets.data-management-launcher).\n\n"
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "layout": {
+            "column": 7,
+            "row": 1,
+            "height": 3,
+            "width": 3
+          },
+          "title": "How many GBs have I accrued this month?",
+          "rawConfiguration": {
+            "dataFormatters": [],
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested this Month' where productLine = 'DataPlatform' SINCE this month"
+              }
+            ],
+            "thresholds": []
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "layout": {
+            "column": 10,
+            "row": 1,
+            "height": 3,
+            "width": 3
+          },
+          "title": "How many GBs have I accrued since this year? (update query to reflect contract start date, if desired)",
+          "rawConfiguration": {
+            "dataFormatters": [],
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested Since Start Date' where productLine = 'DataPlatform' SINCE this year"
+              }
+            ],
+            "thresholds": []
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "height": 3,
+            "width": 5
+          },
+          "title": "How many GBs have been ingested by TYPE this month?",
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' since this month FACET usageMetric"
+              }
+            ]
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.area"
+          },
+          "layout": {
+            "column": 6,
+            "row": 4,
+            "height": 3,
+            "width": 7
+          },
+          "title": "How many GBs have been ingested by TYPE over the last 3 months?",
+          "rawConfiguration": {
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' since 3 months ago FACET usageMetric TIMESERIES 1 day"
+              }
+            ]
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.table"
+          },
+          "layout": {
+            "column": 1,
+            "row": 7,
+            "height": 3,
+            "width": 9
+          },
+          "title": "How many GBs have been ingested by month this year?",
+          "rawConfiguration": {
+            "dataFormatters": [],
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') AS 'Total', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraIntegrationBytes') AS 'Infra Int', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraProcessBytes') AS 'Infra Proc', filter(sum(GigabytesIngested), WHERE usageMetric ='MetricsBytes') AS 'Metrics', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraHostBytes') AS 'Infra Host', filter(sum(GigabytesIngested), WHERE usageMetric ='LoggingBytes') AS 'Logging', filter(sum(GigabytesIngested), WHERE usageMetric ='TracingBytes') AS 'Tracing', filter(sum(GigabytesIngested), WHERE usageMetric ='ApmEventsBytes') AS 'APM Events', filter(sum(GigabytesIngested), WHERE usageMetric ='ServerlessBytes') AS 'Serverless', filter(sum(GigabytesIngested), WHERE usageMetric ='BrowserEventsBytes') AS 'Browser Events', filter(sum(GigabytesIngested), WHERE usageMetric ='MobileEventsBytes') AS 'Mobile Events', filter(sum(GigabytesIngested), WHERE usageMetric ='CustomEventsBytes') AS 'Custom Events' FROM NrConsumption SINCE this year FACET monthOf(timestamp)"
+              }
+            ]
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "layout": {
+            "column": 10,
+            "row": 7,
+            "height": 3,
+            "width": 3
+          },
+          "title": "Estimated total cost ($) this month across all products",
+          "rawConfiguration": {
+            "dataFormatters": [],
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT sum(perMetricCost) as 'Estimated Cost This Month' FROM (SELECT latest(estimatedCost) AS perMetricCost FROM NrMTDConsumption FACET metric) SINCE this month"
+              }
+            ],
+            "thresholds": []
+          },
+          "linkedEntityGuids": null
+        }
+      ]
+    }
+  ]
+}
