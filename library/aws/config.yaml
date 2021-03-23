@@ -1,0 +1,15 @@
+# Name of your quickstart as shown on the website
+name: AWS Dashboards for Cloud Integrations
+description: |+
+  Curated dashboards for most popular AWS cloud services. 
+  Based on metrics and metadata collected from New Relic AWS Metric Stream Integration.
+
+# Optional: Authors of the quickstart
+authors:
+    - Jose M.
+
+# You can optionally add extra data sources, but this is only needed in certain cases.
+# For example if you use data from Prometheus exporters, or custom API you can add that information here.
+# You can also redirect to external webpages when the dashboards provides specific installation instructions
+#sources:
+#  - CloudIntegrations

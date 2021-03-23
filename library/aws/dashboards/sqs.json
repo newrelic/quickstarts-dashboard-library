@@ -1,0 +1,167 @@
+{
+    "permissions": "PUBLIC_READ_WRITE",
+    "pages": [
+        {
+            "name": "AWS SQS",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Messages Received Per Second, by Queue",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 10662464,
+                                "query": "SELECT average(`aws.sqs.NumberOfMessagesReceived`) FROM Metric FACET `aws.sqs.QueueName` SINCE 30 MINUTES AGO UNTIL 10 MINUTES AGO TIMESERIES"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 6,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "::: beyond\n![AWS SQS Icon](https://integrations.nr-assets.net/providers/aws_sqs.png) **Amazon Simple Queue Service (SQS)** \n\nAmazon Simple Queue Service (SQS) is a fast, reliable, scalable, fully managed message queuing service. SQS makes it simple and cost-effective to decouple the components of a cloud application. You can use SQS to transmit any volume of data, at any level of throughput, without losing messages or requiring other services to be always available.\n:::"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Messages Received Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 10662464,
+                                "query": "SELECT rate(sum(`aws.sqs.NumberOfMessagesSent`), 1 minute) as 'messages/second' FROM Metric since 30 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Queue Health",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 10662464,
+                                "query": "SELECT sum(`aws.sqs.NumberOfMessagesSent` ) as 'Sent', sum(`aws.sqs.NumberOfMessagesReceived`) as 'Received', sum(`aws.sqs.NumberOfMessagesDeleted`) as 'Deleted' FROM Metric TIMESERIES SINCE 1 day ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Delayed Messages",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 10662464,
+                                "query": "SELECT sum(`aws.sqs.ApproximateNumberOfMessagesDelayed`) FROM Metric TIMESERIES"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Not Visible Messages",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 10662464,
+                                "query": "SELECT sum(`aws.sqs.ApproximateNumberOfMessagesNotVisible`) FROM Metric TIMESERIES"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Visible Messages",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 10662464,
+                                "query": "SELECT sum(`aws.sqs.ApproximateNumberOfMessagesVisible`) FROM Metric TIMESERIES"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 12
+                    },
+                    "title": "Number of Empty Receives, by Queue",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 10662464,
+                                "query": "SELECT sum(`aws.sqs.NumberOfEmptyReceives`) FROM Metric TIMESERIES facet `aws.sqs.QueueName`"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "name": "AWS SQS",
+    "description": ""
+}
