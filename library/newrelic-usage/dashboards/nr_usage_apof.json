@@ -74,9 +74,9 @@
             "height": 3,
             "width": 5
           },
-          "title": "This Month: Usage vs. Annual Pool of Funds",
+          "title": "This Month: Usage vs. Annual Pool of Funds (update widget limit to reflect monthly allocation)",
           "rawConfiguration": {
-            "limit": 8251,
+            "limit": 0,
             "nrqlQueries": [
               {
                 "accountId": 0,
@@ -96,7 +96,7 @@
             "height": 3,
             "width": 7
           },
-          "title": "Monthly Annual Pool of Funds Consumption $",
+          "title": "Monthly Annual Pool of Funds Consumption $ (update query to reflect contract start date, if desired)",
           "rawConfiguration": {
             "dataFormatters": [
               {
@@ -118,7 +118,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "SELECT (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 + filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Total $', filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') as 'Gbs Ingested', (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 as 'Gbs Ingested $', filter(average(FullUsers), where metric= 'FullUsers') as 'Full Users', filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Full Users $' FROM NrConsumption FACET monthOf(timestamp) SINCE '2020-09-12 00:00:00'"
+                "query": "SELECT (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 + filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Total $', filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') as 'Gbs Ingested', (filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') - 100) *0.25 as 'Gbs Ingested $', filter(average(FullUsers), where metric= 'FullUsers') as 'Full Users', filter(average(FullUsers)*349, where metric= 'FullUsers') as 'Full Users $' FROM NrConsumption FACET monthOf(timestamp) SINCE this year"
               }
             ]
           },
@@ -312,12 +312,12 @@
             "height": 3,
             "width": 4
           },
-          "title": "How many GBs have I accrued since my contract start date?",
+          "title": "How many GBs have I accrued since this year? (update query to reflect contract start date, if desired)",
           "rawConfiguration": {
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested Since Start Date' where productLine = 'DataPlatform' SINCE '2020-09-12'"
+                "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested Since Start Date' where productLine = 'DataPlatform' SINCE this year"
               }
             ]
           },
@@ -338,7 +338,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) AS 'Gigabytes Ingested' WHERE productLine ='DataPlatform' SINCE '2020-09-12' FACET monthOf(timestamp)"
+                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) AS 'Gigabytes Ingested' WHERE productLine ='DataPlatform' SINCE this year FACET monthOf(timestamp)"
               }
             ]
           },
