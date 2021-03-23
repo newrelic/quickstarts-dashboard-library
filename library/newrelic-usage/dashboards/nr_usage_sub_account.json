@@ -1,7 +1,6 @@
 {
   "name": "New Relic Usage (SubAcct)",
   "description": "",
-  "permissions": "PUBLIC_READ_WRITE",
   "pages": [
     {
       "name": "New Relic Usage (SubAcct)",
@@ -38,7 +37,7 @@
             "dataFormatters": [],
             "nrqlQueries": [
               {
-                "accountId": 1532607,
+                "accountId": 0,
                 "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested this Month' where productLine = 'DataPlatform' SINCE this month"
               }
             ],
@@ -61,7 +60,7 @@
             "dataFormatters": [],
             "nrqlQueries": [
               {
-                "accountId": 1532607,
+                "accountId": 0,
                 "query": "from NrConsumption select sum(GigabytesIngested) as 'Total GBs Ingested Since Start Date' where productLine = 'DataPlatform' SINCE '2020-06-30'"
               }
             ],
@@ -86,7 +85,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": 1532607,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' since this month FACET usageMetric"
               }
             ]
@@ -110,7 +109,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": 1532607,
+                "accountId": 0,
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' since 3 months ago FACET usageMetric TIMESERIES 1 day"
               }
             ]
@@ -135,7 +134,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": 1532607,
+                "accountId": 0,
                 "query": "SELECT filter(sum(GigabytesIngested), WHERE productLine = 'DataPlatform') AS 'Total', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraIntegrationBytes') AS 'Infra Int', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraProcessBytes') AS 'Infra Proc', filter(sum(GigabytesIngested), WHERE usageMetric ='MetricsBytes') AS 'Metrics', filter(sum(GigabytesIngested), WHERE usageMetric ='InfraHostBytes') AS 'Infra Host', filter(sum(GigabytesIngested), WHERE usageMetric ='LoggingBytes') AS 'Logging', filter(sum(GigabytesIngested), WHERE usageMetric ='TracingBytes') AS 'Tracing', filter(sum(GigabytesIngested), WHERE usageMetric ='ApmEventsBytes') AS 'APM Events', filter(sum(GigabytesIngested), WHERE usageMetric ='ServerlessBytes') AS 'Serverless', filter(sum(GigabytesIngested), WHERE usageMetric ='BrowserEventsBytes') AS 'Browser Events', filter(sum(GigabytesIngested), WHERE usageMetric ='MobileEventsBytes') AS 'Mobile Events', filter(sum(GigabytesIngested), WHERE usageMetric ='CustomEventsBytes') AS 'Custom Events' FROM NrConsumption SINCE '2020-06-30' FACET monthOf(timestamp)"
               }
             ]
@@ -157,7 +156,7 @@
             "dataFormatters": [],
             "nrqlQueries": [
               {
-                "accountId": 347803,
+                "accountId": 0,
                 "query": "SELECT sum(perMetricCost) as 'Estimated Cost This Month' FROM (SELECT latest(estimatedCost) AS perMetricCost FROM NrMTDConsumption FACET metric) SINCE this month"
               }
             ],
