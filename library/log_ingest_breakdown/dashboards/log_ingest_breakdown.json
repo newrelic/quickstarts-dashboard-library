@@ -1,0 +1,109 @@
+{
+    "name": "Log Ingest Breakdown",
+    "description": null,
+    "permissions": "PUBLIC_READ_WRITE",
+    "pages": [
+      {
+        "name": "Log Ingest Breakdown",
+        "description": null,
+        "widgets": [
+          {
+            "visualization": {
+              "id": "viz.pie"
+            },
+            "layout": {
+              "column": 1,
+              "row": 1,
+              "height": 4,
+              "width": 6
+            },
+            "title": "Log data ingest per app",
+            "rawConfiguration": {
+              "facet": {
+                "showOtherSeries": false
+              },
+              "nrqlQueries": [
+                {
+                  "accountId": 0,
+                  "query": "FROM Log SELECT bytecountestimate()/1000000000 as 'GB'   facet labels.app limit max"
+                }
+              ]
+            },
+            "linkedEntityGuids": null
+          },
+          {
+            "visualization": {
+              "id": "viz.pie"
+            },
+            "layout": {
+              "column": 7,
+              "row": 1,
+              "height": 4,
+              "width": 6
+            },
+            "title": "Log data ingest per host",
+            "rawConfiguration": {
+              "facet": {
+                "showOtherSeries": false
+              },
+              "nrqlQueries": [
+                {
+                  "accountId": 0,
+                  "query": "FROM Log SELECT bytecountestimate()/1000000000 as 'GB'   facet hostname limit max"
+                }
+              ]
+            },
+            "linkedEntityGuids": null
+          },
+          {
+            "visualization": {
+              "id": "viz.pie"
+            },
+            "layout": {
+              "column": 1,
+              "row": 5,
+              "height": 4,
+              "width": 6
+            },
+            "title": "Log data ingest per container",
+            "rawConfiguration": {
+              "facet": {
+                "showOtherSeries": false
+              },
+              "nrqlQueries": [
+                {
+                  "accountId": 0,
+                  "query": "FROM Log SELECT bytecountestimate()/1000000000 as 'GB'   facet container_name limit max"
+                }
+              ]
+            },
+            "linkedEntityGuids": null
+          },
+          {
+            "visualization": {
+              "id": "viz.pie"
+            },
+            "layout": {
+              "column": 7,
+              "row": 5,
+              "height": 4,
+              "width": 6
+            },
+            "title": "Log data ingest per team",
+            "rawConfiguration": {
+              "facet": {
+                "showOtherSeries": false
+              },
+              "nrqlQueries": [
+                {
+                  "accountId": 0,
+                  "query": "FROM Log SELECT bytecountestimate()/1000000000 as 'GB' facet labels.team limit max"
+                }
+              ]
+            },
+            "linkedEntityGuids": null
+          }
+        ]
+      }
+    ]
+  }
