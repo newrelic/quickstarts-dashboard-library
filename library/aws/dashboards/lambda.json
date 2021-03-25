@@ -19,7 +19,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT average(`aws.lambda.Duration.byFunction`) / 1000 FROM Metric WHERE collector.name='cloudwatch-metric-streams' SINCE 1 hour ago UNTIL 6 minutes ago TIMESERIES 5 minutes FACET `aws.lambda.FunctionName`"
                             }
                         ]
@@ -53,7 +53,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.lambda.Invocations.byFunction`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' SINCE 1 hour ago UNTIL 6 minutes ago TIMESERIES 5 minutes FACET `aws.lambda.FunctionName`"
                             }
                         ]
@@ -73,7 +73,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.lambda.Throttles.byFunction`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' SINCE 1 hour ago UNTIL 6 minutes ago TIMESERIES 5 minutes FACET `aws.lambda.FunctionName`"
                             }
                         ]
@@ -93,7 +93,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.lambda.Errors.byFunction`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' SINCE 1 hour ago UNTIL 6 minutes ago TIMESERIES 5 minutes FACET `aws.lambda.FunctionName`"
                             }
                         ]
@@ -113,7 +113,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT average(`aws.lambda.ConcurrentExecutions.byRegion`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' FACET aws.region SINCE 1 hour ago UNTIL 6 minutes ago TIMESERIES 5 minutes"
                             }
                         ]

@@ -33,7 +33,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT average(`aws.s3.BytesDownloaded`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -53,7 +53,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT average(`aws.s3.BytesUploaded`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -73,7 +73,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.s3.AllRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -93,7 +93,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.s3.Error4xxErrors`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -113,7 +113,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.s3.Error5xxErrors`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -133,7 +133,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.s3.GetRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -153,7 +153,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.s3.PutRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -173,7 +173,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.s3.HeadRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -193,7 +193,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT average(`aws.s3.FirstByteLatency`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -213,7 +213,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT average(`aws.s3.TotalRequestLatency`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]
@@ -233,7 +233,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.s3.ListRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
                             }
                         ]

@@ -19,7 +19,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT average(`aws.sqs.NumberOfMessagesReceived`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' FACET `aws.sqs.QueueName` TIMESERIES 1 minutes UNTIL 10 minutes ago"
                             }
                         ]
@@ -53,7 +53,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT rate(sum(`aws.sqs.NumberOfMessagesSent`), 1 minute) as 'messages/second' FROM Metric WHERE collector.name='cloudwatch-metric-streams' since 60 minutes ago"
                             }
                         ]
@@ -73,7 +73,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.sqs.NumberOfMessagesSent` ) as 'Sent', sum(`aws.sqs.NumberOfMessagesReceived`) as 'Received', sum(`aws.sqs.NumberOfMessagesDeleted`) as 'Deleted' FROM Metric WHERE collector.name='cloudwatch-metric-streams' TIMESERIES SINCE 1 day ago"
                             }
                         ]
@@ -93,7 +93,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.sqs.ApproximateNumberOfMessagesDelayed`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' TIMESERIES 1 minutes since 6 hours ago until 10 minutes ago"
                             }
                         ]
@@ -113,7 +113,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.sqs.ApproximateNumberOfMessagesNotVisible`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' TIMESERIES 1 minutes since 6 hours ago until 10 minutes ago"
                             }
                         ]
@@ -133,7 +133,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.sqs.ApproximateNumberOfMessagesVisible`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' TIMESERIES 1 minutes since 6 hours ago until 10 minutes ago"
                             }
                         ]
@@ -153,7 +153,7 @@
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
-                                "accountId": 10662464,
+                                "accountId": 0,
                                 "query": "SELECT sum(`aws.sqs.NumberOfEmptyReceives`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' TIMESERIES 1 minutes UNTIL 10 minutes ago facet `aws.sqs.QueueName`"
                             }
                         ]
