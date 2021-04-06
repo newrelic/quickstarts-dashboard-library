@@ -1,0 +1,6 @@
+name: Infrastructure Integrations Analysis
+description: |+
+  Paginated dashboard that analyzes overall data ingest created by the various Infrastructure On-Host, Cloud, and Kubernetes integrations that contribute to the "Infrastructure integrations" portion of the Data Management Hub.
+  Additional pages have been added that analyze data ingest created by both Prometheus and AWS CloudWatch Metric Stream integrations, which contribute to the "Metrics" category of the Data Management Hub.
+authors:
+    - Zack Mutchler
