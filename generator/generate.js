@@ -46,7 +46,6 @@ function processQuickstart(element) {
     description: '',
     authors: [],
     sources: [],
-    alerts: [],
     dashboards: [],
     flex: [],
   };
@@ -71,7 +70,6 @@ function processQuickstart(element) {
   quickstart.description = config.description || '';
   quickstart.authors = config.authors || [];
   quickstart.sources = config.sources || [];
-  quickstart.alerts = config.alerts || [];
 
   //
   // Read dashboard directory and read in all dashboards + screenshots
