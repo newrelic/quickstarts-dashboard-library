@@ -69,7 +69,7 @@ function processQuickstart(element) {
   quickstart.name = config.name || element;
   quickstart.description = config.description || '';
   quickstart.authors = config.authors || [];
-  quickstart.sources = config.sources || [];
+  quickstart.sources = []; // temporary disabled more complicated sources: config.sources || [];
 
   //
   // Read dashboard directory and read in all dashboards + screenshots
