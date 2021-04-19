@@ -127,11 +127,6 @@ function processQuickstart(element) {
           return item !== undefined && (!pos || item !== ary[pos - 1]);
         });
 
-      // Create product array
-      quickstart.products = source.map((source) => {
-        return source.name;
-      });
-
       // Create entities array
       quickstart.entities = source
         .map((source) => {
