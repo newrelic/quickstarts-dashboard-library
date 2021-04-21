@@ -46,7 +46,6 @@ function processQuickstart(element) {
     description: '',
     authors: [],
     sources: [],
-    alerts: [],
     dashboards: [],
     flex: [],
   };
@@ -70,8 +69,7 @@ function processQuickstart(element) {
   quickstart.name = config.name || element;
   quickstart.description = config.description || '';
   quickstart.authors = config.authors || [];
-  quickstart.sources = config.sources || [];
-  quickstart.alerts = config.alerts || [];
+  quickstart.sources = []; // temporary disabled more complicated sources: config.sources || [];
 
   //
   // Read dashboard directory and read in all dashboards + screenshots
@@ -128,11 +126,6 @@ function processQuickstart(element) {
         .filter(function (item, pos, ary) {
           return item !== undefined && (!pos || item !== ary[pos - 1]);
         });
-
-      // Create product array
-      quickstart.products = source.map((source) => {
-        return source.name;
-      });
 
       // Create entities array
       quickstart.entities = source
