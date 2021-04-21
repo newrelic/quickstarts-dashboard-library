@@ -1,4 +1,6 @@
 {
+    "name": "Apache",
+    "description": "",
     "pages": [
         {
             "name": "Apache",
@@ -200,7 +202,5 @@
                 }
             ]
         }
-    ],
-    "name": "Apache",
-    "description": ""
+    ]
 }
