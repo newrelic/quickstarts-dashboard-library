@@ -1,9 +1,8 @@
 # Name of your quickstart as shown on the website
 name: Apache
 description: |+
-  Describe what's the focus of your dashboards.
-  You can use multiple lines.
-  Try to be as descriptive as possible.
+  Official New Relic dashboard for Apache
+  Use this dashboard together with the New Relic Apache On Host Integration to get insight into the performance of your Apache instances.
 
 # Optional: Authors of the quickstart
 authors:
