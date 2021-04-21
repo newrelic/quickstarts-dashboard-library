@@ -1,4 +1,6 @@
 {
+    "name": "Cassandra",
+    "description": "",
     "pages": [
         {
             "name": "Cassandra",
@@ -320,7 +322,5 @@
                 }
             ]
         }
-    ],
-    "name": "Cassandra",
-    "description": ""
+    ]
 }
