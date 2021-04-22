@@ -1,0 +1,10 @@
+# Name of your quickstart as shown on the website
+name: Cassandra
+description: |+
+  Official New Relic dashboard for Cassandra
+  Use this dashboard together with the New Relic Cassandra On Host Integration to get insight into the performance of your Cassandra instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Daniel Gola
