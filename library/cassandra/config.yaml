@@ -1,9 +1,8 @@
 # Name of your quickstart as shown on the website
 name: Cassandra
 description: |+
-  Describe what's the focus of your dashboards.
-  You can use multiple lines.
-  Try to be as descriptive as possible.
+  Official New Relic dashboard for Cassandra
+  Use this dashboard together with the New Relic Cassandra On Host Integration to get insight into the performance of your Cassandra instances.
 
 # Optional: Authors of the quickstart
 authors:
