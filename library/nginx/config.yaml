@@ -1,0 +1,12 @@
+# Name of your quickstart as shown on the website
+name: Nginx
+description: |+
+  Describe what's the focus of your dashboards.
+  You can use multiple lines.
+  Try to be as descriptive as possible.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Daniel Gola
+
