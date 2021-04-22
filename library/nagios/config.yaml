@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: Nagios
+description: |+
+  Official New Relic dashboard for Nagios
+  Use this dashboard together with the New Relic Nagios On Host Integration to get insight into the performance of your Nagios instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak
+
