@@ -1,9 +1,9 @@
 # Name of your quickstart as shown on the website
 name: RabbitMQ
 description: |+
-  Describe what's the focus of your dashboards.
-  You can use multiple lines.
-  Try to be as descriptive as possible.
+ Official New Relic dashboard for RabbitMQ
+ Use this dashboard together with the New Relic RabbitMQ On Host Integration to get insight into the 
+ performance of your RabbitMQ instances.
 
 # Optional: Authors of the quickstart
 authors:
