@@ -1,0 +1,10 @@
+# Name of your quickstart as shown on the website
+name: MySQL
+description: |+
+  Official New Relic dashboard for MySQL
+  Use this dashboard together with the New Relic MySQL On Host Integration to get insight into the performance of your MySQL instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak
