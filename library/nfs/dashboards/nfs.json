@@ -1,0 +1,132 @@
+{
+    "name": "NFS",
+    "description": "",
+    "pages": [
+        {
+            "name": "NFS",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 12
+                    },
+                    "title": "Base Stats Per Mount Point",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT entityName, mountPoint, diskTotalBytes, diskUsedPercent, diskUsedBytes, diskFreeBytes, diskFreePercent, totalReadBytes, totalWriteBytes, readBytesPerSecond, writeBytesPerSecond, totalOpsPerSecond, version, device FROM NFSSample WHERE filesystemType IN ('nfs', 'nfs4') LIMIT 100 SINCE 60 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.area"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Read and Write Bytes Per Mount Point",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(totalReadBytes) + average(totalWriteBytes) from NFSSample TIMESERIES facet mountPoint where filesystemType in ('nfs4', 'nfs')"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.area"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Read and Write Bytes Per Second Per Mount Point",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(readBytesPerSecond) + average(writeBytesPerSecond) FROM NFSSample TIMESERIES facet mountPoint WHERE filesystemType IN ('nfs4', 'nfs') LIMIT 100 SINCE 60 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.area"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Reads and Writes Per Second Per Mount Point",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(readsPerSecond) + average(writesPerSecond) FROM NFSSample TIMESERIES facet mountPoint WHERE filesystemType IN ('nfs4', 'nfs') LIMIT 100 since 60 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 12
+                    },
+                    "title": "Disk Stats Per Mount Point",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT entityName, mountPoint, diskTotalBytes, diskUsedBytes, diskUsedPercent, diskFreeBytes, diskFreePercent FROM NFSSample WHERE filesystemType IN ('nfs', 'nfs4') LIMIT 100 SINCE 60 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 12
+                    },
+                    "title": "Byte Stats Per Mount Point",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT entityName, mountPoint, totalReadBytes, totalWriteBytes, readBytesPerSecond, writeBytesPerSecond FROM NFSSample WHERE filesystemType IN ('nfs', 'nfs4') LIMIT 100 SINCE 60 minutes ago"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
