@@ -1,19 +1,10 @@
 # Name of your quickstart as shown on the website
-name: Add the name of your quickstart
+name: VMwarevsphere
 description: |+
-  Describe what's the focus of your dashboards.
-  You can use multiple lines.
-  Try to be as descriptive as possible.
+  Official New Relic dashboard for VMwarevsphere
+  Use this dashboard together with the New Relic VMwarevsphere On Host Integration to get insight into the performance of your VMwarevsphere instances.
 
 # Optional: Authors of the quickstart
 authors:
-    - Samuel V.
-    - Stijn P.
-
-# You can optionally add extra data sources, but this is only needed in certain cases.
-# For example if you use data from Prometheus exporters, or custom API you can add that information here.
-# You can also redirect to external webpages when the dashboards provides specific installation instructions
-sources:
-  - Prometheus
-  - name: CoreDNS
-    url: https://github.com/coredns/coredns/tree/master/plugin/metrics
+    - New Relic
+    - Jakub Kotkowiak
