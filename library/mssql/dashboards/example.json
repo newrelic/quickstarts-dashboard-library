@@ -1,0 +1,246 @@
+{
+	"name": "MSSQL",
+    "description": "",
+    "pages": [
+        {
+            "name": "MSSQL",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Average Batch Requests Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`bufferpool.batchRequestsPerSecond`) FROM MssqlInstanceSample SINCE 1 hour AGO TIMESERIES FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Average User Connections",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`stats.connections`) FROM MssqlInstanceSample SINCE 1 hour AGO TIMESERIES FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "::: beyond\n **Microsoft SQL Server** \n\nMicrosoft SQL Server is a relational database management system built by Microsoft.\n\n\n:::"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Buffer Cache Hit Ratio",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`system.bufferPoolHitPercent`) as 'Buffer Cache Hit Ratio' FROM MssqlInstanceSample SINCE 1 hour AGO TIMESERIES FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Lock Waits Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`stats.lockWaitsPerSecond`) from MssqlInstanceSample timeseries since 1 hour ago FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "SQL Compilations Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`stats.sqlCompilationsPerSecond`) from MssqlInstanceSample timeseries since 1 hour ago facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Page Life Expectancy in Seconds",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`bufferpool.pageLifeExpectancyInMilliseconds`) / 1000 FROM MssqlInstanceSample SINCE 1 hour AGO TIMESERIES FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Blocked Processes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`instance.blockedProcessesCount`) from MssqlInstanceSample timeseries since 1 hour ago FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "SQL Recompilations Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`stats.sqlRecompilationsPerSecond`) from MssqlInstanceSample timeseries since 1 hour ago facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Page Splits Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`access.pageSplitsPerSecond`) from MssqlInstanceSample timeseries since 1 hour ago FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Checkpoint Pages Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`buffer.checkpointPagesPerSecond`) from MssqlInstanceSample timeseries since 1 hour ago FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Total Wait Time in Milliseconds Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`system.waitTimeInMillisecondsPerSecond`) from MssqlInstanceSample since 1 hour ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
