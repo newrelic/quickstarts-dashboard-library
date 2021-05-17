@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: VMware Tanzu
+description: |+
+  Official New Relic dashboard for VMware Tanzu
+  Use this dashboard together with the New Relic VMware Tanzu On Host Integration to get insight into the performance of your VMware Tanzu instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak
+
