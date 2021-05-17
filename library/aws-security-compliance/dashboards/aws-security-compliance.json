@@ -1,0 +1,802 @@
+{
+	"name": "AWS Security & Compliance",
+	"description": null,
+	"pages": [
+		{
+			"name": "AWS Security - GuardDuty",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 12
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# AWS GuardDuty Findings Dashboard\n\n## Setup\nThis page requires you to capture AWS GuardDuty findings via EventBridge and Kinesis Firehose Delivery Stream.\n\n## Severity Levels\nEvents are classified with a severity level between 1.0 and 8.9.\n* 1.0 - 3.9 - _Low_\n* 4 - 6.9 - _Medium_\n* 7 - 8.9 - _High_\n\n0-1 and 9-10 are currently reserved for future use. [Reference](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings.html)"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 3,
+						"width": 3
+					},
+					"title": "Security Events by Severity",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET cases(WHERE detail.severity >= 7 AND detail.severity < 8.9  as 'High', WHERE detail.severity >= 4 AND detail.severity < 6.9 as 'Medium', WHERE detail.severity > 1 AND detail.severity < 3.9 as 'Low') LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "WARNING",
+								"value": 0.9
+							},
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1.9
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 4,
+						"row": 4,
+						"height": 3,
+						"width": 9
+					},
+					"title": "Security Events",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) as 'GuardDuty Findings' WHERE detail.service.serviceName = 'guardduty' TIMESERIES AUTO"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 7,
+						"height": 3,
+						"width": 12
+					},
+					"title": "Security Event Details",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT detail.severity, detail.region, detail.type, detail.description WHERE detail.service.serviceName = 'guardduty' LIMIT 100"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 1,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Security Events by Resource Type",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET detail.resource.resourceType "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 5,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Security Events by Country",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET detail.service.action.awsApiCallAction.remoteIpDetails.country.countryName"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 9,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Security Events by ISP",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET detail.service.action.awsApiCallAction.remoteIpDetails.organization.asnOrg"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 1,
+						"row": 13,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Security Events by Action Type",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) WHERE detail.service.serviceName = 'guardduty' FACET detail.service.action.actionType"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 5,
+						"row": 13,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Security Events by IP Address",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) WHERE detail.service.serviceName = 'guardduty' FACET detail.service.action.awsApiCallAction.remoteIpDetails.ipAddressV4"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 9,
+						"row": 13,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Security Events by AWS Region",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET region WHERE account = '811096843591'"
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "AWS Compliance/Audit - CloudTrail",
+			"description": "",
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS CloudTrail Configuration Modified",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT filter(count(*), WHERE eventName='DeleteTrail') as 'Deleted Trail', filter(count(*), WHERE eventName='UpdateTrail') as 'Updated Trail',filter(count(*), WHERE eventName='StopLogging') as 'Stopped Logging' FROM InfrastructureEvent WHERE provider = 'CloudTrail' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 3,
+						"row": 1,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS CMK Deleted or Scheduled for Deletion",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT filter(count(*), WHERE eventName LIKE '%DisableKey%') as 'Disabled Key', filter(count(*), WHERE eventName LIKE '%ScheduleKeyDeletion%') as 'Scheduled Key Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 5,
+						"row": 1,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS EventBridge Rule Disabled or Deleted",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT filter(count(*), WHERE eventName='DeleteRule') as 'Deleted Rule', filter(count(*), WHERE eventName='DisableRule') as 'Disabled Rule' FROM InfrastructureEvent WHERE provider = 'CloudTrail' and eventSource LIKE '%EventBridge%' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 7,
+						"row": 1,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS Config Modified",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT filter(count(*), WHERE eventName='StopConfigurationRecorder') as 'Configuration Recorder Stopped', filter(count(*), WHERE eventName='DeleteDeliveryChannel') as 'Delivery Channel Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 9,
+						"row": 1,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS EBS Default Encryption Disabled",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Disabled EBS Encryption' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DisableEbsEncryptionByDefault' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 11,
+						"row": 1,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS Network Gateway Created or Modified",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Network Gateway Creation OR Changes' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName in ('CreateCustomerGateway','DeleteCustomerGateway','AttachInternetGateway','CreateInternetGateway','DeleteInternetGateway','DetachInternetGateway') SINCE 1 week ago LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS RDS Cluster Deleted",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Cluster Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DeleteCluster' AND eventSource LIKE '%ECS%' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 3,
+						"row": 4,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS ECS Cluster Deleted",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Cluster Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DeleteCluster' AND eventSource LIKE '%ECS%' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 5,
+						"row": 4,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS GuardDuty Detector Deleted",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Detector Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DeleteDetector' AND eventSource LIKE '%Guard%' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 7,
+						"row": 4,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS IAM Policy Changed",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Policy Changes' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName in ('DeleteGroupPolicy','DeleteRolePolicy', 'DeleteUserPolicy','PutGroupPolicy','PutRolePolicy','PutUserPolicy','CreatePolicy','DeletePolicy','CreatePolicyVersion','DeletePolicyVersion','AttachRolePolicy','DetachRolePolicy','AttachUserPolicy','DetachUserPolicy','AttachGroupPolicy','DetachGroupPolicy') SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							},
+							{
+								"alertSeverity": "WARNING",
+								"value": 0
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 9,
+						"row": 4,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS S3 Public Access Block Removed",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'S3 Public Access Block Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DeleteAccountPublicAccessBlock' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 11,
+						"row": 4,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS S3 Bucket Policy Modified",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'S3 Policy Changes' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName in ('PutBucketAcl','PutBucketPolicy','PutBucketCors','PutBucketLifecycle','PutBucketReplication','DeleteBucketPolicy','DeleteBucketCors','DeleteBucketLifecycle','DeleteBucketReplication') SINCE 1 week ago LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 1,
+						"row": 7,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS FlowLogs Removed",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'FlowLogs Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DeleteFlowLogs' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 3,
+						"row": 7,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS Network Access Control List Created or Modified",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'NACL Creation OR Changes' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName in ('CreateNetworkAcl','CreateNetworkAclEntry','DeleteNetworkAcl','DeleteNetworkAclEntry','ReplaceNetworkAclEntry','ReplaceNetworkAclAssociation') SINCE 1 week ago LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 5,
+						"row": 7,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS Route Table Created or Modified",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Route Table Creation OR Changes' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName in ('CreateRoute','CreateRouteTable','ReplaceRoute','ReplaceRouteTableAssociation','DeleteRouteTable','DeleteRoute','DisassociateRouteTable') SINCE 1 week ago LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 7,
+						"row": 7,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS VPC Deletion",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'VPC Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DeleteVpc' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 9,
+						"row": 7,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS EC2 Subnet Deletion",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Subnet Deletion' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='DeleteSubnet' SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 11,
+						"row": 7,
+						"height": 3,
+						"width": 2
+					},
+					"title": "AWS Security Group Created or Modified",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) as 'Security Group Creation OR Changes' FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName in ('AuthorizeSecurityGroupIngress','AuthorizeSecurityGroupEgress','RevokeSecurityGroupIngress','RevokeSecurityGroupEgress','CreateSecurityGroup','DeleteSecurityGroup') SINCE 1 week ago LIMIT MAX"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 1
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 1,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Console Login Failures",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='ConsoleLogin' AND errorMessage is NOT NULL FACET errorMessage SINCE 1 week ago LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 5,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "AWS Unauthorized Activity",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) FROM InfrastructureEvent WHERE provider = 'CloudTrail' WHERE errorCode LIKE '%Access%Denied%' FACET eventName  SINCE 1 week ago LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 9,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Top Users With Console Login Failures",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) FROM InfrastructureEvent WHERE provider = 'CloudTrail' AND eventName='ConsoleLogin' AND errorMessage is NOT NULL FACET userName SINCE 1 week ago LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 1,
+						"row": 13,
+						"height": 3,
+						"width": 6
+					},
+					"title": "Console Login Analysis",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT COUNT(*) FROM InfrastructureEvent WHERE provider='CloudTrail' AND eventName = 'ConsoleLogin' FACET CASES (WHERE errorMessage IS NULL AS 'Successful login', WHERE errorMessage IS NOT NULL as 'Failed login') Since 1 week ago TIMESERIES AUTO\n"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 7,
+						"row": 13,
+						"height": 3,
+						"width": 6
+					},
+					"title": "Failed Events",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT COUNT(*) FROM InfrastructureEvent WHERE provider='CloudTrail' AND (errorCode IS NOT NULL OR errorMessage IS NOT NULL) FACET eventName Since 1 week ago TIMESERIES AUTO"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}
