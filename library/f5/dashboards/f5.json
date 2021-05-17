@@ -1,0 +1,562 @@
+{
+    "name": "F5 BIG-IP",
+    "description": "",
+    "pages": [
+        {
+            "name": "F5 BIG-IP",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Memory Used",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`system.memoryUsedInBytes`)  FROM F5BigIpSystemSample TIMESERIES 10 minutes"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Usage Ticks: User",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`system.cpuUserTicksPerSecond`) FROM F5BigIpSystemSample TIMESERIES 1 minute"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 6,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "::: beyond\n **F5 BIG-IP** \n\nBIG-IP is a collection of hardware platforms and software solutions providing services focused on security, reliability, and performance.\n\nThe BIG-IP integration collects a wide array of metrics which facilitate the diagnosis of performance bottlenecks.\n\n\n:::"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Usage Ticks: System",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`system.cpuSystemTicksPerSecond`) FROM F5BigIpSystemSample TIMESERIES 1 minute"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Usage Ticks: Idle",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`system.cpuIdleTicksPerSecond`) FROM F5BigIpSystemSample TIMESERIES 1 minute"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "# Virtual Servers"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Virtual Server Connections",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`virtualserver.connections`) FROM `F5BigIpVirtualServerSample` FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Virtual Server Availability Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT filter(uniqueCount(entityName), WHERE collector.name='cloudwatch-metric-streams' AND `virtualserver.availabilityState` = 0) AS `Offline`, filter(uniqueCount(displayName), WHERE `virtualserver.availabilityState` = 1) AS `Unknown`, filter(uniqueCount(displayName), WHERE `virtualserver.availabilityState` = 2) AS `Online` FROM F5BigIpVirtualServerSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Virtual Server Data In",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`virtualserver.inDataInBytesPerSecond`) FROM F5BigIpVirtualServerSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Virtual Server Data Out",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`virtualserver.outDataInBytesPerSecond`) FROM F5BigIpVirtualServerSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Virtual Server Requests",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`virtualserver.requestsPerSecond`) FROM F5BigIpVirtualServerSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "# Pools"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Connections",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`virtualserver.connections`) FROM `F5BigIpVirtualServerSample` FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Availability Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT filter(uniqueCount(entityName), WHERE collector.name='cloudwatch-metric-streams' AND `pool.availabilityState` = 0) AS `Offline`, filter(uniqueCount(displayName), WHERE `pool.availabilityState` = 1) AS `Unknown`, filter(uniqueCount(displayName), WHERE `pool.availabilityState` = 2) AS `Online` FROM F5BigIpPoolSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Packets In",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`pool.packetsReceivedPerSecond`) FROM F5BigIpPoolSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Packets Out",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`pool.packetsSentPerSecond`) FROM F5BigIpPoolSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Requests",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`pool.requestsPerSecond`) FROM F5BigIpPoolSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "# Pool Members"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Member Connections",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`member.connections`) FROM F5BigIpPoolMemberSample FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Member Availability Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT filter(uniqueCount(entityName), WHERE collector.name='cloudwatch-metric-streams' AND `member.availabilityState` = 0) AS `Offline`, filter(uniqueCount(displayName), WHERE `member.availabilityState` = 1) AS `Unknown`, filter(uniqueCount(displayName), WHERE `member.availabilityState` = 2) AS `Online` FROM F5BigIpPoolMemberSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Member Packets In",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`member.packetsReceivedPerSecond`) FROM F5BigIpPoolMemberSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Member Packets Out",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`member.packetsSentPerSecond`) FROM F5BigIpPoolMemberSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Pool Member Requests",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`member.requestsPerSecond`) FROM F5BigIpPoolMemberSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 25,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "# Nodes"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 25,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Node Connections",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`node.connections`) FROM F5BigIpNodeSample FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 25,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Node Availability Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT filter(uniqueCount(entityName), WHERE collector.name='cloudwatch-metric-streams' AND `node.availabilityState` = 0) AS `Offline`, filter(uniqueCount(displayName), WHERE `node.availabilityState` = 1) AS `Unknown`, filter(uniqueCount(displayName), WHERE `node.availabilityState` = 2) AS `Online` FROM F5BigIpNodeSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Node Packets In",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`member.packetsReceivedPerSecond`) FROM F5BigIpPoolMemberSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Node Packets Out",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`node.packetsSentPerSecond`) FROM F5BigIpNodeSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Node Requests",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`node.requestsPerSecond`) FROM F5BigIpNodeSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
