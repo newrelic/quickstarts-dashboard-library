@@ -1,5 +1,4 @@
 {
-    "permissions": "PUBLIC_READ_WRITE",
     "pages": [
         {
             "name": "Amazon Elasticsearch Service",
