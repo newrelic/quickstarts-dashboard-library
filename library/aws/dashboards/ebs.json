@@ -1,9 +1,29 @@
 {
     "pages": [
         {
-            "name": "AWS S3",
+            "name": "Amazon EBS",
             "description": "",
             "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Queue Length",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`aws.ebs.VolumeQueueLength`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES AUTO SINCE 1 day ago"
+                            }
+                        ]
+                    }
+                },
                 {
                     "visualization": {
                         "id": "viz.markdown"
@@ -15,7 +35,7 @@
                         "width": 4
                     },
                     "rawConfiguration": {
-                        "text": "![Amazon S3 Icon](https://integrations.nr-assets.net/providers/aws_s3.png) **AWS S3** \n\nAmazon Simple Storage Service is storage for the Internet. It is designed to make web-scale computing easier for developers.\n\n"
+                        "text": "![Amazon EBS Icon](https://integrations.nr-assets.net/providers/aws_ebs.png) **AWS EBS** \n\nAmazon Elastic Block Store (Amazon EBS) provides block level storage volumes for use with EC2 instances. EBS volumes are highly available and reliable storage volumes that can be attached to any running instance that is in the same Availability Zone."
                     }
                 },
                 {
@@ -28,12 +48,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "Bytes downloaded",
+                    "title": "Writes Volume",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.BytesDownloaded`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "select average(`aws.ebs.VolumeWriteBytes`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES AUTO SINCE 1 day ago"
                             }
                         ]
                     }
@@ -48,12 +68,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "Bytes uploaded",
+                    "title": "Reads Volume",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.BytesUploaded`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "select average(`aws.ebs.VolumeReadBytes`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES AUTO SINCE 1 day ago"
                             }
                         ]
                     }
@@ -68,12 +88,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "All requests",
+                    "title": "Read Operations",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.AllRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "select average(`aws.ebs.VolumeReadOps`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES AUTO since 1 day ago"
                             }
                         ]
                     }
@@ -88,12 +108,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "4xx errors",
+                    "title": "Read Time",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.Error4xxErrors`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "select average(`aws.ebs.VolumeTotalReadTime`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES SINCE 1 day ago"
                             }
                         ]
                     }
@@ -108,12 +128,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "5xx errors",
+                    "title": "Total Volume",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.Error5xxErrors`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "select average(`aws.ebs.VolumeWriteBytes`) + average(`aws.ebs.volumeWriteBytes.Average`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES SINCE 1 day ago"
                             }
                         ]
                     }
@@ -128,12 +148,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "GET requests",
+                    "title": "Write Operations",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.GetRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "select average(`aws.ebs.VolumeWriteOps`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES SINCE 1 day ago"
                             }
                         ]
                     }
@@ -148,19 +168,19 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "PUT requests",
+                    "title": "Write Time",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.PutRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "select average(`aws.ebs.VolumeTotalWriteTime`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' facet entity.name TIMESERIES SINCE 1 day ago"
                             }
                         ]
                     }
                 },
                 {
                     "visualization": {
-                        "id": "viz.line"
+                        "id": "viz.bar"
                     },
                     "layout": {
                         "column": 9,
@@ -168,12 +188,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "HEAD requests",
+                    "title": "Volume State",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.HeadRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT uniqueCount(entity.id) as 'Volumes' FROM Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' FACET `aws.ebs.state` SINCE 1 hour ago"
                             }
                         ]
                     }
@@ -188,52 +208,32 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "First byte latency (ms)",
+                    "title": "Total Operations",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.FirstByteLatency`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT average(`aws.ebs.VolumeReadOps`) + average(`aws.ebs.volumeWriteOps.Sum`) FROM Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' FACET entity.name TIMESERIES AUTO since 1 day ago"
                             }
                         ]
                     }
                 },
                 {
                     "visualization": {
-                        "id": "viz.line"
+                        "id": "viz.bar"
                     },
                     "layout": {
                         "column": 5,
                         "row": 13,
                         "height": 3,
-                        "width": 4
+                        "width": 8
                     },
-                    "title": "Total request latency (ms)",
+                    "title": "Volume Type",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.TotalRequestLatency`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
-                            }
-                        ]
-                    }
-                },
-                {
-                    "visualization": {
-                        "id": "viz.line"
-                    },
-                    "layout": {
-                        "column": 9,
-                        "row": 13,
-                        "height": 3,
-                        "width": 4
-                    },
-                    "title": "LIST requests",
-                    "rawConfiguration": {
-                        "nrqlQueries": [
-                            {
-                                "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.ListRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT uniqueCount(entity.id) as 'Volumes' FROM Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/EBS' FACET  `aws.ebs.volumeType` SINCE 1 hour ago"
                             }
                         ]
                     }
@@ -241,6 +241,6 @@
             ]
         }
     ],
-    "name": "AWS S3",
+    "name": "Amazon EBS",
     "description": ""
 }

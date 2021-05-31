@@ -1,9 +1,49 @@
 {
     "pages": [
         {
-            "name": "AWS S3",
+            "name": "AWS Kinesis Firehose",
             "description": "",
             "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Incoming Bytes, By Delivery Stream",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`aws.firehose.IncomingBytes`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Incoming Records, by Delivery Stream",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`aws.firehose.IncomingRecords`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
+                            }
+                        ]
+                    }
+                },
                 {
                     "visualization": {
                         "id": "viz.markdown"
@@ -15,12 +55,12 @@
                         "width": 4
                     },
                     "rawConfiguration": {
-                        "text": "![Amazon S3 Icon](https://integrations.nr-assets.net/providers/aws_s3.png) **AWS S3** \n\nAmazon Simple Storage Service is storage for the Internet. It is designed to make web-scale computing easier for developers.\n\n"
+                        "text": "![Amazon Kinesis Firehose Icon](https://integrations.nr-assets.net/providers/aws_kinesis_firehose.png) **AWS Kinesis Firehose** \n\nAmazon Kinesis Firehose delivers real-time streaming data to destinations such as Amazon Simple Storage Service (Amazon S3), Amazon Redshift, or Amazon Elasticsearch Service (Amazon ES). The unit of data delivered by the Delivery Streams is a data record. A stream represents an ordered sequence of data records.\n\n\n\n\n"
                     }
                 },
                 {
                     "visualization": {
-                        "id": "viz.line"
+                        "id": "viz.billboard"
                     },
                     "layout": {
                         "column": 1,
@@ -28,19 +68,19 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "Bytes downloaded",
+                    "title": "Put Record Latency (Average)",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.BytesDownloaded`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT average(`aws.firehose.PutRecordLatency`) as 'milliseconds' from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since last hour"
                             }
                         ]
                     }
                 },
                 {
                     "visualization": {
-                        "id": "viz.line"
+                        "id": "viz.billboard"
                     },
                     "layout": {
                         "column": 5,
@@ -48,12 +88,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "Bytes uploaded",
+                    "title": "Put Record Batch Latency (Average)",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.BytesUploaded`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT average(`aws.firehose.PutRecordBatch.Latency`) as 'milliseconds' from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since last hour"
                             }
                         ]
                     }
@@ -68,12 +108,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "All requests",
+                    "title": "Delivered bytes to S3, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.AllRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT sum(`aws.firehose.DeliveryToS3.Bytes`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -88,12 +128,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "4xx errors",
+                    "title": "Delivered records to S3, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.Error4xxErrors`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT sum(`aws.firehose.DeliveryToS3.Records`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -108,12 +148,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "5xx errors",
+                    "title": "Delivery success rate to S3, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.Error5xxErrors`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT average(`aws.firehose.DeliveryToS3.Success`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -128,12 +168,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "GET requests",
+                    "title": "Delivered bytes to Elasticsearch, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.GetRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT sum(`aws.firehose.DeliveryToElasticsearch.Bytes`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -148,12 +188,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "PUT requests",
+                    "title": "Delivered records to Elasticsearch, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.PutRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT sum(`aws.firehose.DeliveryToElasticsearch.Records`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -168,12 +208,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "HEAD requests",
+                    "title": "Delivery success rate to Elasticsearch, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.HeadRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT average(`aws.firehose.DeliveryToElasticsearch.Success`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -188,12 +228,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "First byte latency (ms)",
+                    "title": "Delivered bytes to Redshift, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.FirstByteLatency`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT sum(`aws.firehose.DeliveryToRedshift.Bytes`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -208,12 +248,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "Total request latency (ms)",
+                    "title": "Delivered records to Redshift, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT average(`aws.s3.TotalRequestLatency`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT sum(`aws.firehose.DeliveryToRedshift.Records`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -228,12 +268,12 @@
                         "height": 3,
                         "width": 4
                     },
-                    "title": "LIST requests",
+                    "title": "Delivery success rate to Redshift, by Delivery Stream",
                     "rawConfiguration": {
                         "nrqlQueries": [
                             {
                                 "accountId": 0,
-                                "query": "SELECT sum(`aws.s3.ListRequests`) from Metric WHERE collector.name='cloudwatch-metric-streams' since 6 hours ago TIMESERIES auto facet entityName"
+                                "query": "SELECT average(`aws.firehose.DeliveryToRedshift.Success`) from Metric WHERE collector.name='cloudwatch-metric-streams' AND aws.Namespace = 'AWS/Firehose' since 1 day ago timeseries auto facet entity.name"
                             }
                         ]
                     }
@@ -241,6 +281,6 @@
             ]
         }
     ],
-    "name": "AWS S3",
+    "name": "AWS Kinesis Firehose",
     "description": ""
 }
