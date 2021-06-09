@@ -1,7 +1,6 @@
 {
   "name": "CWV調査",
   "description": "",
-  "permissions": "PUBLIC_READ_WRITE",
   "pages": [
     {
       "name": "CWV調査",
@@ -79,7 +78,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "SELECT percentile(largestContentfulPaint, 75) FROM PageViewTiming WHERE appName = 'WebPortal' facet browserTransactionName"
+                "query": "SELECT percentile(largestContentfulPaint, 75) FROM PageViewTiming facet browserTransactionName"
               }
             ],
             "thresholds": [
@@ -113,7 +112,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "SELECT percentile(largestContentfulPaint, 75), 2.5, 4.0 FROM PageViewTiming WHERE appName = 'WebPortal' facet browserTransactionName TIMESERIES"
+                "query": "SELECT percentile(largestContentfulPaint, 75), 2.5, 4.0 FROM PageViewTiming facet browserTransactionName TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -153,7 +152,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "SELECT percentile(firstInputDelay, 75) as 'FID in ms' FROM PageViewTiming WHERE appName = 'WebPortal' facet browserTransactionName"
+                "query": "SELECT percentile(firstInputDelay, 75) as 'FID in ms' FROM PageViewTiming facet browserTransactionName"
               }
             ],
             "thresholds": [
@@ -187,7 +186,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "SELECT percentile(firstInputDelay, 75), 100, 300 FROM PageViewTiming WHERE appName = 'WebPortal' facet browserTransactionName TIMESERIES"
+                "query": "SELECT percentile(firstInputDelay, 75), 100, 300 FROM PageViewTiming facet browserTransactionName TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -227,7 +226,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "SELECT percentile(cumulativeLayoutShift, 75) FROM PageViewTiming WHERE appName = 'WebPortal' facet browserTransactionName"
+                "query": "SELECT percentile(cumulativeLayoutShift, 75) FROM PageViewTiming facet browserTransactionName"
               }
             ],
             "thresholds": [
@@ -261,7 +260,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "SELECT percentile(cumulativeLayoutShift, 75), 0.1, 0.25 FROM PageViewTiming WHERE appName = 'WebPortal' facet browserTransactionName TIMESERIES"
+                "query": "SELECT percentile(cumulativeLayoutShift, 75), 0.1, 0.25 FROM PageViewTiming facet browserTransactionName TIMESERIES"
               }
             ],
             "yAxisLeft": {
