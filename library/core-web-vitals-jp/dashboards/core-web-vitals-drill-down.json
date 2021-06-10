@@ -1,0 +1,275 @@
+{
+  "name": "CWV調査",
+  "description": "",
+  "pages": [
+    {
+      "name": "CWV調査",
+      "description": "",
+      "widgets": [
+        {
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "height": 3,
+            "width": 5
+          },
+          "title": "",
+          "rawConfiguration": {
+            "text": "低スコアページ調査\n---\n![LCP](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/ZZU8Z7TMKXmzZT2mCjJU.svg?w=150)\n![FID](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/iHYrrXKe4QRcb2uu8eV8.svg?w=150)\n![CLS](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/dgpDFckbHwwOKdIGDa3N.svg?w=150)\n\nGreen: 1点、Orange: 2点、Red: 3点でスコアリングしています。値が大きいほどユーザーが満足していないページとなります。スループット、レイテンシも合わせてみることで改善対象を確認していきましょう。NRQLはネスト構造になっています。URL などで対象をフィルタリングする場合はInnerのクエリを更新してください。"
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.table"
+          },
+          "layout": {
+            "column": 6,
+            "row": 1,
+            "height": 3,
+            "width": 7
+          },
+          "title": "低スコアページ一覧",
+          "rawConfiguration": {
+            "dataFormatters": [],
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "FROM(SELECT ceil(clamp_max(clamp_min(percentile(largestContentfulPaint, 75) / 0.75 - 2.3334, 1),3)) as 'LCP', ceil(clamp_max(clamp_min(percentile(firstInputDelay, 75) / 100, 1),3)) as 'FID', ceil(clamp_max(clamp_min(percentile(cumulativeLayoutShift, 75) / 0.075 - 0.33334, 1),3)) as 'CLS', filter(count(*), where eventType()='PageView') as 'PV', filter(average(duration), where eventType()='PageView') as 'Time' FROM PageViewTiming, PageView facet pageUrl, appName limit max) SELECT max(LCP) + max(FID) + max(CLS) as 'Total', max(LCP) as 'LCP', max(FID) as 'FID', max(CLS) as 'CLS', max(PV) as 'PV', max(Time) as 'Time(sec)' WHERE LCP > 1 or FID > 1 or CLS > 1 FACET pageUrl limit 50"
+              }
+            ]
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "height": 3,
+            "width": 3
+          },
+          "title": "",
+          "rawConfiguration": {
+            "text": "# 画面ロード時間\nページの読み込みが開始されてから、ページのコンテンツの一部が画面に表示されるまでの時間\n![LCP](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/ZZU8Z7TMKXmzZT2mCjJU.svg?w=200)\n\n"
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "layout": {
+            "column": 4,
+            "row": 4,
+            "height": 3,
+            "width": 4
+          },
+          "title": "ランキング",
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT percentile(largestContentfulPaint, 75) FROM PageViewTiming facet browserTransactionName"
+              }
+            ],
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 4
+              },
+              {
+                "alertSeverity": "WARNING",
+                "value": 2.5
+              }
+            ]
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.line"
+          },
+          "layout": {
+            "column": 8,
+            "row": 4,
+            "height": 3,
+            "width": 5
+          },
+          "title": "時間推移",
+          "rawConfiguration": {
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT percentile(largestContentfulPaint, 75), 2.5, 4.0 FROM PageViewTiming facet browserTransactionName TIMESERIES"
+              }
+            ],
+            "yAxisLeft": {
+              "zero": true
+            }
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "layout": {
+            "column": 1,
+            "row": 7,
+            "height": 3,
+            "width": 3
+          },
+          "title": "",
+          "rawConfiguration": {
+            "text": "# 操作応答性能\nユーザーがリンクをクリックやボタンをタップした後、機能が動くまでの遅延時間\n![FID](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/iHYrrXKe4QRcb2uu8eV8.svg?w=200)\n\n"
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "layout": {
+            "column": 4,
+            "row": 7,
+            "height": 3,
+            "width": 4
+          },
+          "title": "ランキング",
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT percentile(firstInputDelay, 75) as 'FID in ms' FROM PageViewTiming facet browserTransactionName"
+              }
+            ],
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 300
+              },
+              {
+                "alertSeverity": "WARNING",
+                "value": 100
+              }
+            ]
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.line"
+          },
+          "layout": {
+            "column": 8,
+            "row": 7,
+            "height": 3,
+            "width": 5
+          },
+          "title": "時間推移",
+          "rawConfiguration": {
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT percentile(firstInputDelay, 75), 100, 300 FROM PageViewTiming facet browserTransactionName TIMESERIES"
+              }
+            ],
+            "yAxisLeft": {
+              "zero": true
+            }
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "layout": {
+            "column": 1,
+            "row": 10,
+            "height": 3,
+            "width": 3
+          },
+          "title": "",
+          "rawConfiguration": {
+            "text": "# 画面崩れスコア\nページの読み込みが開始されてからライフサイクル状態が非表示に変わるまでの間に発生するすべての予期しないレイアウトシフトの累積スコア\n![CLS](https://web-dev.imgix.net/image/tcFciHGuF3MxnTr1y5ue01OGLBn2/dgpDFckbHwwOKdIGDa3N.svg?w=200)\n\n\n"
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "layout": {
+            "column": 4,
+            "row": 10,
+            "height": 3,
+            "width": 4
+          },
+          "title": "ランキング",
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT percentile(cumulativeLayoutShift, 75) FROM PageViewTiming facet browserTransactionName"
+              }
+            ],
+            "thresholds": [
+              {
+                "alertSeverity": "CRITICAL",
+                "value": 0.25
+              },
+              {
+                "alertSeverity": "WARNING",
+                "value": 0.1
+              }
+            ]
+          },
+          "linkedEntityGuids": null
+        },
+        {
+          "visualization": {
+            "id": "viz.line"
+          },
+          "layout": {
+            "column": 8,
+            "row": 10,
+            "height": 3,
+            "width": 5
+          },
+          "title": "時間推移",
+          "rawConfiguration": {
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": 0,
+                "query": "SELECT percentile(cumulativeLayoutShift, 75), 0.1, 0.25 FROM PageViewTiming facet browserTransactionName TIMESERIES"
+              }
+            ],
+            "yAxisLeft": {
+              "zero": true
+            }
+          },
+          "linkedEntityGuids": null
+        }
+      ]
+    }
+  ]
+}
