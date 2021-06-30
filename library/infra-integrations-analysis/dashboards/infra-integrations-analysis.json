@@ -8682,7 +8682,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "FROM Metric\nSELECT bytecountestimate()/10e8 AS '1 DAY (GB)',\nrate(bytecountestimate()/10e8, 1 MONTH) AS '1 MONTH (GB)'\nWHERE instrumentation.name IN ('nri-prometheus','remote-write')\nFACET instrumentation.name \nSINCE 24 HOURS AGO COMPARE WITH 1 WEEK AGO\nLIMIT MAX"
+								"query": "FROM Metric\nSELECT bytecountestimate()/10e8 AS '1 DAY (GB)',\nrate(bytecountestimate()/10e8, 1 MONTH) AS '1 MONTH (GB)'\nWHERE instrumentation.name IN ('nri-prometheus','remote-write') OR integrationName IN ('nri-prometheus','remote-write')\nFACET instrumentation.name OR integrationName\nSINCE 24 HOURS AGO COMPARE WITH 1 WEEK AGO\nLIMIT MAX"
 							}
 						],
 						"thresholds": []
@@ -8707,7 +8707,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "FROM Metric\nSELECT bytecountestimate()/10e8\nWHERE instrumentation.name IN ('nri-prometheus','remote-write')\nFACET instrumentation.name \nSINCE 7 DAYS AGO\nLIMIT MAX\nTIMESERIES"
+								"query": "FROM Metric\nSELECT bytecountestimate()/10e8\nWHERE instrumentation.name IN ('nri-prometheus','remote-write') OR integrationName IN ('nri-prometheus','remote-write')\nFACET instrumentation.name OR integrationName\nSINCE 7 DAYS AGO\nLIMIT MAX\nTIMESERIES"
 							}
 						]
 					}
@@ -8742,7 +8742,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "FROM Metric\nSELECT bytecountestimate()/10e8 AS '1 DAY (GB)',\nrate(bytecountestimate()/10e8, 1 MONTH) AS '1 MONTH (GB)'\nWHERE instrumentation.name = 'nri-prometheus'\nFACET clusterName, namespaceName, deploymentName, metricName\nSINCE 24 HOURS AGO\nLIMIT MAX"
+								"query": "FROM Metric\nSELECT bytecountestimate()/10e8 AS '1 DAY (GB)',\nrate(bytecountestimate()/10e8, 1 MONTH) AS '1 MONTH (GB)'\nWHERE instrumentation.name = 'nri-prometheus' OR integrationName = 'nri-prometheus'\nFACET clusterName, namespaceName, deploymentName, metricName\nSINCE 24 HOURS AGO\nLIMIT MAX"
 							}
 						]
 					}
@@ -8765,7 +8765,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "FROM Metric\nSELECT bytecountestimate()/10e8\nWHERE instrumentation.name = 'nri-prometheus'\nFACET clusterName\nSINCE 7 DAYS AGO\nLIMIT 10\nTIMESERIES"
+								"query": "FROM Metric\nSELECT bytecountestimate()/10e8\nWHERE instrumentation.name = 'nri-prometheus' OR integrationName = 'nri-prometheus'\nFACET clusterName\nSINCE 7 DAYS AGO\nLIMIT 10\nTIMESERIES"
 							}
 						]
 					}
@@ -8800,7 +8800,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "FROM Metric\nSELECT bytecountestimate()/10e8 AS '1 DAY (GB)',\nrate(bytecountestimate()/10e8, 1 MONTH) AS '1 MONTH (GB)'\nWHERE instrumentation.name = 'remote-write'\nFACET prometheus_server, metricName\nSINCE 24 HOURS AGO\nLIMIT MAX"
+								"query": "FROM Metric\nSELECT bytecountestimate()/10e8 AS '1 DAY (GB)',\nrate(bytecountestimate()/10e8, 1 MONTH) AS '1 MONTH (GB)'\nWHERE instrumentation.name = 'remote-write' OR integrationName = 'remote-write'\nFACET prometheus_server, metricName\nSINCE 24 HOURS AGO\nLIMIT MAX"
 							}
 						]
 					}
@@ -8823,7 +8823,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "FROM Metric\nSELECT bytecountestimate()/10e8\nWHERE instrumentation.name = 'remote-write'\nFACET prometheus_server\nSINCE 7 DAYS AGO\nLIMIT 10\nTIMESERIES"
+								"query": "FROM Metric\nSELECT bytecountestimate()/10e8\nWHERE instrumentation.name = 'remote-write' OR integrationName = 'remote-write'\nFACET prometheus_server\nSINCE 7 DAYS AGO\nLIMIT 10\nTIMESERIES"
 							}
 						]
 					}
