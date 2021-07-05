@@ -1,0 +1,586 @@
+{
+    "name": "Elasticsearch",
+    "description": "",
+    "pages": [
+        {
+            "name": "Elasticsearch",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Cluster Status Summary",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT filter(uniqueCount(`entityId`), where `cluster.status` = 'green') as 'Green', filter(uniqueCount(`entityId`), where `cluster.status` = 'yellow') as 'Yellow', filter(uniqueCount(`entityId`), where `cluster.status` = 'red') as 'Red' from ElasticsearchClusterSample Since 1 hour ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Running Get Requests by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`get.currentRequestsRunning`) from ElasticsearchNodeSample  since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 6,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "::: beyond\n **Elasticsearch** \n\nElasticsearch is an open source distributed document store and search engine that stores and retrieves data structures in near real-time.\n\n\n:::"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`shards.primaryActive`) as 'Active Primary Shards' from ElasticsearchClusterSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Total I/O Operations by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`fs.iOOperations`) FROM ElasticsearchNodeSample timeseries since 24 hours ago facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`shards.active`) as 'Active Shards in Cluster' from ElasticsearchClusterSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Documents Currently Being Indexed by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select average(`indexing.documentsCurrentlyIndexing`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Index Health Summary",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT filter(uniqueCount(`index.health`), where `index.health` = 'green') as 'Green', filter(uniqueCount(`index.health`), where `index.health` = 'yellow') as 'Yellow', filter(uniqueCount(`index.health`), where `index.health` = 'red') as 'Red' from ElasticsearchIndexSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Primary Doc Summary",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`primaries.docsnumber`) as 'Docs in Primary Shards', latest(`primaries.docsDeleted`) as 'Docs Deleted in Primary Shards' from ElasticsearchCommonSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Total Documents Indexed by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`indexing.documentsIndexed`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Documents by Index",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`index.docs`) from ElasticsearchIndexSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Total Documents Deleted by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`indexing.totalDocumentsDeleted`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Documents Currently Being Deleted by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`indexing.docsCurrentlyDeleted`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Deleted Documents by Index",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`index.docsDeleted`) from ElasticsearchIndexSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Time Spent Deleting Documents by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`indexing.timeDeletingDocumentsInMilliseconds`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Time Spent Indexing Documents by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select average(`indexing.timeIndexingDocumentsInMilliseconds`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Primary Shards by Index",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`index.primaryShards`) from ElasticsearchIndexSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Query Cache Evictions by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`indices.queryCacheEvictions`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Query Cache Hits by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`indices.queryCacheHits`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Replica Shards by Index",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`index.replicaShards`) from ElasticsearchIndexSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Shard Source Ongoing Recoveries by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`indices.recoveryOngoingShardSource`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Doc Merges Across Segments by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`merges.docsSegmentsMerging`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Primary Shard Store Size by Index",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`index.primaryStoreSizeInBytes`) from ElasticsearchIndexSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 25,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Active Segment Merges by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`merges.currentActive`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 25,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Total Segment Merges by Node",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`merges.segmentMerges`) from ElasticsearchNodeSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 25,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Total Store Size by Index",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`index.storeSizeInBytes`) from ElasticsearchIndexSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Initializing Shards",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`shards.initializing`) from ElasticsearchClusterSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Relocating Shards",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`shards.relocating`) from ElasticsearchClusterSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Unassigned Shards",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`shards.unassigned`) from ElasticsearchClusterSample since 24 hours ago timeseries facet entityName"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

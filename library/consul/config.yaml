@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: Consul
+description: |+
+  Official New Relic dashboard for Consul
+  Use this dashboard together with the New Relic Consul On Host Integration to get insight into the performance of your Consul instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Daniel Gola
+

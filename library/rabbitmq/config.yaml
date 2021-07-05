@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: RabbitMQ
+description: |+
+  Official New Relic dashboard for RabbitMQ
+  Use this dashboard together with the New Relic RabbitMQ On Host Integration to get insight into the performance of your RabbitMQ instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Daniel Gola
+

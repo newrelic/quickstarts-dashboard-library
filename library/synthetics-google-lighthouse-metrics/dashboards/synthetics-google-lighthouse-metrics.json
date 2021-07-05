@@ -1,0 +1,358 @@
+{
+	"name": "Lighthouse Metrics",
+	"description": null,
+	"pages": [
+		{
+			"name": "Lighthouse Metrics",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Lighthouse Metrics",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.firstContentfulPaint) as 'FCP', average(custom.largestContentfulPaint) as 'LCP', average(custom.interactive) as 'TTI', average(custom.totalBlockingTime) as 'TBT', average(custom.cumulativeLayoutShift) as 'CLS', average(custom.speedIndex) as 'Speed Index'"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 1,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Lighthouse Metrics - trending",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.firstContentfulPaint) as 'FCP', average(custom.largestContentfulPaint) as 'LCP', average(custom.interactive) as 'TTI', average(custom.totalBlockingTime) as 'TBT', average(custom.cumulativeLayoutShift) as 'CLS', average(custom.speedIndex) as 'Speed Index' TIMESERIES AUTO"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "First Contentful Paint",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.firstContentfulPaint) FACET custom.url "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 4,
+						"height": 3,
+						"width": 8
+					},
+					"title": "First Contentful Paint",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.firstContentfulPaint) FACET custom.url TIMESERIES AUTO"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 7,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Largest Contentful Paint",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.largestContentfulPaint) FACET custom.url "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 7,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Largest Contentful Paint",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.largestContentfulPaint) FACET custom.url TIMESERIES AUTO "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "TTI",
+					"rawConfiguration": {
+						"dataFormatters": [
+							{
+								"name": "TTI",
+								"type": "decimal"
+							}
+						],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.interactive) as 'TTI' FACET custom.url "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 10,
+						"height": 3,
+						"width": 8
+					},
+					"title": "TTI - trending",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.interactive) FACET custom.url TIMESERIES AUTO "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 13,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Total Blocking Time (TBT)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.totalBlockingTime) FACET custom.url "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 13,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Total Blocking Time (TBT) - trending",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.totalBlockingTime) FACET custom.url TIMESERIES AUTO "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 16,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Cumulative Layout Shift (CLS)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.cumulativeLayoutShift) FACET custom.url "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 16,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Cumulative Layout Shift (CLS)",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.cumulativeLayoutShift) FACET custom.url TIMESERIES AUTO "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 19,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Speed Index",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.speedIndex) FACET custom.url"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 19,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Speed Index - trending",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SyntheticCheck SELECT average(custom.speedIndex) FACET custom.url TIMESERIES AUTO "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				}
+			]
+		}
+	]
+}

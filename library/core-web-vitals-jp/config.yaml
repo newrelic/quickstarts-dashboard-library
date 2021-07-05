@@ -1,0 +1,8 @@
+# Name of your quickstart as shown on the website
+name: Core Web Vitals
+description: Googleの編み出したWeb指標、Core Wev Vitalsのダッシュボードです。より深く理解するためにはこちらのサイトをご確認ください。 https://web.dev/vitals/
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic.
+    - Takuya Azuma

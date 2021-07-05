@@ -1,0 +1,10 @@
+# Name of your quickstart as shown on the website
+name: VMwarevsphere
+description: |+
+  Official New Relic dashboard for VMwarevsphere
+  Use this dashboard together with the New Relic VMwarevsphere On Host Integration to get insight into the performance of your VMwarevsphere instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak

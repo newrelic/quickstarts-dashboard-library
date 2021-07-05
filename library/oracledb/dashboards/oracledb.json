@@ -1,0 +1,286 @@
+{
+    "name": "OracleDB",
+    "description": "",
+    "pages": [
+        {
+            "name": "OracleDB",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Physical Reads Rate",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`disk.reads`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Physical Writes Rate",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`disk.writes`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 6,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "::: beyond\n**Oracle Database**\n\nOracle Database is a database management system produced by Oracle Corporation. \n\nThe Oracle Database integration collects key metrics about a database and its associated tablespaces. The integration provides several configuration options to control which metrics are collected.\n\n\n:::"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Physical Read Bytes Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`disk.physicalReadBytesPerSecond`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Executions Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`db.executionsPerSecond`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Tablespace Used (%)",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`tablespace.spaceUsedPercentage`) FROM OracleTablespaceSample TIMESERIES 1 hour FACET entityName SINCE 1 week ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Tablespace Offline",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`tablespace.isOffline`) AS `Is Offline` FROM OracleTablespaceSample FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Host CPU Utilization (%)",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`db.hostCpuUtilization`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Physical Reads Direct Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`disk.physicalReadsPerSecond`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Physical Writes Direct Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`disk.physicalWritesPerSecond`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "IO Megabytes Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`network.ioMegabytesPerSecond`) from OracleDatabaseSample TIMESERIES 1 minute FACET entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "User Transactions Per Second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`query.transactionsPerSecond`) FROM OracleDatabaseSample TIMESERIES 1 minute FACET entityName SINCE 60 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Session Count",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`db.sessionCount`) AS `Sessions` FROM OracleDatabaseSample TIMESERIES 10 minutes FACET entityName SINCE 1 day ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Global Memory Bound",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`memory.pgaMaxSizeInBytes`) FROM OracleDatabaseSample TIMESERIES 1 hour FACET entityName SINCE 1 week ago"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+---
+name: New Relic Usage
+url: https://docs.newrelic.com/docs/accounts/accounts-billing/new-relic-one-pricing-users/usage-queries-alerts/
+eventTypes:
+  - NrConsumption
+  - NrMTDConsumption
+  - NrUsage

@@ -8,8 +8,5 @@ authors:
     - Harry Kimpel
 
 sources:
-    - Dapr
-    - name: Docs
-      url: https://docs.dapr.io/
-    - name: New Relic How-To
+    - name: Dapr
       url: https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/

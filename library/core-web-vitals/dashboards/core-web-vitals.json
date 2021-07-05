@@ -18,7 +18,7 @@
 					},
 					"title": "",
 					"rawConfiguration": {
-						"text": "* ![Add Images](https://docs.newrelic.com/sites/default/files/thumbnails/image/core-web-vitals_0.png)\n"
+						"text": "* ![Add Images](https://docs.newrelic.com/static/e19694ae33f749d66a346968f23bfb5a/69d6b/core-web-vitals_0.png)\n"
 					}
 				},
 				{
@@ -276,7 +276,7 @@
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') as 'Cumulative Layout Shift', percentile(pageHide, 75) FROM PageViewTiming WHERE FACET appName, browserTransactionName LIMIT 50"
+								"query": "SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') as 'Cumulative Layout Shift', percentile(pageHide, 75) FROM PageViewTiming FACET appName, browserTransactionName LIMIT 50"
 							}
 						]
 					}

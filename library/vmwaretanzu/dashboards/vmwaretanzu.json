@@ -1,0 +1,386 @@
+{
+    "name": "VMware Tanzu",
+    "description": "",
+    "pages": [
+        {
+            "name": "VMware Tanzu",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Domains",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT count(*) AS 'Event Count' FROM PCFCapacity, PCFContainerMetric, PCFCounterEvent, PCFHttpStartStop, PCFLogMessage, PCFValueMetric facet pcf.domain"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Apps by Org",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select uniqueCount(`app.space.name`) as 'Spaces', count(*) as 'Events' from PCFContainerMetric facet `app.org.name` limit 1000"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 6,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "::: beyond\n **VMware Tanzu (ex PCF)** \n\nThis dashboard provides an overview of your VMware Tanzu platform health. Apply filters to focus on a specific application or domain.\n\n\n:::"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Apps by name",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select uniqueCount(`app.instance.uid`) as 'Instances', count(*) as 'Events' from PCFContainerMetric facet app.name limit 1000"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Apps by Space",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select uniqueCount(`app.name`) as 'Apps', count(*) as 'Events' from PCFContainerMetric facet `app.space.name` limit 1000"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Application CPU Usage %",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select average(metric.sum / `metric.samples.count`) from PCFContainerMetric WHERE collector.name='cloudwatch-metric-streams' AND metric.name = `app.cpu` facet `app.name` timeseries"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Memory Usage % by Apps",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select average(`app.memory.used`) from PCFContainerMetric WHERE collector.name='cloudwatch-metric-streams' AND metric.name = `app.memory` facet `app.instance.uid` timeseries"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Disk Usage % by Application",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select average(`app.disk.used`) from PCFContainerMetric WHERE collector.name='cloudwatch-metric-streams' AND `metric.name` = 'app.disk' facet `app.instance.uid` timeseries"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Crash count by Apps",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT count(*) as 'Crashes' from PCFLogMessage where `log.message` like '%CRASHED%' facet app.name"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Error count per App",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT count(*) FROM PCFLogMessage facet `app.instance.uid` WHERE collector.name='cloudwatch-metric-streams' AND `log.message.type` = 'ERR'"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Apps Crash History",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT count(*) as 'Crashes' from PCFLogMessage where `log.message` like '%CRASHED%' facet app.name timeseries"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Auctioneer Task Placement Failures",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`metric.sum`) as `Failed Task Placements` FROM PCFCounterEvent WHERE collector.name='cloudwatch-metric-streams' AND `metric.name` = `AuctioneerTaskAuctionsFailed`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Http Status Codes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select count(*) from PCFHttpStartStop FACET http.status"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Auctioneer App Instance Starts",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`metric.sum`) as `Started Auctioneer LRPs` FROM `PCFCounterEvent` WHERE collector.name='cloudwatch-metric-streams' AND `metric.name` = `AuctioneerLRPAuctionsStarted`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Diego Cell - Unhealthy Cells",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`metric.max`)  FROM `PCFValueMetric` SINCE 5 minutes ago WHERE collector.name='cloudwatch-metric-streams' AND `metric.name` = `UnhealthyCell`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Diego Cell Remaining Memory in GB",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`metric.sample.last.value`) AS 'Remaining Memory GB' FROM PCFValueMetric FACET pcf.IP WHERE collector.name='cloudwatch-metric-streams' AND `metric.name` = 'CapacityRemainingMemory' AND `pcf.job` ='diego_cell'"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Diego Cell Remaining Disk in GB",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(`metric.sample.last.value`)/1024 AS 'Remaining Disk GB' FROM PCFValueMetric FACET pcf.IP  WHERE collector.name='cloudwatch-metric-streams' AND `metric.name` = 'CapacityRemainingDisk' AND `pcf.job` ='diego_cell'"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Firehose Dropped Messages",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(metric.sum) as 'Dropped Messages' FROM PCFValueMetric SINCE 5 minutes AGO WHERE collector.name='cloudwatch-metric-streams' AND metric.name = `opentsdb.nozzle.DopplerServer.doppler.shedEnvelopes`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Number of Events",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT count(*) as 'All Events' FROM PCFCapacity, PCFContainerMetric, PCFCounterEvent, PCFHttpStartStop, PCFLogMessage, PCFValueMetric TIMESERIES"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

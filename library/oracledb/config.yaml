@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: OracleDB
+description: |+
+  Official New Relic dashboard for OracleDB
+  Use this dashboard together with the New Relic OracleDB On Host Integration to get insight into the performance of your OracleDB instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak
+    - D. Gola
