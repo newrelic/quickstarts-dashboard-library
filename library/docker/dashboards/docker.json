@@ -1,0 +1,432 @@
+{
+    "name": "Docker",
+    "description": "",
+    "pages": [
+        {
+            "name": "Docker",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Total (%)",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpuPercent) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Kernel (%)",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpuKernelPercent) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU User (%)",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpuUserPercent) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Core",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpuUsedCores) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Core Usage (%)",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpuUsedCoresPercent) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 4,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Throttle Time",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpuThrottleTimeMs) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Memory Usage Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(memoryUsageBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Memory Resident Size Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(memoryResidentSizeBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Memory Cache Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(memoryCacheBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Receive Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(networkRxBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Transmit Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(networkTxBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Total Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioTotalBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Read Bytes per second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioReadBytesPerSecond) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Read Count per second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioReadCountPerSecond) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Container Restart Count",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(restartCount) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Write Bytes per second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioWriteBytesPerSecond) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Write Count per second",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioWriteCountPerSecond) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Total Read Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioTotalReadBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Total Write Bytes",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioTotalWriteBytes) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Total Read Count",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioTotalReadCount) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "I/O Total Write Count",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(ioTotalWriteCount) FROM ContainerSample TIMESERIES FACET `name`, `fullHostname`"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

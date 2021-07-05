@@ -6,8 +6,16 @@ const { getSources } = require('./sources');
 const { findQueries, findSources } = require('./helpers');
 
 // Initiate logger
+let error = false;
+const checkError = winston.format((line) => {
+  if (line.level === 'error') {
+    error = true;
+  }
+  return line;
+});
 const logger = winston.createLogger({
   format: winston.format.combine(
+    checkError(),
     winston.format.colorize(),
     winston.format.simple()
   ),
@@ -38,7 +46,6 @@ function processQuickstart(element) {
     description: '',
     authors: [],
     sources: [],
-    alerts: [],
     dashboards: [],
     flex: [],
   };
@@ -62,8 +69,7 @@ function processQuickstart(element) {
   quickstart.name = config.name || element;
   quickstart.description = config.description || '';
   quickstart.authors = config.authors || [];
-  quickstart.sources = config.sources || [];
-  quickstart.alerts = config.alerts || [];
+  quickstart.sources = []; // temporary disabled more complicated sources: config.sources || [];
 
   //
   // Read dashboard directory and read in all dashboards + screenshots
@@ -121,11 +127,6 @@ function processQuickstart(element) {
           return item !== undefined && (!pos || item !== ary[pos - 1]);
         });
 
-      // Create product array
-      quickstart.products = source.map((source) => {
-        return source.name;
-      });
-
       // Create entities array
       quickstart.entities = source
         .map((source) => {
@@ -158,6 +159,12 @@ function processQuickstart(element) {
             item.type !== ary[pos - 1].type
           );
         });
+
+      // Check if permissions were set, if so give user error
+      if ('permissions' in dashboardJson) {
+        logger.error(`Incorrect dashboard export, permissions field found.`);
+        logger.error('Please remove the permissions from the dashboards JSON.');
+      }
 
       // Do a sanity check of all widgets
       for (const page of dashboardJson.pages) {
@@ -195,6 +202,36 @@ function processQuickstart(element) {
               'Please delete configuration if rawConfiguration has been set.'
             );
             exit(1);
+          }
+
+          // Check widget configuration
+          if (
+            'rawConfiguration' in widget &&
+            'nrqlQueries' in widget.rawConfiguration
+          ) {
+            for (const nrqlQuery of widget.rawConfiguration.nrqlQueries) {
+              // Check if accountId is set to 0
+              if (nrqlQuery.accountId !== 0) {
+                logger.error(
+                  `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
+                );
+                logger.error('AccountId should be set to 0');
+              }
+
+              // Check if query doesn't contain any banned keywords
+              const query = nrqlQuery.query.toLowerCase();
+              const keywords = ['timezone', 'webportal'];
+              for (const keyword of keywords) {
+                if (query.includes(keyword)) {
+                  logger.error(
+                    `Incorrect widget found in ${element} ${filename}, title: ${widget.title}`
+                  );
+                  logger.error(
+                    `Query contains a ${keyword} clause, this will not work on all customer accounts.`
+                  );
+                }
+              }
+            }
           }
         }
       }
@@ -254,6 +291,13 @@ function processQuickstart(element) {
   quickstart.sources = Array.from(new Set(quickstart.sources)).sort();
 
   return quickstart;
+}
+
+//
+// Check if logger has error
+//
+if (error) {
+  exit(1);
 }
 
 //

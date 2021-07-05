@@ -1,0 +1,867 @@
+{
+	"name": "Unix Monitor Dashboard",
+	"description": null,
+	"pages": [
+		{
+			"name": "Overview",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "![Unix Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/UNIX_logo.svg/244px-UNIX_logo.svg.png)\n\nFiltered hosts selected from the list or typed in Search pane above will persist across the other pages and can be turned off by clicking the (X) next to it in the Search pane."
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 1,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Unix Host Overview",
+					"rawConfiguration": {
+						"dataFormatters": [
+							{
+								"name": "Fullest Disk %",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Memory Use %",
+								"precision": 2,
+								"type": "decimal"
+							},
+							{
+								"name": "CPU Use %",
+								"precision": 2,
+								"type": "decimal"
+							}
+						],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Disk`, `unixMonitor:Stats` SELECT latest(timestamp) AS 'Last Reported', 100 - latest(`cpu.idle`) AS 'CPU Use %', latest(`memory.used`)/(latest(`memory.used`)+latest(`memory.free`)) * 100 AS 'Memory Use %', max(percentUsed) AS 'Fullest Disk %' FACET hostname SINCE 1 HOUR AGO LIMIT MAX "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "CPU Utilization %",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT 100 - latest(`cpu.idle`) AS 'Used Percent' FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 5,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Fullest Disk %",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Disk` SELECT max(percentUsed) FACET hostname, mountedOn OR instance SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 9,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Memory Utilization %",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT latest(`memory.used`)/(latest(`memory.used`)+latest(`memory.free`)) * 100 FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 7,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Process Counts",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Process` SELECT uniqueCount(pid) FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 5,
+						"row": 7,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Network Interface - Total Bytes",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:NetworkIO` SELECT latest(receive.bytes) + latest(transmit.bytes) FACET hostname, instance SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "CPU",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 8
+					},
+					"title": "CPU Overview",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT 100 - latest(`cpu.idle`) AS 'Utilization %', latest(`cpu.idle`) AS 'Idle', latest(`cpu.iowait`) AS 'IOWait', latest(`cpu.system`) AS 'System', latest(`cpu.user`) AS 'User' FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Average CPU Usage",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT average(`cpu.iowait`) AS 'IOWait', average(`cpu.system`) AS 'System', average(`cpu.user`) AS 'User' TIMESERIES SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						],
+						"yAxisLeft": {
+							"max": 100,
+							"min": 0,
+							"zero": false
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Load Averages",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": " FROM `unixMonitor:Stats` SELECT latest(`loadaverage.1Minute`) AS '1 Minute',latest(`loadaverage.5Minute`) AS '5 Minute', latest(`loadaverage.15Minute`) AS '15 Minute' FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Load Averages",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT average(`loadaverage.15Minute`) AS '15min', average(`loadaverage.1Minute`) AS '1min', average(`loadaverage.5Minute`) AS '5min' TIMESERIES SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						],
+						"yAxisLeft": {
+							"zero": false
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Memory",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Memory Overview",
+					"rawConfiguration": {
+						"dataFormatters": [
+							{
+								"name": "Wired",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Pinned",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Available",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Virtual",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Free",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Used",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Total",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Utilization %",
+								"precision": 2,
+								"type": "decimal"
+							}
+						],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT latest(`memory.used`)/(latest(`memory.used`)+latest(`memory.free`)) * 100 AS 'Utilization %', latest(`memory.total`) AS 'Total', latest(`memory.used`) AS 'Used', latest(`memory.free`) AS 'Free', latest(`memory.virtual`) AS 'Virtual', latest(`memory.available`) AS 'Available', latest(`memory.pinned`) AS 'Pinned', latest(`memory.wired`) AS 'Wired' FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Average Memory Usage",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT average(`memory.used`) AS 'Used', average(`memory.available`) AS 'Available', average(`memory.virtual`) AS 'Virtual' TIMESERIES SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						],
+						"yAxisLeft": {
+							"zero": false
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Swap Overview",
+					"rawConfiguration": {
+						"dataFormatters": [
+							{
+								"name": "Free",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Used",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Total",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Utilization %",
+								"precision": 2,
+								"type": "decimal"
+							}
+						],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT latest(`swap.used`)/(latest(`swap.used`)+latest(`swap.free`)) * 100 AS 'Utilization %', latest(`swap.total`) AS 'Total', latest(`swap.used`) AS 'Used', latest(`swap.total`)-latest(`swap.used`) AS 'Free' FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Average Swap Usage",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Stats` SELECT average(`swap.used`)/(average(`swap.used`) + average(`swap.free`)) * 100 AS 'Utilization %' TIMESERIES SINCE 1 HOUR AGO"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Disk",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Disk Space Overview (Bytes)",
+					"rawConfiguration": {
+						"dataFormatters": [
+							{
+								"name": "Free",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Used",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Total",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Utilization %",
+								"precision": 2,
+								"type": "decimal"
+							}
+						],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Disk` SELECT latest(percentUsed) AS 'Utilization %', latest(total) AS 'Total', latest(used) AS 'Used', latest(free) AS 'Free' FACET hostname, mountedOn OR instance SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Average Disk Used Percent",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Disk` SELECT average(percentUsed) FACET hostname, mountedOn OR instance TIMESERIES SINCE 1 HOUR AGO LIMIT 50"
+							}
+						],
+						"yAxisLeft": {
+							"max": 100,
+							"min": 0,
+							"zero": false
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 4,
+						"height": 4,
+						"width": 8
+					},
+					"title": "Disk IO Details",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:DiskIO` SELECT latest(timestamp) FACET hostname, mountedOn OR instance, averageQueueLength, averageServiceTime, percentageOfTimeBusy, `percentageOfTimeNon-emptyQueue`, readsPerInterval, dataReadPerInterval, writesPerInterval, dataWrittenPerInterval SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 4,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Percentage of Time Busy",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:DiskIO` SELECT max(percentageOfTimeBusy) FACET hostname, mountedOn OR instance SINCE 1 HOUR AGO TIMESERIES LIMIT 50"
+							}
+						],
+						"yAxisLeft": {
+							"max": 100,
+							"min": 0,
+							"zero": false
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Network",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 6,
+						"width": 8
+					},
+					"title": "Network Overview",
+					"rawConfiguration": {
+						"dataFormatters": [
+							{
+								"name": "Errors Sent",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Packets Sent",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Bytes Sent",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Errors Received",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Packets Received",
+								"precision": null,
+								"type": "humanized"
+							},
+							{
+								"name": "Bytes Received",
+								"precision": null,
+								"type": "humanized"
+							}
+						],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:NetworkIO` SELECT latest(`receive.bytes`) AS 'Bytes Received', latest(`receive.packets`) AS 'Packets Received', latest(`receive.errors`) AS 'Errors Received', latest(`transmit.bytes`) AS 'Bytes Sent', latest(`transmit.packets`) AS 'Packets Sent', latest(`transmit.errors`) AS 'Errors Sent' FACET hostname, instance AS 'Interface' SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 1,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Network - Total Errors",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:NetworkIO` SELECT latest(receive.errors) + latest(transmit.errors) FACET hostname, instance TIMESERIES 5 MINUTES SINCE 1 HOUR AGO LIMIT 50"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 4,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Network Usage - Total Bytes",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:NetworkIO` SELECT latest(receive.bytes) + latest(transmit.bytes) FACET hostname, instance TIMESERIES 5 MINUTES SINCE 1 HOUR AGO LIMIT 50"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Processes",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 4,
+						"width": 12
+					},
+					"title": "Process List",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Process` SELECT latest(instance), latest(timestamp) AS 'last reported', latest(state), latest(`cpu`), latest(`memory`), latest(`residentSetSize`), latest(`virtualSize`), latest(command) FACET hostname, pid SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 1,
+						"row": 5,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Process Instance Counts",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Process` SELECT uniqueCount(pid) FACET instance TIMESERIES SINCE 1 HOUR AGO LIMIT 50"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 5,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Average Process CPU",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Process` SELECT average(cpu) FACET hostname, instance TIMESERIES SINCE 1 HOUR AGO LIMIT 50"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 5,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Average Process Memory",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Process` SELECT average(memory) FACET hostname, instance TIMESERIES SINCE 1 HOUR AGO LIMIT 50"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "VMStat",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 5,
+						"width": 3
+					},
+					"title": "Hostnames",
+					"rawConfiguration": {
+						"dataFormatters": [
+							{
+								"name": "Last Reported",
+								"type": "recent-relative"
+							}
+						],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Vmstat` SELECT latest(timestamp) AS 'Last Reported' FACET hostname SINCE 1 HOUR AGO LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 4,
+						"row": 1,
+						"height": 5,
+						"width": 9
+					},
+					"title": "VMStat Statistics (Filter with other List)",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM `unixMonitor:Vmstat` SELECT hostname, osName, forks, interrupts, totalMemory, usedMemory, activeMemory, inactiveMemory, bufferMemory, freeMemory, totalSwap, freeSwap, usedSwap, swapCache, pagesPagedIn, pagesPagedOut, pagesSwappedIn, pagesSwappedOut, cpuContextSwitches, systemCpuTicks, idleCpuTicks, `io-waitCpuTicks`, niceCpuTicks, `non-niceCpuTicks`, irqCpuTicks, softirqCpuTicks, stolenCpuTicks SINCE 1 HOUR AGO LIMIT 1"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}

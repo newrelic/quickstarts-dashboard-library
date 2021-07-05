@@ -1,0 +1,10 @@
+# Name of your quickstart as shown on the website
+name: Kafka
+description: |+
+  Official New Relic dashboard for Kafka
+  Use this dashboard together with the New Relic Kafka On Host Integration to get insight into the performance of your Kafka instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak

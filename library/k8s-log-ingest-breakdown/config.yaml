@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: Log Ingest Breakdown
+description: |+
+  Shows log bytes ingest
+  faceted by several common attributes k8s logs:
+  application, environment, and container.
+
+# Optional: Authors of the quickstart
+authors:
+    - Jim Hagan
+    - Brian Bost

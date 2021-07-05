@@ -1,0 +1,12 @@
+# Name of your quickstart as shown on the website
+name: HAProxy
+description: |+
+  Official New Relic dashboard for HAProxy
+  Use this dashboard together with the New Relic HAProxy On Host Integration to get insight into the performance of your HAProxy instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak
+
+

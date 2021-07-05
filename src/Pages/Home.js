@@ -34,9 +34,9 @@ class Home extends React.Component {
       <div>
         <section className="jumbotron text-center">
           <div className="container">
-            <h1>New Relic - Quick start library Preview</h1>
+            <h1>New Relic - Quickstarts library Preview</h1>
             <p className="lead text-muted">
-              Library of curated dashboards & alerts with their dependencies.
+              Library of curated dashboards with their dependencies.
             </p>
           </div>
 

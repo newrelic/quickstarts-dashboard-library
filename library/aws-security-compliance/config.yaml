@@ -1,0 +1,17 @@
+# Name of your quickstart as shown on the website
+name: AWS Security & Compliance
+
+# Optional: Authors of the quickstart
+authors:
+    - Daniel Fitzgerald
+
+# Optional: Add additional sources as some can't be auto detected by the scripts (for example Prometheus data).
+# You can also redirect to external webpages when the dashboards provides specific installation instructions
+sources:
+  - Logs
+  - name: AWS GuardDuty -> EventBridge -> Kinesis Firehose Delivery Stream -> NR Logs
+    url: https://docs.newrelic.com/docs/logs/enable-log-management-new-relic/enable-log-monitoring-new-relic/stream-logs-using-kinesis-data-firehose/
+  - CloudTrail
+  - name: AWS CloudTrail Integration
+    url: https://docs.newrelic.com/docs/integrations/amazon-integrations/aws-integrations-list/aws-cloudtrail-monitoring-integration/
+    

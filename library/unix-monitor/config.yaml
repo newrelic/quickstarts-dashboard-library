@@ -1,0 +1,13 @@
+# Name of your quickstart as shown on the website
+name: Unix Monitor
+description: This dashboard is a collection of pages representing the telemetry gathered by the New Relic Unix Monitor
+
+# Optional: Authors of the quickstart
+authors:
+    - Zack Mutchler
+    - Seth Schwartzman
+
+sources:
+  - Unix Integration
+  - name: New Relic Unix Monitor
+    url: https://github.com/newrelic/newrelic-unix-monitor

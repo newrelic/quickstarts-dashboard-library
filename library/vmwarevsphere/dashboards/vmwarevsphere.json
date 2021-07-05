@@ -1,0 +1,326 @@
+{
+    "name": "VMware vSphere",
+    "description": "",
+    "pages": [
+        {
+            "name": "VMware vSphere",
+            "description": "",
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Top 10 Virtual Machines by average memory consumption",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(mem.usage)/average(mem.size)*100 as 'Memory Usage %', average(mem.usage) as 'Memory Usage MiB', average(mem.size) as 'Memory Size MiB'  FROM VSphereVmSample  facet  entityName, vmConfigName, datacenterName , clusterName limit 10 since 1 day ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 1,
+                        "height": 6,
+                        "width": 4
+                    },
+                    "rawConfiguration": {
+                        "text": "::: beyond\n **VMware vSphere** \n\nThis dashboard provides an overview of your VMware vSphere platform health.\n\n\n:::"
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 4,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Top 10 Virtual Machines by average CPU consumption",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpu.hostUsagePercent) as 'CPU Usage %', max(cpu.cores) as 'CPU cores allocated' FROM VSphereVmSample  facet entityName, vmConfigName, datacenterName , clusterName limit 10 since 1 hour ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 7,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Top 10 Hosts by average memory consumption",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(mem.usage/mem.size)*100 as 'MEM consumption %' from VSphereHostSample facet entityName, hypervisorHostname, datacenterName, clusterName  limit 10 since 10 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.billboard"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 7,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "VM Power Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT filter(uniqueCount(entityId), where powerState = 'poweredOn') as 'Vm poweredOn' , filter(uniqueCount(entityId), where powerState = 'poweredOff') as 'Vm poweredOff' from VSphereVmSample"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 10,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Top 10 Hosts by average CPU consumption",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(cpu.percent) as 'CPU consumption %' from VSphereHostSample facet entityName, hypervisorHostname,  datacenterName, clusterName  limit 10 since 10 minutes ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.pie"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 10,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Operating system of virtual machines",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniqueCount(entityName) from VSphereVmSample facet operatingSystem"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 13,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Top 10 Datastores by utilization",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(100-freeSpace/capacity*100) as 'Datastore Utilization %' from VSphereDatastoreSample facet entityName limit 10"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 13,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Datastore utilization per datacenter %",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT  100-(average(datastore.totalFreeGiB)/average(datastore.totalGiB)*100) as 'Datastore utilization (%)' FROM VSphereDatacenterSample  facet  entityName as 'datacenter'"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 16,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Total CPU, Memory, Disk per datacenter",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "select max(cpu.totalMHz)/1000 as 'total CPU GHz', max(mem.size)/1024 as 'total Memory GiB', max(datastore.totalGiB)/1024 as 'total Disk TiB' from VSphereDatacenterSample facet entityName"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 16,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Host memory utilization per datacenter %",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(mem.usagePercentage) as 'Memory utilization (%)' FROM VSphereDatacenterSample  facet  entityName as 'datacenter'"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "VMs Overall Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniqueCount(entityId) from VSphereVmSample facet overallStatus"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 19,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Datastores Overall Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniqueCount(entityId) from VSphereDatastoreSample facet overallStatus"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 19,
+                        "height": 6,
+                        "width": 4
+                    },
+                    "title": "List of problematic entities in vSphere",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT latest(overallStatus) from VSphereClusterSample, VSphereDatacenterSample, VSphereDatastoreSample, VSphereHostSample, VSphereResourcePoolSample, VSphereVmSample where overallStatus = 'yellow' OR overallStatus = 'red'  facet entityName since 1 hour ago"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Hosts Overall Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniqueCount(entityId) from VSphereHostSample facet overallStatus"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "visualization": {
+                        "id": "viz.table"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 22,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Clusters Overall Status",
+                    "rawConfiguration": {
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniqueCount(entityId) from VSphereClusterSample facet overallStatus"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

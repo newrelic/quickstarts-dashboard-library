@@ -1,0 +1,18 @@
+# Name of your quickstart as shown on the website
+name: Synthetics - Google Lighthouse Metrics
+description: |+
+  Visualise the results of Google Lighthouse audits using the PageSpeed Insights API.
+  The corresponding Synthetics monitors can be created from the 
+  [Synthetics Library](https://newrelic.github.io/quickstarts-synthetics-library/#/view/GoogleLighthouse)
+
+# Optional: Authors of the quickstart
+authors:
+    - Daniel Fitzgerald
+
+# You can optionally add extra data sources, but this is only needed in certain cases.
+# For example if you use data from Prometheus exporters, or custom API you can add that information here.
+# You can also redirect to external webpages when the dashboards provides specific installation instructions
+sources:
+  - Synthetics
+  - name: PageSpeed Insights API
+    url: https://newrelic.github.io/quickstarts-synthetics-library/#/view/GoogleLighthouse

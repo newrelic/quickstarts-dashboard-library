@@ -1,9 +1,9 @@
 {
-	"name": "Infrastructure Pages Dashboard  ",
+	"name": "Infrastructure Dashboard",
 	"description": "",
 	"pages": [
 		{
-			"name": "infrastructure Overview Dashboard",
+			"name": "Infrastructure Overview",
 			"description": null,
 			"widgets": [
 				{
@@ -13,12 +13,12 @@
 					"layout": {
 						"column": 1,
 						"row": 1,
-						"height": 3,
+						"height": 6,
 						"width": 4
 					},
 					"title": "",
 					"rawConfiguration": {
-						"text": "![New Relic](https://newrelic.com/assets/newrelic/source/NewRelic-logo-bug.png)\n\n#  infrastructure Overview Dashboard\nThis dashboard shows metrics and events from the infrastructure Service on the Full Stack Observability Platform (FSO) \n    \n[Dive deeper into Infrastructure Health and Performance](https://one.newrelic.com/launcher/maps.health-map-launcher?pane=eyJuZXJkbGV0SWQiOiJtYXBzLmhlYWx0aC1tYXAiLCJjbHVzdGVyQnkiOiJIT1NUIn0&platform[accountId]=1606862)\n"
+						"text": "![New Relic](https://newrelic.com/assets/newrelic/source/NewRelic-logo-bug.png)\n\n#  infrastructure Overview Dashboard\nThis dashboard shows metrics and events from the infrastructure Service on the Full Stack Observability Platform (FSO) \n    \n[Dive deeper into Infrastructure Health and Performance](https://one.newrelic.com/launcher/nr1-core.explorer?pane=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5saXN0aW5nIn0=&sidebars[0]=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5jYXRlZ29yaWVzIiwicm9vdE5lcmRsZXRJZCI6Im5yMS1jb3JlLmxpc3RpbmcifQ)\n"
 					}
 				},
 				{
@@ -57,26 +57,6 @@
 							{
 								"accountId": 0,
 								"query": "SELECT average(receiveBytesPerSecond), average(transmitBytesPerSecond) FROM NetworkSample SINCE 30 MINUTES AGO TIMESERIES AUTO"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 1,
-						"row": 4,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Instances per region (AWS)",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT uniqueCount(entityId) from ComputeSample WHERE provider = 'Ec2Instance' AND providerAccountId = '1895' facet `provider.awsRegion`"
 							}
 						]
 					}
@@ -229,7 +209,7 @@
 					"layout": {
 						"column": 9,
 						"row": 13,
-						"height": 3,
+						"height": 6,
 						"width": 4
 					},
 					"title": "What is the IPv4 Address of the Host",
@@ -238,26 +218,6 @@
 							{
 								"accountId": 0,
 								"query": "SELECT uniquecount(hostname) FROM NetworkSample SINCE 30 MINUTES AGO facet ipV4Address, hostname"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 9,
-						"row": 16,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Application Throughput by Host",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) FROM Transaction FACET host SINCE 1 day ago TIMESERIES AUTO"
 							}
 						]
 					}
@@ -284,7 +244,7 @@
 				},
 				{
 					"visualization": {
-						"id": "viz.billboard"
+						"id": "viz.line"
 					},
 					"layout": {
 						"column": 9,
@@ -292,12 +252,12 @@
 						"height": 3,
 						"width": 4
 					},
-					"title": "Max Database Duration",
+					"title": "Top 5 Network Transmitters Timeseries",
 					"rawConfiguration": {
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "SELECT max(databaseDuration) as 'Max Duration' from Transaction where appName = 'Inventory Service' since 1 day ago compare with 1 day ago FACET host "
+								"query": "SELECT average(transmitBytesPerSecond) from NetworkSample FACET hostname LIMIT 5 timeseries"
 							}
 						]
 					}
@@ -324,191 +284,11 @@
 				},
 				{
 					"visualization": {
-						"id": "viz.area"
-					},
-					"layout": {
-						"column": 5,
-						"row": 22,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Errors over Time by Type",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) FROM TransactionError FACET error_type SINCE 1 day ago TIMESERIES"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 9,
-						"row": 22,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Average Network Duration - TimeSeries",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(networkDuration*10*-1) as 'AVG. Network Duration' FROM PageView SINCE 1 HOUR AGO COMPARE WITH 1 hour AGO TIMESERIES"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 1,
-						"row": 25,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Transaction Max Response Time",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT max(duration) from Transaction since 1 day ago compare with 1 day ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 5,
-						"row": 25,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Worst Performing Network Time Per PageUrl - TimeSeries",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT max(networkDuration) from PageView facet name since 1 day ago limit 5 timeseries"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 9,
-						"row": 25,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Average Network Duration",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(networkDuration*10) as 'AVG. Network Duration' FROM PageView SINCE 1 HOUR AGO COMPARE WITH 1 hour AGO"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 1,
-						"row": 28,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Received Packets",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(receivePacketsPerSecond) as 'Packets Per Second' FROM NetworkSample SINCE 1 hour AGO compare with 1 hour ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 5,
-						"row": 28,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Traffic Per Host - Load Balanced",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) from Transaction  since 1 day ago facet host limit 5"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 9,
-						"row": 28,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Top 5 Network Transmitters Timeseries",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(transmitBytesPerSecond) from NetworkSample FACET hostname LIMIT 5 timeseries"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 1,
-						"row": 31,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Traffic Per Host - Load Balanced - TimeSeries",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) from Transaction  since 1 day ago facet host limit 5 TIMESERIES"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
 						"id": "viz.bar"
 					},
 					"layout": {
 						"column": 5,
-						"row": 31,
+						"row": 22,
 						"height": 3,
 						"width": 4
 					},
@@ -524,21 +304,80 @@
 				},
 				{
 					"visualization": {
-						"id": "viz.bullet"
+						"id": "viz.bar"
 					},
 					"layout": {
 						"column": 9,
-						"row": 31,
+						"row": 22,
 						"height": 3,
 						"width": 4
 					},
-					"title": "Percentage of Hosts On-Premises (Query changes needed)",
+					"title": "Server System Percent",
 					"rawConfiguration": {
-						"limit": 100,
 						"nrqlQueries": [
 							{
 								"accountId": 0,
-								"query": "SELECT percentage(count(*) / 100, WHERE appName = 'WebPortal' OR appName = 'Plan Service') as 'Percent of hosts On-premises' FROM Transaction WHERE appName NOT LIKE '%Tower%' since 10 minutes ago limit 100"
+								"query": "SELECT average(cpuSystemPercent) FROM SystemSample since 3 hours ago facet hostname limit 400"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 1,
+						"row": 25,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Received Packets",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(receivePacketsPerSecond) as 'Packets Per Second' FROM NetworkSample SINCE 1 hour AGO compare with 1 hour ago"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 25,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Top 5 Disk Consumers Timeseries",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "select average(diskUsedPercent) from StorageSample facet hostname limit 5 TIMESERIES"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 9,
+						"row": 25,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Infrastructure Events by Hosts",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT count(*) FROM InfrastructureEvent,StorageSample,SystemSample FACET hostname SINCE 1 month ago LIMIT 25"
 							}
 						]
 					}
@@ -549,7 +388,7 @@
 					},
 					"layout": {
 						"column": 1,
-						"row": 34,
+						"row": 28,
 						"height": 3,
 						"width": 4
 					},
@@ -569,49 +408,9 @@
 					},
 					"layout": {
 						"column": 5,
-						"row": 34,
+						"row": 28,
 						"height": 3,
-						"width": 4
-					},
-					"title": "Top 5 Disk Consumers Timeseries",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "select average(diskUsedPercent) from StorageSample facet hostname limit 5 TIMESERIES"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.pie"
-					},
-					"layout": {
-						"column": 9,
-						"row": 34,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Errors by Application",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) FROM TransactionError FACET appName SINCE 1 hour ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 1,
-						"row": 37,
-						"height": 3,
-						"width": 4
+						"width": 8
 					},
 					"title": "Top 5 CPU Timeseries",
 					"rawConfiguration": {
@@ -622,173 +421,11 @@
 							}
 						]
 					}
-				},
-				{
-					"visualization": {
-						"id": "viz.pie"
-					},
-					"layout": {
-						"column": 5,
-						"row": 37,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Total number of hosts by Application (Query changes needed)",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) / 100 as 'Hosts' FROM Transaction WHERE appName NOT LIKE '%Tower%' FACET appName   SINCE 1 day ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 9,
-						"row": 37,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Application Quality Score",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "select apdex(duration , t: 0.5) * 100 FROM Transaction facet appName limit 5"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bullet"
-					},
-					"layout": {
-						"column": 1,
-						"row": 40,
-						"height": 3,
-						"width": 4
-					},
-					"title": "External Uptime",
-					"rawConfiguration": {
-						"limit": 100,
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT percentage(count(*), WHERE result = 'SUCCESS') as 'Uptime' from SyntheticCheck  limit 1000 since 1 week ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 5,
-						"row": 40,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Infrastructure Events by Hosts",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) FROM InfrastructureEvent,StorageSample,SystemSample FACET hostname SINCE 1 month ago LIMIT 25"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 9,
-						"row": 40,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Server System Percent",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuSystemPercent) FROM SystemSample since 3 hours ago facet hostname limit 400"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 1,
-						"row": 43,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Errors by Server",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT count(*) FROM TransactionError FACET host SINCE 1 hour ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 5,
-						"row": 43,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Server Quality Score",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "select apdex(duration , t: 0.5) * 100 FROM Transaction facet host limit 5"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bullet"
-					},
-					"layout": {
-						"column": 9,
-						"row": 43,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Transaction Times",
-					"rawConfiguration": {
-						"limit": 0.1,
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(duration) from Transaction  since 3 hours ago"
-							}
-						]
-					}
 				}
 			]
 		},
 		{
-			"name": "Health of Hosts ",
+			"name": "Health of Hosts",
 			"description": null,
 			"widgets": [
 				{
@@ -927,387 +564,6 @@
 							{
 								"accountId": 0,
 								"query": "SELECT uniqueCount(processId), latest(userName), average(cpuPercent) AS 'CPU Percent', average(memoryResidentSizeBytes) / 1024000 AS 'Memory (MB)' FROM ProcessSample FACET processDisplayName SINCE 1 hour ago"
-							}
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "Kubernetes Integration ",
-			"description": null,
-			"widgets": [
-				{
-					"visualization": {
-						"id": "viz.markdown"
-					},
-					"layout": {
-						"column": 1,
-						"row": 1,
-						"height": 3,
-						"width": 4
-					},
-					"title": "",
-					"rawConfiguration": {
-						"text": "![New Relic](https://newrelic.com/assets/newrelic/source/NewRelic-logo-bug.png)\n\n#  Kubernetes Integration - Infrastructure Dashboard\nThis dashboard shows metrics and Uptime from the K8's Explorer on the Full Stack Observability Platform (FSO) \n    \n[Dive deeper into Your K8's ](https://one.newrelic.com/launcher/k8s-cluster-explorer-nerdlet.cluster-explorer-launcher?pane=eyJuZXJkbGV0SWQiOiJrOHMtY2x1c3Rlci1leHBsb3Jlci1uZXJkbGV0Lms4cy1jbHVzdGVyLWxpc3QifQ==&platform[accountId]=1606862&platform[$isFallbackTimeRange]=false)\n"
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 5,
-						"row": 1,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Total Pods",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sNodeSample, K8sPodSample select uniqueCount(podName) as 'Pods'"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 9,
-						"row": 1,
-						"height": 3,
-						"width": 4
-					},
-					"title": "# of K8s Objects",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sNodeSample, K8sNamespaceSample, K8sDeploymentSample, K8sPodSample, K8sContainerSample SELECT uniqueCount(K8sNodeSample.entityId) as 'Nodes', uniqueCount(K8sNamespaceSample.clusterName) as 'Clusters', uniqueCount(K8sNamespaceSample.entityId) as 'Namespaces', uniqueCount(K8sDeploymentSample.entityId) as 'Deployments', uniqueCount(K8sPodSample.entityId) as 'Pods', uniqueCount(K8sContainerSample.containerID) as 'Containers'"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 1,
-						"row": 4,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Namespaces per Cluster",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sNamespaceSample SELECT uniqueCount(namespace) FACET clusterName limit 100"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 5,
-						"row": 4,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Total Node Memory Used",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sNodeSample SELECT (average(memoryUsedBytes) * uniqueCount(entityName)) / 1000000000 as 'GBytes'"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.area"
-					},
-					"layout": {
-						"column": 9,
-						"row": 4,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Container Restarts",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sContainerSample SELECT max(restartCount)-min(restartCount) as 'Restarts' FACET clusterName, podName, containerName TIMESERIES limit 50"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 1,
-						"row": 7,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Pods by Namespace",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sPodSample SELECT uniqueCount(entityId) as 'pod' FACET namespace limit 100"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 5,
-						"row": 7,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Total Node CPU Used",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sNodeSample SELECT (average(cpuUsedCores) * uniqueCount(entityName)) as 'Cores'"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.area"
-					},
-					"layout": {
-						"column": 9,
-						"row": 7,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Missing Pods by Deployment",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT latest(podsDesired) - latest(podsReady) as 'Missing Pods' FROM K8sReplicasetSample since 10 minutes ago facet deploymentName timeseries limit 50"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 1,
-						"row": 10,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Container CPU Usage - % Used vs Limit",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sContainerSample SELECT latest(cpuUsedCores/cpuLimitCores) * 100 as '% CPU' FACET clusterName, podName, containerName TIMESERIES limit 50"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 5,
-						"row": 10,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Container Memory Usage - % Used vs Limit",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sContainerSample SELECT latest(memoryUsedBytes/memoryLimitBytes) * 100 as '% Memory' FACET clusterName, podName, containerName TIMESERIES limit 50"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 9,
-						"row": 10,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Containers by Namespace",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT uniqueCount(containerID) FROM K8sContainerSample SINCE 10 minutes AGO facet namespace TIMESERIES"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 1,
-						"row": 13,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Container CPU Cores Used",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuUsedCores) as 'CPU Cores Used' from K8sContainerSample FACET clusterName, podName, containerName timeseries since 60 minutes ago limit 50"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 5,
-						"row": 13,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Container MBytes of Memory Used",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(memoryUsedBytes / 1000000) as 'MB of Mem' from K8sContainerSample FACET clusterName, podName, containerName timeseries since 60 minutes ago limit 50"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 9,
-						"row": 13,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Active Pods by Deployment",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT uniqueCount(podName) FROM K8sPodSample where status='Running' SINCE 10 minutes AGO facet deploymentName TIMESERIES limit 50"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 1,
-						"row": 16,
-						"height": 3,
-						"width": 8
-					},
-					"title": "Pods not Running by Cluster/Namespace",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT latest(status) as 'Status' from K8sPodSample WHERE status NOT IN ('Running') facet clusterName, namespace, podName    since 10 minutes ago limit 100"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.bar"
-					},
-					"layout": {
-						"column": 9,
-						"row": 16,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Pod Count by Node",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT uniquecount(podName) from K8sPodSample where status='Running' facet nodeName since 10 minutes ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 1,
-						"row": 19,
-						"height": 3,
-						"width": 8
-					},
-					"title": "Node Resource Consumption",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM K8sNodeSample, K8sPodSample SELECT average(cpuUsedCores) as 'Used Cores', average(memoryUsedBytes) as 'Used Memory', uniqueCount(podName) as 'Pods' FACET nodeName since 10 minutes ago limit 100"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 1,
-						"row": 22,
-						"height": 3,
-						"width": 8
-					},
-					"title": "Pod Network Status",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(`net.rxBytesPerSecond`)/1000000 as 'Received MBps', average(`net.txBytesPerSecond`)/1000000 as 'Transmitted MBps', latest(`net.errorCount`) as 'Error Count' FROM K8sPodSample FACET podName since 10 minutes ago limit 100"
 							}
 						]
 					}
@@ -1507,26 +763,6 @@
 					},
 					"layout": {
 						"column": 1,
-						"row": 16,
-						"height": 3,
-						"width": 12
-					},
-					"title": "Instance Details",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT ec2AmiId, ec2InstanceType, awsRegion,displayName FROM SystemSample since 5 minutes ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 1,
 						"row": 19,
 						"height": 6,
 						"width": 12
@@ -1603,126 +839,6 @@
 				},
 				{
 					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 1,
-						"row": 28,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Daily CPU Usage % by Instance Type",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent) FROM SystemSample FACET ec2InstanceType SINCE 1 day ago TIMESERIES 10 minutes UNTIL 15 minutes ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 5,
-						"row": 28,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Weekly CPU Usage % by Instance Type",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent) FROM SystemSample FACET ec2InstanceType SINCE 7 day ago TIMESERIES 60 minutes"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 9,
-						"row": 28,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Monthly CPU Usage % by Instance Type",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent) FROM SystemSample FACET ec2InstanceType SINCE 30 day ago TIMESERIES 6 hours"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 1,
-						"row": 31,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Daily CPU Usage % by Region",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent) FROM SystemSample FACET awsRegion SINCE 1 day ago TIMESERIES 10 minutes UNTIL 15 minutes ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 5,
-						"row": 31,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Weekly CPU Usage % by Region",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent) FROM SystemSample FACET awsRegion SINCE 7 day ago TIMESERIES 60 minutes"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.line"
-					},
-					"layout": {
-						"column": 9,
-						"row": 31,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Monthly CPU Usage % by Region",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent) FROM SystemSample FACET awsRegion SINCE 30 day ago TIMESERIES 6 hours"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
 						"id": "viz.table"
 					},
 					"layout": {
@@ -1787,106 +903,6 @@
 					},
 					"layout": {
 						"column": 1,
-						"row": 37,
-						"height": 3,
-						"width": 12
-					},
-					"title": "Estimated AWS Costs for EC2",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM SystemSample SELECT filter(uniquecount(entityName), where instanceType = 'i3.large')*117 AS 'i3.large',filter(uniquecount(entityName), where instanceType = 'c5.large')*63.75000000000001 AS 'c5.large',filter(uniquecount(entityName), where instanceType = 't2.micro')*8.7 AS 't2.micro',filter(uniquecount(entityName), where instanceType = 'r4.large')*99.75 AS 'r4.large',filter(uniquecount(entityName), where instanceType = 'c4.large')*75 AS 'c4.large',filter(uniquecount(entityName), where instanceType = 'c5.9xlarge')*1147.5 AS 'c5.9xlarge',filter(uniquecount(entityName), where instanceType = 'm4.2xlarge')*300 AS 'm4.2xlarge',filter(uniquecount(entityName), where instanceType = 't2.small')*17.25 AS 't2.small',filter(uniquecount(entityName), where instanceType = 't2.large')*69.6 AS 't2.large',filter(uniquecount(entityName), where instanceType = 'm4.large')*75 AS 'm4.large',filter(uniquecount(entityName), where instanceType = 'm5.large')*72 AS 'm5.large',filter(uniquecount(entityName), where instanceType = 'c5.2xlarge')*255.00000000000003 AS 'c5.2xlarge',filter(uniquecount(entityName), where instanceType = 't2.medium')*34.8 AS 't2.medium' SINCE 1 month ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 1,
-						"row": 40,
-						"height": 3,
-						"width": 12
-					},
-					"title": "Estimated AWS Savings for EC2",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "FROM SystemSample SELECT filter(uniquecount(entityName), where instanceType = 'i3.large')*117*(filter(25-average(cpuPercent), WHERE instanceType = 'i3.large')/100) AS 'i3.large',filter(uniquecount(entityName), where instanceType = 'c5.large')*63.75000000000001*(filter(25-average(cpuPercent), WHERE instanceType = 'c5.large')/100) AS 'c5.large',filter(uniquecount(entityName), where instanceType = 't2.micro')*8.7*(filter(25-average(cpuPercent), WHERE instanceType = 't2.micro')/100) AS 't2.micro',filter(uniquecount(entityName), where instanceType = 'r4.large')*99.75*(filter(25-average(cpuPercent), WHERE instanceType = 'r4.large')/100) AS 'r4.large',filter(uniquecount(entityName), where instanceType = 'c4.large')*75*(filter(25-average(cpuPercent), WHERE instanceType = 'c4.large')/100) AS 'c4.large',filter(uniquecount(entityName), where instanceType = 'c5.9xlarge')*1147.5*(filter(25-average(cpuPercent), WHERE instanceType = 'c5.9xlarge')/100) AS 'c5.9xlarge',filter(uniquecount(entityName), where instanceType = 'm4.2xlarge')*300*(filter(25-average(cpuPercent), WHERE instanceType = 'm4.2xlarge')/100) AS 'm4.2xlarge',filter(uniquecount(entityName), where instanceType = 't2.small')*17.25*(filter(25-average(cpuPercent), WHERE instanceType = 't2.small')/100) AS 't2.small',filter(uniquecount(entityName), where instanceType = 't2.large')*69.6*(filter(25-average(cpuPercent), WHERE instanceType = 't2.large')/100) AS 't2.large',filter(uniquecount(entityName), where instanceType = 'm4.large')*75*(filter(25-average(cpuPercent), WHERE instanceType = 'm4.large')/100) AS 'm4.large',filter(uniquecount(entityName), where instanceType = 'm5.large')*72*(filter(25-average(cpuPercent), WHERE instanceType = 'm5.large')/100) AS 'm5.large',filter(uniquecount(entityName), where instanceType = 'c5.2xlarge')*255.00000000000003*(filter(25-average(cpuPercent), WHERE instanceType = 'c5.2xlarge')/100) AS 'c5.2xlarge',filter(uniquecount(entityName), where instanceType = 't2.medium')*34.8*(filter(25-average(cpuPercent), WHERE instanceType = 't2.medium')/100) AS 't2.medium' SINCE 1 month ago"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 1,
-						"row": 43,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Daily APM Usage",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent), uniquecount(entityName) as 'Host Count' FROM SystemSample FACET apmApplicationNames SINCE 1 day ago limit 25 where cpuPercent < 20"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 5,
-						"row": 43,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Weekly APM Usage",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent), uniquecount(entityName) as 'Host Count' FROM SystemSample FACET `nr.apmApplicationNames` SINCE 1 week ago limit 25 where cpuPercent < 20"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.table"
-					},
-					"layout": {
-						"column": 9,
-						"row": 43,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Monthly APM Usage",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT average(cpuPercent), uniquecount(entityName) as 'Host Count' FROM SystemSample FACET `nr.apmApplicationNames` SINCE 1 month ago limit 25 where cpuPercent < 20"
-							}
-						]
-					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 1,
 						"row": 46,
 						"height": 3,
 						"width": 4
@@ -1940,33 +956,8 @@
 							}
 						]
 					}
-				},
-				{
-					"visualization": {
-						"id": "viz.billboard"
-					},
-					"layout": {
-						"column": 1,
-						"row": 49,
-						"height": 3,
-						"width": 4
-					},
-					"title": "Count of HOSTS Without Standardized APP Tag",
-					"rawConfiguration": {
-						"nrqlQueries": [
-							{
-								"accountId": 0,
-								"query": "SELECT uniqueCount(hostname)  FROM SystemSample where  `ec2Tag_Environment` LIKE 'Prod%' AND ec2Tag_App NOT IN ('assethistory', 'assetmetadata', 'capabilities', 'Reports', 'Gateway', 'Harvester', 'ProjectService', 'SharedAssetView', 'TagFileProcessor', 'unifiedfleet', 'utilization', 'V3DProductivity', 'VAdministrator', 'VAssetHistory', 'VAssetMetadata', 'VCapabilities', 'VFleet', 'VFoundation', 'VLandfill', 'VProductivity', 'VService', 'VSupportTool', 'UnifiedAPI', 'VUtilization', 'HarvesterDataMapper', 'VFuelLoss', 'FuelLoss','MasterDataAsset', 'MasterDataDevice')"
-							}
-						]
-					}
 				}
 			]
-		},
-		{
-			"name": "test",
-			"description": null,
-			"widgets": []
 		}
 	]
 }

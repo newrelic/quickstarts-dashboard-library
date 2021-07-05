@@ -1,0 +1,10 @@
+# Name of your quickstart as shown on the website
+name: Apache
+description: |+
+  Official New Relic dashboard for Apache
+  Use this dashboard together with the New Relic Apache On Host Integration to get insight into the performance of your Apache instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak

@@ -1,0 +1,211 @@
+{
+	"name": "Logs Dashboard",
+	"description": "",
+	"pages": [
+		{
+			"name": "Logs Overview Dashboard",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 4,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "![New Relic](https://newrelic.com/assets/newrelic/source/NewRelic-logo-bug.png)\n\n#  Logs Overview Dashboard\nThis dashboard shows the source and types of logging data in your New Relic account.\n    \n[For more information check out our docs](https://docs.newrelic.com/docs/logs/log-management/get-started/get-started-log-management/)\n"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 5,
+						"row": 1,
+						"height": 3,
+						"width": 3
+					},
+					"title": "Log messages received",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) COMPARE WITH 1 day ago"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 8,
+						"row": 1,
+						"height": 3,
+						"width": 3
+					},
+					"title": "Number of log lines received",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) TIMESERIES AUTO COMPARE WITH 1 day ago"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 11,
+						"row": 1,
+						"height": 3,
+						"width": 2
+					},
+					"title": "Log file sources",
+					"rawConfiguration": {
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT uniqueCount(filePath) COMPARE WITH 1 day ago"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 4,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Logs per host",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET hostname TIMESERIES auto"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 4,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Logs per filepath",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET filePath TIMESERIES AUTO "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 5,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Logs per host (click to filter)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET hostname"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 8,
+						"height": 5,
+						"width": 8
+					},
+					"title": "Latest log messages",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT message, hostname LIMIT 20"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 1,
+						"row": 9,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Logs per filepath (click to filter)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM Log SELECT count(*) FACET filePath"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,8 @@
+# Name of your quickstart as shown on the website
+name: Logs
+description: |+
+  Overview dashboard of logs ingest into your New Relic account.
+
+# Optional: Authors of the quickstart
+authors:
+    - Samuel V.

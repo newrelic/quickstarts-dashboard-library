@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: JMX
+description: |+
+  Official New Relic dashboard for JMX
+  Use this dashboard together with the New Relic JMX On Host Integration to get insight into the performance of your JMX instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Jakub Kotkowiak
+

@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: MSSQL
+description: |+
+  Official New Relic dashboard for MSSQL
+  Use this dashboard together with the New Relic MSSQL On Host Integration to get insight into the performance of your MSSQL instances.
+
+# Optional: Authors of the quickstart
+authors:
+    - New Relic
+    - Daniel Gola
+
