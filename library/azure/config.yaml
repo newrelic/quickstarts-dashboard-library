@@ -1,0 +1,15 @@
+# Name of your quickstart as shown on the website
+name: Microsoft Azure
+description: |+
+  Dashboards related to Microsoft Azure integration
+
+# Optional: Authors of the quickstart
+authors:
+    - Harry Kimpel
+
+sources:
+    - Microsoft Azure
+    - name: Docs
+      url: https://docs.newrelic.com/docs/integrations/microsoft-azure-integrations/get-started/introduction-azure-monitoring-integrations/
+    - name: Solution
+      url: https://newrelic.com/solutions/partners/azure
