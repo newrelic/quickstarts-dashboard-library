@@ -1,7 +1,6 @@
 {
     "name": "Spark - Overview v2",
     "description": "",
-    "permissions": "PUBLIC_READ_WRITE",
     "pages": [
         {
             "name": "Spark - Overview",
