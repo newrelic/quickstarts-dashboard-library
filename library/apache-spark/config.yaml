@@ -1,0 +1,13 @@
+# Name of your quickstart as shown on the website
+name: Apache Spark
+description: |+
+  Dashboards related to Apache Spark, Azure Databricks
+
+# Optional: Authors of the quickstart
+authors:
+    - Harry Kimpel
+
+sources:
+    - Apache Spark
+    - name: Docs
+      url: https://github.com/newrelic-experimental/nri-spark
