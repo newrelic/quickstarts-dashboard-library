@@ -1,0 +1,11 @@
+# Name of your quickstart as shown on the website
+name: Data Ingest Usage
+description: |+
+  When looking at data ingestion, there are a variety of ways to find details as to the sources of that data.
+  This dashboard gives examples of the types of queries that can help users determine those details.
+  Try to be as descriptive as possible.
+
+# Optional: Authors of the quickstart
+authors:
+    - Mark J
+

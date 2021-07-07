@@ -1,0 +1,336 @@
+{
+	"name": "Data & User Usage ",
+	"description": null,
+	"pages": [
+		{
+			"name": "Data & User Usage ",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 6,
+						"width": 6
+					},
+					"title": "Data ingestion by App for all data Types",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "From Metric,Transaction, TransactionError,Span, ErrorTrace, SqlTrace  SELECT bytecountestimate()/10e8*30/7 as 'APM Metrics GB Estimate' WHERE appName  IS NOT NULL SINCE 7 day ago limit max facet appName \n"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 7,
+						"row": 1,
+						"height": 6,
+						"width": 6
+					},
+					"title": "Process Data Ingestion",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "From ProcessSample SELECT bytecountestimate()/10e8*30/7 as 'Process GB Estimate'  SINCE 7 day ago limit max facet processDisplayName"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 1,
+						"row": 7,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Infrastructure Integrations by Host",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM SystemSample,ProcessSample,NetworkSample,StorageSample,InfrastructureEvent,K8sApiServerSample,K8sClusterSample,K8sContainerSample,K8sControllerManagerSample,K8sDaemonsetSample,K8sDeploymentSample,K8sEndpointSample,K8sNamespaceSample,K8sNodeSample,K8sPodSample,K8sReplicasetSample,K8sSchedulerSample,K8sServiceSample,K8sServiceSample,K8sVolumeSample FACET host SINCE 1 day ago TIMESERIES auto\n"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 5,
+						"row": 7,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Infrastructure Integrations by ClusterName",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM SystemSample,ProcessSample,NetworkSample,StorageSample,InfrastructureEvent,K8sApiServerSample,K8sClusterSample,K8sContainerSample,K8sControllerManagerSample,K8sDaemonsetSample,K8sDeploymentSample,K8sEndpointSample,K8sNamespaceSample,K8sNodeSample,K8sPodSample,K8sReplicasetSample,K8sSchedulerSample,K8sServiceSample,K8sServiceSample,K8sVolumeSample FACET clusterName SINCE 1 day ago TIMESERIES auto"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 7,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Infrastructure Agent Host Ingest ",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM SystemSample,NetworkSample,StorageSample select bytecountestimate()/10e8 as 'InfraHostBytes GB Estimate' facet hostname SINCE 10 days ago TIMESERIES  "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 1,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "AWS Data Ingest - LoadBalancer",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM LoadBalancerSample WHERE provider='Alb' FACET awsAccountId SINCE 10 day ago timeseries "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 5,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "AWS Data Ingest - Serverless",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM ServerlessSample WHERE provider='LambdaFunction' FACET awsAccountId SINCE 10 day ago timeseries "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 10,
+						"height": 3,
+						"width": 4
+					},
+					"title": "AWS Data Ingest - APIGateway",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM ApiGatewaySample  FACET awsAccountId SINCE 10 day ago timeseries "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 1,
+						"row": 13,
+						"height": 3,
+						"width": 4
+					},
+					"title": "AWS Data Ingest - Ec2 Compute instances",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM ComputeSample  where provider='Ec2Instance'  FACET awsAccountId SINCE 10 day ago timeseries "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 5,
+						"row": 13,
+						"height": 3,
+						"width": 4
+					},
+					"title": "AWS Data Ingest - Loadbalancer Integrations",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM LoadBalancerSample FACET provider,awsAccountId SINCE 10 day ago timeseries "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 13,
+						"height": 3,
+						"width": 4
+					},
+					"title": "AWS RDS Ingest",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM DatastoreSample WHERE provider='RdsDbInstance' FACET awsAccountId,label.Group SINCE 10 day ago timeseries "
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 16,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Daily Data Ingest Sources",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM SystemSample,ProcessSample,NetworkSample,StorageSample,InfrastructureEvent,K8sApiServerSample,K8sClusterSample,K8sContainerSample,K8sControllerManagerSample,K8sDaemonsetSample,K8sDeploymentSample,K8sEndpointSample,K8sNamespaceSample,K8sNodeSample,K8sPodSample,K8sReplicasetSample,K8sSchedulerSample,K8sServiceSample,K8sServiceSample,K8sVolumeSample facet event_type,fullHostname limit 20  SINCE 1 day ago \n"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 5,
+						"row": 16,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Infrastructure Integration Data Ingest by Event Type",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT bytecountestimate()/10e8 as 'GB Estimate' FROM SystemSample,ProcessSample,NetworkSample,StorageSample,InfrastructureEvent,K8sApiServerSample,K8sClusterSample,K8sContainerSample,K8sControllerManagerSample,K8sDaemonsetSample,K8sDeploymentSample,K8sEndpointSample,K8sNamespaceSample,K8sNodeSample,K8sPodSample,K8sReplicasetSample,K8sSchedulerSample,K8sServiceSample,K8sServiceSample,K8sVolumeSample facet event_type  TIMESERIES 1 day SINCE 10 day ago \n"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.area"
+					},
+					"layout": {
+						"column": 9,
+						"row": 16,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Data Ingest this Month",
+					"rawConfiguration": {
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' since this month FACET usageMetric TIMESERIES 1 day"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}
