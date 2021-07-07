@@ -1,0 +1,1085 @@
+{
+    "name": "Azure AgAssist",
+    "description": null,
+    "pages": [
+        {
+            "name": "Azure AgAssist",
+            "description": null,
+            "widgets": [
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 1,
+                        "height": 1,
+                        "width": 12
+                    },
+                    "title": "",
+                    "rawConfiguration": {
+                        "text": "# Azure Cost Management"
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 2,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Cost per service (Accumulated)",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostService' FACET `service` SINCE 1 month ago LIMIT 100"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.area"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 2,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Cost per service",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostService' FACET `service` SINCE 1 month ago TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 5,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Cost by resource group (Accumulated)",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostResourceGroup' FACET `resourceGroup` SINCE 1 month ago LIMIT 100"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.area"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 5,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Cost per resource group",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostResourceGroup' FACET `resourceGroup` SINCE 1 month ago TIMESERIES "
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 8,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Cost per location (Accumulated)",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostLocation' FACET `location` SINCE 1 month ago LIMIT 100"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.area"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 8,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Cost per location",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostLocation' FACET `location` SINCE 1 month ago TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 11,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Cost per \"costCenter\" tag (Accumulated)",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostTag' FACET `label.costcenter` SINCE 1 month ago LIMIT 100"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.area"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 11,
+                        "height": 3,
+                        "width": 8
+                    },
+                    "title": "Cost per \"costCenter\" tag",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`cost`) FROM AzureCostManagementSample WHERE provider='AzureCostTag' FACET `label.costcenter` SINCE 1 month ago TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 14,
+                        "height": 1,
+                        "width": 12
+                    },
+                    "title": "",
+                    "rawConfiguration": {
+                        "text": "# ![image](https://integrations.nr-assets.net/providers/azure_appservice.png) Azure App Service"
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 15,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App CPU time (s)",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`cpuTimeSeconds.Total`) FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 15,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Memory Working Set (bytes)",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`memoryWorkingSetBytes.Total`) AS memory FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 15,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Requests",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`requests.Total`) FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 18,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Average Response Time (s)",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`averageResponseTimeSeconds.Average`) AS averageResponseTime FROM AzureAppServiceWebAppSample   SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 18,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Data In/Out (bytes)",
+                    "rawConfiguration": {
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`receivedBytes.Total`) AS receivedBytes, sum(`sentBytes.Total`) AS sentBytes FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 18,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Success Requests",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`http2xx.Total`) AS success FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 21,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Server Errors - 5xx",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`http5xx.Total`) AS errors FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 21,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Apps by Operating System",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniquecount(`entityName`) FROM AzureAppServiceWebAppSample  SINCE 6 hour ago  FACET operatingSystem"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 21,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Client Errors - 4xx",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`http4xx.Total`) AS errors FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 24,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Apps Status",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniquecount(`entityName`) FROM AzureAppServiceWebAppSample  SINCE 6 hour ago  FACET availabilityState"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 24,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "App Redirections - 3xx",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT sum(`http3xx.Total`) AS redirections FROM AzureAppServiceWebAppSample  SINCE 6 hour ago TIMESERIES auto FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 24,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Apps by Region",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT uniquecount(`entityName`) FROM AzureAppServiceWebAppSample  SINCE 6 hour ago  FACET regionName"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 27,
+                        "height": 1,
+                        "width": 12
+                    },
+                    "title": "",
+                    "rawConfiguration": {
+                        "text": "# ![Image](https://azure.microsoft.com/svghandler/key-vault?width=60&height=60) Azure Key Vault"
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "ServiceApiHit per Vault",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`serviceApiHit.Maximum`) FROM AzureKeyVaultVaultSample  WHERE provider = 'AzureKeyVaultVault' FACET entityName TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "ServiceApiLatencyMilliseconds per Vault",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`serviceApiLatencyMilliseconds.Maximum`) FROM AzureKeyVaultVaultSample  WHERE provider = 'AzureKeyVaultVault' FACET entityName TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 28,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "ServiceApiResult per Vault",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`serviceApiResult.Maximum`) FROM AzureKeyVaultVaultSample  WHERE provider = 'AzureKeyVaultVault' FACET entityName TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 31,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "SaturationShoeboxPercent per Vault",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`saturationShoeboxPercent.Maximum`) FROM AzureKeyVaultVaultSample  WHERE provider = 'AzureKeyVaultVault' FACET entityName TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 31,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "AvailabilityPercent per Vault",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`availabilityPercent.Maximum`) FROM AzureKeyVaultVaultSample  WHERE provider = 'AzureKeyVaultVault' FACET entityName TIMESERIES"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 34,
+                        "height": 1,
+                        "width": 12
+                    },
+                    "title": "",
+                    "rawConfiguration": {
+                        "text": "# ![Image](https://integrations.nr-assets.net/providers/azure_sql.png) Azure SQL"
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 35,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "DTU Consumption",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`dtuConsumptionPercent.Average`) FROM AzureSqlDatabaseSample  TIMESERIES AUTO FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 35,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Deadlocks",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`deadlock.Maximum`) AS deadlock FROM AzureSqlDatabaseSample  TIMESERIES AUTO FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 35,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Successful connections",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`connectionSuccessful.Maximum`) FROM AzureSqlDatabaseSample  TIMESERIES AUTO FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 38,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Failed Connections",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`connectionFailed.Maximum`) FROM AzureSqlDatabaseSample  TIMESERIES AUTO FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 38,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Connections blocked by Firewall",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`blockedByFirewall.Maximum`) FROM AzureSqlDatabaseSample  TIMESERIES AUTO FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.bar"
+                    },
+                    "layout": {
+                        "column": 9,
+                        "row": 38,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Storage MB",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT max(`storageBytes.Maximum`) / 1024 / 1024 AS storage FROM AzureSqlDatabaseSample  FACET displayName"
+                            }
+                        ]
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 41,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "CPU Percentage",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`cpuPercent.Average`) FROM AzureSqlDatabaseSample  TIMESERIES AUTO FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 41,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Physical Data Read Percentage",
+                    "rawConfiguration": {
+                        "facet": {
+                            "showOtherSeries": false
+                        },
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`physicalDataReadPercent.Average`) FROM AzureSqlDatabaseSample  TIMESERIES AUTO FACET displayName"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.markdown"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 44,
+                        "height": 1,
+                        "width": 12
+                    },
+                    "title": "",
+                    "rawConfiguration": {
+                        "text": "# ![Image](https://integrations.nr-assets.net/providers/azure_storage.png) Azure Storage"
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 1,
+                        "row": 45,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Transactions",
+                    "rawConfiguration": {
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`blobs.transactions.Total`) AS 'Blobs', average(`files.transactions.Total`) AS 'Files', average(`tables.transactions.Total`) AS 'Tables', average(`queues.transactions.Total`) AS 'Queues' FROM AzureStorageAccountSample  TIMESERIES AUTO"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                },
+                {
+                    "visualization": {
+                        "id": "viz.line"
+                    },
+                    "layout": {
+                        "column": 5,
+                        "row": 45,
+                        "height": 3,
+                        "width": 4
+                    },
+                    "title": "Availability (percent)",
+                    "rawConfiguration": {
+                        "legend": {
+                            "enabled": true
+                        },
+                        "nrqlQueries": [
+                            {
+                                "accountId": 0,
+                                "query": "SELECT average(`blobs.availabilityPercent.Average`) AS 'Blobs', average(`files.availabilityPercent.Average`) AS 'Files', average(`queues.availabilityPercent.Average`) AS 'Queues', average(`tables.availabilityPercent.Average`) AS 'Tables' FROM AzureStorageAccountSample  TIMESERIES auto"
+                            }
+                        ],
+                        "yAxisLeft": {
+                            "zero": true
+                        }
+                    },
+                    "linkedEntityGuids": null
+                }
+            ]
+        }
+    ]
+}
