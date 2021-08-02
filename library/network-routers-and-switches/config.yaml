@@ -1,0 +1,11 @@
+name: Network - Routers and Switches
+description: |+
+  This dashboard is a general overview of the Routers and Switches monitored via Kentik's SNMP integration with New Relic One.
+
+authors:
+    - Zack Mutchler
+
+sources:
+  - Kentik SNMP
+  - name: ktranslate
+    url: https://github.com/kentik/ktranslate
