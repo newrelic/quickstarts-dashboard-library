@@ -1,0 +1,11 @@
+name: Heroku log integration
+description: |+
+  This dashboards shows your heroku logs.
+  You can use syslog drain for integration.
+  Please setup first https://docs.newrelic.com/docs/logs/enable-log-management-new-relic/enable-log-monitoring-new-relic/heroku-log-forwarding/
+  Requirement for Dyno : Please enable log-runtime-metrics first https://devcenter.heroku.com/articles/log-runtime-metrics
+
+authors:
+    - New Relic
+    - Takuya Azuma
+
