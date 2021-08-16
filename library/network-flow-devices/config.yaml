@@ -1,0 +1,19 @@
+name: Network - Flow Devices
+description: |+
+  This dashboard has several pages of default views applicable to the `KFlow` events received from Kentik's network integration with New Relic One.
+  This dashboard also uses custom visualizations that will need to be added to your account from the Global Catalog.
+
+# Optional: Authors of the quickstart
+authors:
+    - Zack Mutchler
+
+# You can optionally add extra data sources, but this is only needed in certain cases.
+# For example if you use data from Prometheus exporters, or custom API you can add that information here.
+# You can also redirect to external webpages when the dashboards provides specific installation instructions
+sources:
+  - Kentik Flow Devices
+  - name: ktranslate
+    url: https://github.com/kentik/ktranslate
+  - New Relic Custom Visualizations
+  - name: Network Agent Visualizations
+  - url: https://developer.newrelic.com/build-apps/publish-deploy/subscribe/#subscribe-to-a-nerdpack
