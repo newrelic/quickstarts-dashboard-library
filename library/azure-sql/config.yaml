@@ -1,0 +1,19 @@
+# Name of your quickstart as shown on the website
+name: Azure SQL Managed Instance
+description: |+
+  Configurable dashboard to expose engine-level and deep query metrics from Azure SQL Managed Instance.
+  ** Note this dashboard and the associated flex file may work with other flavors of Azure SQL, 
+  **...but we recommend our MSSQL OHI for those since our OHI gathers more metrics.
+  Associated Flex config to populate this dashboard can be found here: https://github.com/newrelic/nri-flex/tree/master/examples.
+
+# Optional: Authors of the quickstart
+authors:
+    - Leon Chapman
+
+# You can optionally add extra data sources, but this is only needed in certain cases.
+# For example if you use data from Prometheus exporters, or custom API you can add that information here.
+# You can also redirect to external webpages when the dashboards provides specific installation instructions
+# sources:
+#   - Prometheus
+#   - name: CoreDNS
+#     url: https://github.com/coredns/coredns/tree/master/plugin/metrics
