@@ -1,0 +1,508 @@
+{
+	"name": "Azure Managed SQL Custom Integration",
+	"description": "",
+	"pages": [
+		{
+			"name": "Azure SQL Overview",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.markdown"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 4,
+						"width": 4
+					},
+					"title": "",
+					"rawConfiguration": {
+						"text": "# Microsoft Azure  SQL\n\n![Add Images](https://azurecomcdn.azureedge.net/cvt-f83fd647d6f366492554e3c84c6972956ea0fa343f1f12abc9590dd97f777e9e/images/page/products/azure-sql/database/image-value-prop-1.png)\n\n\n\n"
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.billboard"
+					},
+					"layout": {
+						"column": 5,
+						"row": 1,
+						"height": 4,
+						"width": 3
+					},
+					"title": "FileGroup Space Used (%)",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomFilegroupSpace SELECT latest(FG_PercentUsed) AS 'FG % Used' WHERE FG_Database IS NOT NULL FACET label.db_hostname, FG_Database, Filegroup_Name SINCE 1 hour ago"
+							}
+						],
+						"thresholds": [
+							{
+								"alertSeverity": "WARNING",
+								"value": 80
+							},
+							{
+								"alertSeverity": "CRITICAL",
+								"value": 90
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 8,
+						"row": 1,
+						"height": 4,
+						"width": 5
+					},
+					"title": "Log Space Used %",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLogSpace SELECT latest(`Log Space Used (%)`) WHERE `Database Name` IS NOT NULL FACET label.db_hostname, `Database Name`"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 1,
+						"row": 5,
+						"height": 3,
+						"width": 4
+					},
+					"title": "SQL Compilations Per Second",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT average(`SQL Compilations/sec`) FROM AzureSQLCustomCompilations FACET label.db_hostname TIMESERIES AUTO SINCE 1 hour ago"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 5,
+						"row": 5,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Buffer Cache Hit Ratio",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT average(BufferCacheHitRatio) AS 'Buffer Cache Hit Ratio' FROM AzureSQLCustomBufferCache TIMESERIES FACET label.db_hostname SINCE 1 hour ago"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 5,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Page Life Expectancy (secs)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT average(cntr_value)/1000 FROM AzureSQLCustomPLE WHERE counter_name='Page life expectancy                                                                                                            ' FACET label.db_hostname TIMESERIES AUTO "
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 1,
+						"row": 8,
+						"height": 4,
+						"width": 5
+					},
+					"title": "Lock Waits Per Second",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT average(`Lock Waits`) FROM AzureSQLCustomLockWaits TIMESERIES FACET label.db_hostname SINCE 1 hour ago"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.pie"
+					},
+					"layout": {
+						"column": 6,
+						"row": 8,
+						"height": 4,
+						"width": 7
+					},
+					"title": "Wait Percentage by Type",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT latest(WaitPercentage) AS 'Wait Type' FROM AzureSQLCustomWaitTypes WHERE WaitType IS NOT NULL FACET host,WaitType LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 1,
+						"row": 12,
+						"height": 3,
+						"width": 4
+					},
+					"title": "Number of Blocked Processes",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "SELECT average(`instance.blockedProcessesCount`) from AzureSQLCustomBlocking timeseries since 1 hour ago FACET host"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 5,
+						"row": 12,
+						"height": 3,
+						"width": 8
+					},
+					"title": "Open Transactions",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomActiveProcesses SELECT * WHERE open_tran > 0 since 6 months ago"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 15,
+						"height": 5,
+						"width": 12
+					},
+					"title": "Blocking Queries",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomBlocking SELECT * LIMIT MAX SINCE 6 months ago"
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Query Performance",
+			"description": null,
+			"widgets": [
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 1,
+						"height": 4,
+						"width": 5
+					},
+					"title": "Query Execution Count",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Execution Count`) FACET label.db_hostname,`DB Name`, `Query Text`"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 6,
+						"row": 1,
+						"height": 4,
+						"width": 3
+					},
+					"title": "Long Queries - CPU Time in Sec by DB",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Total CPU Time`)/1000 WHERE `DB Name` IS NOT NULL AND `DB Name` != '' FACET label.db_hostname, `DB Name`"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 9,
+						"row": 1,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Total Elapsed Time in Sec by Query (Short Name)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Total Duration`)/1000 WHERE `Query Text` IS NOT NULL FACET label.db_hostname, `Query Text` TIMESERIES 1 MINUTE SINCE 1 hour ago"
+							}
+						],
+						"yAxisLeft": {
+							"zero": false
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 1,
+						"row": 5,
+						"height": 4,
+						"width": 4
+					},
+					"title": " Average Logical Writes by Query (Short Name)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Avg Logical Writes`) WHERE `Query Text` IS NOT NULL FACET label.db_hostname, `Query Text` TIMESERIES 1 MINUTE LIMIT MAX"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 5,
+						"row": 5,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Average Logical Reads by DB, Query (Short Name)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Avg Logical Reads`) WHERE `Query Text` IS NOT NULL FACET label.db_hostname, `DB Name`, `Query Text` LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.bar"
+					},
+					"layout": {
+						"column": 9,
+						"row": 5,
+						"height": 4,
+						"width": 4
+					},
+					"title": "Highest CPU Time in Sec by Query (Short Name)",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Total CPU Time`)/1000 WHERE `Query Text` IS NOT NULL FACET label.db_hostname, `DB Name`, `Query Text` LIMIT MAX"
+							}
+						]
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.line"
+					},
+					"layout": {
+						"column": 1,
+						"row": 9,
+						"height": 5,
+						"width": 12
+					},
+					"title": "Avg Duration in Sec per Query",
+					"rawConfiguration": {
+						"facet": {
+							"showOtherSeries": false
+						},
+						"legend": {
+							"enabled": true
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Avg Duration (ms)`)/1000 WHERE `Query Text` IS NOT NULL FACET label.db_hostname, `Query Text` TIMESERIES AUTO LIMIT MAX SINCE 1 hour ago"
+							}
+						],
+						"yAxisLeft": {
+							"zero": true
+						}
+					}
+				},
+				{
+					"visualization": {
+						"id": "viz.table"
+					},
+					"layout": {
+						"column": 1,
+						"row": 14,
+						"height": 5,
+						"width": 12
+					},
+					"title": "Query Execution Count & Total Duration/CPU Time/IO",
+					"rawConfiguration": {
+						"dataFormatters": [],
+						"facet": {
+							"showOtherSeries": false
+						},
+						"nrqlQueries": [
+							{
+								"accountId": 0,
+								"query": "FROM AzureSQLCustomLongRunning SELECT latest(`Total Duration`)/1000 AS 'Total Duration (s)', latest(`Total CPU Time`)/1000 AS 'Total CPU Time (s)', latest(`Total Logical Reads`) AS 'Total Logical Reads', latest(`Total Logical Writes`) AS 'Total Logical Writes', latest(`Total Physical Reads`) AS 'Total Physical Reads' FACET label.db_hostname, `DB Name` AS 'DB Name', `Query Text` AS 'SQL', `Execution Count` AS 'COUNT' WHERE `Execution Count` IS NOT NULL LIMIT MAX SINCE 1 HOUR AGO"
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}
