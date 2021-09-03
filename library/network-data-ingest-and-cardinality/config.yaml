@@ -1,0 +1,6 @@
+name: Network - Data Ingest and Cardinality
+description: |+
+  This dashboard has several pages dedicated to analyzing both overall ingest and cardinality of telemetry from Network Performance Monitoring.
+
+authors:
+    - Zack Mutchler
