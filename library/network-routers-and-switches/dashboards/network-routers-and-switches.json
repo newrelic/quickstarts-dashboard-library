@@ -77,7 +77,7 @@
               "height": 6,
               "width": 4
             },
-            "title": "Top 100 - Total Bandwidth In + Out",
+            "title": "Top 100 - Total Bandwidth (Mbps) In + Out",
             "rawConfiguration": {
               "dataFormatters": [
                 {
@@ -108,7 +108,7 @@
               "height": 3,
               "width": 4
             },
-            "title": "Top 100 - Traffic IN",
+            "title": "Top 100 - Traffic (Mbps) IN",
             "rawConfiguration": {
               "facet": {
                 "showOtherSeries": false
@@ -138,7 +138,7 @@
               "height": 3,
               "width": 4
             },
-            "title": "Top 100 - Traffic IN (stacked)",
+            "title": "Top 100 - Traffic (Mbps) IN (stacked)",
             "rawConfiguration": {
               "facet": {
                 "showOtherSeries": false
@@ -165,7 +165,7 @@
               "height": 3,
               "width": 4
             },
-            "title": "Top 100 - Traffic OUT",
+            "title": "Top 100 - Traffic (Mbps) OUT",
             "rawConfiguration": {
               "facet": {
                 "showOtherSeries": false
@@ -195,7 +195,7 @@
               "height": 3,
               "width": 4
             },
-            "title": "Top 100 - Traffic OUT (stacked)",
+            "title": "Top 100 - Traffic (Mbps) OUT (stacked)",
             "rawConfiguration": {
               "facet": {
                 "showOtherSeries": false
