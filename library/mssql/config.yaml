@@ -1,13 +1,16 @@
 # Name of your quickstart as shown on the website
-name: MSSQL Query Performance
+name: MSSQL
 description: |+
-  Custom New Relic dashboard for MSSQL query-level metrics. 
+  Official New Relic dashboard for MSSQL
+  Use this dashboard together with the New Relic MSSQL On Host Integration to get insight into the performance of your MSSQL instances.
+
+  Optionally:
   Get visibility into open transations, blocking processes, space monitoring, failed jobs and more.
-  This dashboard requires the New Relic MSSQL On Host Integration to get insight into the performance of your MSSQL instances.
-  Also required is a mssql-custom-query.yml file. This file can be found in the mssql ohi github repo here: https://github.com/newrelic/nri-mssql
+  Install the mssql-custom-query.yml file. This file can be found in the mssql ohi github repo here: https://github.com/newrelic/nri-mssql
 
 # Optional: Authors of the quickstart
 authors:
     - New Relic
+    - Daniel Gola
     - Leon Chapman
 
