@@ -24,7 +24,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT filter(sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))), WHERE message like '%DATABASE%')*-1 as 'SFDC to PostgreSQL',  filter(sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))), WHERE message like '%SALESFORCE%') as 'PostgreSQL to SFDC' WHERE procid = 'herokuconnect'  since 1 day ago TIMESERIES"
+                "query": "FROM Log SELECT filter(sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))), WHERE message like '%DATABASE%')*-1 as 'SFDC to PostgreSQL',  filter(sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))), WHERE message like '%SALESFORCE%') as 'PostgreSQL to SFDC' WHERE syslog.procid = 'herokuconnect'  since 1 day ago TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -51,7 +51,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT filter(average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))), WHERE message like '%DATABASE%')*-1 as 'SFDC to PostgreSQL',  filter(average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))), WHERE message like '%SALESFORCE%') as 'PostgreSQL to SFDC' WHERE procid = 'herokuconnect' AND message like '%SALESFORCE%' since 1 day ago TIMESERIES"
+                "query": "FROM Log SELECT filter(average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))), WHERE message like '%DATABASE%')*-1 as 'SFDC to PostgreSQL',  filter(average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))), WHERE message like '%SALESFORCE%') as 'PostgreSQL to SFDC' WHERE syslog.procid = 'herokuconnect' AND message like '%SALESFORCE%' since 1 day ago TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -78,7 +78,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE procid = 'herokuconnect' AND message not like '%Informational%' since 1 day ago FACET capture(message, 'event=\"[\\\\d ]*(?P<Table>[^, ]+).*') limit 10"
+                "query": "FROM Log SELECT average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE syslog.procid = 'herokuconnect' AND message not like '%Informational%' since 1 day ago FACET capture(message, 'event=\"[\\\\d ]*(?P<Table>[^, ]+).*') limit 10"
               }
             ]
           },
@@ -102,7 +102,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message not like '%Informational%' since 1 day ago FACET capture(message, 'event=\"[\\\\d ]*(?P<Table>[^, ]+).*') limit 10"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message not like '%Informational%' since 1 day ago FACET capture(message, 'event=\"[\\\\d ]*(?P<Table>[^, ]+).*') limit 10"
               }
             ]
           },
@@ -127,7 +127,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log   SELECT capture(message, 'event=\"[\\\\d+ ]*(?P<Table>[^ ,]+).*'), capture(message, 'event=\"[\\\\d+ ]*[^ ]+ (?P<Operator>[^ ]+).*'), numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*')), numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*')), message WHERE procid = 'herokuconnect' since 1 day ago limit 50"
+                "query": "FROM Log   SELECT capture(message, 'event=\"[\\\\d+ ]*(?P<Table>[^ ,]+).*'), capture(message, 'event=\"[\\\\d+ ]*[^ ]+ (?P<Operator>[^ ]+).*'), numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*')), numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*')), message WHERE syslog.procid = 'herokuconnect' since 1 day ago limit 50"
               }
             ]
           },
@@ -157,7 +157,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%INSERT%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%INSERT%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50"
               }
             ]
           },
@@ -181,7 +181,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%UPDATE%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%UPDATE%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50"
               }
             ]
           },
@@ -205,7 +205,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%QUERY%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%QUERY%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50"
               }
             ]
           },
@@ -232,7 +232,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%INSERT%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50 TIMESERIES"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%INSERT%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50 TIMESERIES"
               }
             ]
           },
@@ -259,7 +259,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%UPDATE%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50 TIMESERIES"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%UPDATE%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"\\\\d+ (?P<Table>[^ ]+).*') limit 50 TIMESERIES"
               }
             ]
           },
@@ -286,7 +286,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%QUERY%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50 TIMESERIES"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*SALESFORCE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%QUERY%SALESFORCE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50 TIMESERIES"
               }
             ]
           },
@@ -313,7 +313,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT average(numeric(capture(message, '.*total \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE procid = 'herokuconnect' AND message like '%INSERT%SALESFORCE%' since 1 day ago limit 50 TIMESERIES"
+                "query": "FROM Log SELECT average(numeric(capture(message, '.*total \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%INSERT%SALESFORCE%' since 1 day ago limit 50 TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -343,7 +343,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT average(numeric(capture(message, '.*total \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE procid = 'herokuconnect' AND message like '%UPDATE%SALESFORCE%' since 1 day ago limit 50 TIMESERIES"
+                "query": "FROM Log SELECT average(numeric(capture(message, '.*total \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%UPDATE%SALESFORCE%' since 1 day ago limit 50 TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -373,7 +373,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT average(numeric(capture(message, '.*rows \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE procid = 'herokuconnect' AND message like '%QUERY%SALESFORCE%' since 1 day ago limit 50 TIMESERIES"
+                "query": "FROM Log SELECT average(numeric(capture(message, '.*rows \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%QUERY%SALESFORCE%' since 1 day ago limit 50 TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -401,7 +401,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log   SELECT capture(message, 'event=\"[\\\\d+ ]*(?P<Table>[^ ]+).*'), capture(message, 'event=\"[\\\\d+ ]*[^ ]+ (?P<Operator>[^ ]+).*'), numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*')), numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*')), message WHERE procid = 'herokuconnect' AND message like '%SALESFORCE%' since 1 day ago limit 50"
+                "query": "FROM Log   SELECT capture(message, 'event=\"[\\\\d+ ]*(?P<Table>[^ ]+).*'), capture(message, 'event=\"[\\\\d+ ]*[^ ]+ (?P<Operator>[^ ]+).*'), numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*')), numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*')), message WHERE syslog.procid = 'herokuconnect' AND message like '%SALESFORCE%' since 1 day ago limit 50"
               }
             ]
           },
@@ -431,7 +431,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*DATABASE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%INSERT%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*DATABASE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%INSERT%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50"
               }
             ]
           },
@@ -455,7 +455,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%UPDATE%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%UPDATE%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50"
               }
             ]
           },
@@ -482,7 +482,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.*DATABASE (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%INSERT%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50 TIMESERIES"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.*DATABASE (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%INSERT%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50 TIMESERIES"
               }
             ]
           },
@@ -509,7 +509,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))) WHERE procid = 'herokuconnect' AND message like '%UPDATE%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50 TIMESERIES"
+                "query": "FROM Log SELECT sum(numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%UPDATE%DATABASE%' since 1 day ago facet capture(message, 'event=\"(?P<Table>[^ ]+).*') limit 50 TIMESERIES"
               }
             ]
           },
@@ -536,7 +536,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE procid = 'herokuconnect' AND message like '%INSERT%DATABASE%' since 1 day ago limit 50 TIMESERIES"
+                "query": "FROM Log SELECT average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%INSERT%DATABASE%' since 1 day ago limit 50 TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -566,7 +566,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log SELECT average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE procid = 'herokuconnect' AND message like '%UPDATE%DATABASE%' since 1 day ago limit 50 TIMESERIES"
+                "query": "FROM Log SELECT average(numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*'))) WHERE syslog.procid = 'herokuconnect' AND message like '%UPDATE%DATABASE%' since 1 day ago limit 50 TIMESERIES"
               }
             ],
             "yAxisLeft": {
@@ -594,7 +594,7 @@
             "nrqlQueries": [
               {
                 "accountId": 0,
-                "query": "FROM Log   SELECT capture(message, 'event=\"[\\\\d+ ]*(?P<Table>[^ ]+).*'), capture(message, 'event=\"[\\\\d+ ]*[^ ]+ (?P<Operator>[^ ]+).*'), numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*')), numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*')), message WHERE procid = 'herokuconnect' AND message like '%DATABASE%' since 1 day ago limit 50"
+                "query": "FROM Log   SELECT capture(message, 'event=\"[\\\\d+ ]*(?P<Table>[^ ]+).*'), capture(message, 'event=\"[\\\\d+ ]*[^ ]+ (?P<Operator>[^ ]+).*'), numeric(capture(message, '.* (?P<Rows>\\\\d+) rows.*')), numeric(capture(message, '.* \\\\((?P<latency>[^ ]*) secs\\\\).*')), message WHERE syslog.procid = 'herokuconnect' AND message like '%DATABASE%' since 1 day ago limit 50"
               }
             ]
           },
