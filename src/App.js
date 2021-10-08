@@ -68,6 +68,20 @@ class App extends React.Component {
           </p>
         </CookieConsent>
         <main role="main">
+          <div className="banner container-fluid">
+            <p className="banner-text">
+              We will be archiving this application on November 1st 2021 and
+              replacing it with the New Relic Instant Observability platform.
+              <br />
+              See our new Public Catalog at{' '}
+              <a
+                className="io-link"
+                href="https://developer.newrelic.com/instant-observability/"
+              >
+                https://developer.newrelic.com/instant-observability/
+              </a>
+            </p>
+          </div>
           <Switch>
             <Route
               path="/view/:handle"
