@@ -1,6 +1,10 @@
-[![Community Project header](https://github.com/newrelic/opensource-website/raw/master/src/images/categories/Community_Project.png)](https://opensource.newrelic.com/oss-category/#community-project)
+[![Archived header](https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Archived.png)](https://opensource.newrelic.com/oss-category/#archived)
 
-# Quickstarts Dashboard library
+# ❗ Notice
+
+This repo is now archived and replaced by the [New Relic Instant Observability](https://one.newrelic.com/launcher/nr1-core.explorer?platform[filters]=Iihkb21haW4gPSAnQVBNJyBBTkQgdHlwZSA9ICdBUFBMSUNBVElPTicpIg==&pane=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5saXN0aW5nIiwiZW50aXR5RXhwbG9yZXJQcm9kdWN0UmVkaXJlY3Rpb24iOnRydWUsImZhdm9yaXRlcyI6eyJzZWxlY3RlZCI6dHJ1ZSwidmlzaWJsZSI6dHJ1ZX0sImxhc3RWaWV3ZWQiOnsic2VsZWN0ZWQiOmZhbHNlLCJ2aXNpYmxlIjp0cnVlfX0=&overlay=eyJuZXJkbGV0SWQiOiJtYXJrZXRwbGFjZS5ob21lIn0=&sidebars[0]=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5jYXRlZ29yaWVzIiwicm9vdE5lcmRsZXRJZCI6Im5yMS1jb3JlLmxpc3RpbmciLCJmYXZvcml0ZXMiOnsic2VsZWN0ZWQiOnRydWUsInZpc2libGUiOnRydWV9LCJsYXN0Vmlld2VkIjp7InNlbGVjdGVkIjpmYWxzZSwidmlzaWJsZSI6dHJ1ZX19&state=27820fcc-4884-886e-f1be-7037ba1ded58) platform. Also check out our Public Catalog at [https://developer.newrelic.com/instant-observability/](https://developer.newrelic.com/instant-observability/).
+
+## Quickstarts Dashboard library
 
 The Quickstarts Dashboard library is a collection of dashboards for use in the New Relic platform. This library is used as a source for the [`nr1-quickstarts` nerdlet](https://github.com/newrelic/nr1-quickstarts) available in the New Relic platform. This library is community sourced and open to contribution, so if you have some great dashboards to share follow the manual below.
 
